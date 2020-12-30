@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sprightly", "Sprightly\Sprightly.fsproj", "{6C43082E-0211-4C74-BEC2-17EDF1585B01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sprightly.Presentation.Views", "Sprightly.Presentation.Views\Sprightly.Presentation.Views.csproj", "{28D2FB7C-A8EB-4EC9-9272-FA95F92553EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C43082E-0211-4C74-BEC2-17EDF1585B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C43082E-0211-4C74-BEC2-17EDF1585B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C43082E-0211-4C74-BEC2-17EDF1585B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C43082E-0211-4C74-BEC2-17EDF1585B01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D2FB7C-A8EB-4EC9-9272-FA95F92553EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D2FB7C-A8EB-4EC9-9272-FA95F92553EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D2FB7C-A8EB-4EC9-9272-FA95F92553EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D2FB7C-A8EB-4EC9-9272-FA95F92553EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {953A38AA-9397-45F1-ACB4-7087C5B37827}
+	EndGlobalSection
+EndGlobal
