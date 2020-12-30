@@ -15,10 +15,9 @@
                  FontFamily="{DynamicResource MaterialDesignFont}"
                  Title="Sprightly"
                  Width="800"
-                 Height="450"
+                 Height="600"
                  WindowStartupLocation="CenterScreen"
                  TitleCharacterCasing="Normal"
-                 TitleForeground="White"
                  mc:Ignorable="d">
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -61,19 +60,37 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="{Binding Message}" />
-            <TextBlock>Here's a button. It's nice and shiny.</TextBlock>
-            <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                    Command="{Binding ClickCommand}">
-                The Shiny Button
-            </Button>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock>It has been clicked</TextBlock>
-                <TextBlock Text="{Binding ClickCount}" Margin="5,0" />
-                <TextBlock>time(s).</TextBlock>
+    <Grid Margin="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card
+            Margin="4"
+            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+            Grid.Column="0">
+            <StackPanel>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                           Margin="16">
+                    Recent Projects:
+                </TextBlock>
             </StackPanel>
-        </StackPanel>
+        </materialDesign:Card>
+        <materialDesign:Card
+            Margin="4"
+            materialDesign:ShadowAssist.ShadowDepth="Depth1"
+            Grid.Column="1">
+            <StackPanel>
+                <Image Source="Assets/icon.png" Stretch="UniformToFill" Margin="32" />
+                <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                        Command="{Binding ClickCommand}">
+                    New Project
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                        Command="{Binding ClickCommand}">
+                    Open Project
+                </Button>
+            </StackPanel>
+        </materialDesign:Card>
     </Grid>
 </mah:MetroWindow>
