@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Sprightly.Presentation.Views.NewProjectPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sprightly.Presentation.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card Margin="4"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Grid.Column="0">
+            <StackPanel>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                           Margin="16">
+                    Create new project:
+                </TextBlock>
+
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox materialDesign:HintAssist.Hint="Project Name"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" />
+                </Grid>
+
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox materialDesign:HintAssist.Hint="Project Directory"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" 
+                             Grid.Column="0"/>
+                    <Button
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        ToolTip="MaterialDesignFlatButton"
+                        Grid.Column="1">
+                        ...
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+        <materialDesign:Card Margin="4"
+                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             Grid.Column="1">
+            <StackPanel>
+                <Image Source="Assets/icon.png" Stretch="UniformToFill" Margin="32" />
+                <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                        Command="{Binding ClickCommand}">
+                    New Project
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                        Command="{Binding ClickCommand}">
+                    Open Project
+                </Button>
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
