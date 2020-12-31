@@ -36,20 +36,33 @@
                 </ListBox>
             </StackPanel>
         </materialDesign:Card>
+
         <materialDesign:Card Margin="4"
                              materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Grid.Column="1">
-            <StackPanel>
-                <Image Source="Assets/icon.png" Stretch="UniformToFill" Margin="32" />
-                <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                        Command="{Binding ClickCommand}">
-                    New Project
-                </Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                        Command="{Binding ClickCommand}">
-                    Open Project
-                </Button>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="Assets/icon.png" 
+                       Stretch="Uniform" 
+                       Margin="8" 
+                       Grid.Row="0"/>
+                <StackPanel HorizontalAlignment="Stretch"
+                           Grid.Row="1">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Command="{Binding ClickCommand}">
+                        New Project
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Command="{Binding ClickCommand}">
+                        Open Project
+                    </Button>
+                </StackPanel>
+            </Grid>
         </materialDesign:Card>
+
     </Grid>
 </UserControl>
