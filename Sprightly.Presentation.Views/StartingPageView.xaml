@@ -53,7 +53,7 @@
                 <StackPanel HorizontalAlignment="Stretch"
                            Grid.Row="1">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{Binding ClickCommand}">
+                            Command="{Binding RequestNewProjectPageCommand}">
                         New Project
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 

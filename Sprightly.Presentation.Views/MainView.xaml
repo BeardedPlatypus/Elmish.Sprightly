@@ -26,12 +26,23 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <local:PageTypeConverter x:Key="PageTypeConverter"/>
+
+            <DataTemplate x:Key="StartingPageViewTemplate">
+                <local:StartingPageView/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="NewProjectPageViewTemplate">
+                <local:NewProjectPageView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
-            <Button Command="{Binding ClickCommand}"
+            <Button Command="{Binding RequestNewProjectPageCommand}"
                     Foreground="White">
                 <iconPacks:PackIconModern Width="22"
                                           Height="22"
@@ -62,5 +73,26 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-    <local:NewProjectPageView/>
+    <ContentControl Content="{Binding}">
+        <ContentControl.Style>
+            <Style TargetType="ContentControl">
+                <Style.Triggers>
+
+                    <DataTrigger Binding="{Binding PageType, Converter={StaticResource PageTypeConverter}}"
+                                 Value="StartingPage">
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource StartingPageViewTemplate}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding PageType, Converter={StaticResource PageTypeConverter}}"
+                                 Value="NewProjectPage">
+
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource NewProjectPageViewTemplate}"/>
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
 </mah:MetroWindow>
