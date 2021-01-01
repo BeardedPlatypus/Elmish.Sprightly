@@ -7,4 +7,5 @@ module Model =
 
     type public Model = 
         { PageModel : PageModel
+          NewProjectPageModel : Presentation.Pages.NewProjectPage.Model option
         }

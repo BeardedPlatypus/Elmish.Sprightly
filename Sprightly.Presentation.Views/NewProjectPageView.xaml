@@ -37,6 +37,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox materialDesign:HintAssist.Hint="Project Name"
+                             Text="{Binding Path=NewProjectPageModel.ProjectName, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" />
                 </Grid>
