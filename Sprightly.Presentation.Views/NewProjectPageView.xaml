@@ -77,12 +77,11 @@
                            LastChildFill="True"
                            Grid.Row="1">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{Binding ClickCommand}"
                             DockPanel.Dock="Top">
                         Create Project
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{Binding ClickCommand}"
+                            Command="{Binding RequestStartPageCommand}"
                             VerticalAlignment="Bottom"
                             DockPanel.Dock="Bottom">
                         Back

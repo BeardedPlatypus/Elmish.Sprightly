@@ -15,8 +15,7 @@ module public App =
 
     /// This is a discriminated union of the available messages from the user interface
     type public Msg =
-        | RequestNewProject
-        | ReturnToStart
+        | MoveToPage of PageModel
 
     type public CmdMsg = unit
 
@@ -26,10 +25,8 @@ module public App =
     /// This is the Reducer Elmish.WPF calls to generate a new model based on a message and an old model
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with 
-        | RequestNewProject -> 
-            { PageModel = NewProjectPage }, []
-        | ReturnToStart ->
-            { PageModel = StartingPage }, []
+        | MoveToPage pageModel -> 
+            { model with PageModel = pageModel }, []
 
     let public toCmd (cmdMsg: CmdMsg) = 
         Cmd.none
@@ -41,9 +38,10 @@ module public App =
 
     /// Elmish uses this to provide the data context for your view based on a model
     let bindings () : Binding<Model, Msg> list = 
-        [ "PageType" |> Binding.oneWay (fun (m: Model) -> m.PageModel |> toCommonPage)
-          "RequestNewProjectPageCommand" |> Binding.cmd RequestNewProject
-          //"PageModel" |> Binding.subModel(
-          //                  (fun (m: Model) -> m),
-          //                  (fun () -> [ "RequestNewProjectPageCommand" |> Binding.cmd RequestNewProject ]))
+        [ // Bindings
+          "PageType" |> Binding.oneWay (fun (m: Model) -> m.PageModel |> toCommonPage)
+
+          // Dispatch commands
+          "RequestNewProjectPageCommand" |> Binding.cmd (MoveToPage PageModel.NewProjectPage)
+          "RequestStartPageCommand" |> Binding.cmd (MoveToPage PageModel.StartingPage)
         ]

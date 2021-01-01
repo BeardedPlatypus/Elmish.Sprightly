@@ -42,8 +42,7 @@
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
-            <Button Command="{Binding RequestNewProjectPageCommand}"
-                    Foreground="White">
+            <Button Foreground="White">
                 <iconPacks:PackIconModern Width="22"
                                           Height="22"
                                           Kind="SocialGithubOctocat" />
@@ -53,8 +52,7 @@
 
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button Command="{Binding ClickCommand}" 
-                    Content="Deploy CupCakes"
+            <Button Content="Deploy CupCakes"
                     Foreground="White">
                 <Button.ContentTemplate>
                     <DataTemplate>

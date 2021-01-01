@@ -56,8 +56,7 @@
                             Command="{Binding RequestNewProjectPageCommand}">
                         New Project
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{Binding ClickCommand}">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}">
                         Open Project
                     </Button>
                 </StackPanel>
