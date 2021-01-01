@@ -30,7 +30,7 @@
                     Create new project:
                 </TextBlock>
 
-                <Grid Margin="16">
+                <Grid Margin="32 16">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16*"/>
                         <ColumnDefinition Width="*"/>
@@ -41,7 +41,7 @@
                              VerticalAlignment="Center" />
                 </Grid>
 
-                <Grid Margin="16">
+                <Grid Margin="32 16">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16*"/>
                         <ColumnDefinition Width="*"/>
