@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sprightly.Presentation.Common\Sprightly.Presentation.Common.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
