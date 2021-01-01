@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -15,7 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Model.fs" />
     <Compile Include="Program.fs" />
+    <Compile Include="App.fs" />
   </ItemGroup>
 
   <ItemGroup>
