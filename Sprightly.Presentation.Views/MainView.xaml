@@ -37,6 +37,10 @@
                 <local:NewProjectPageView/>
             </DataTemplate>
 
+            <DataTemplate x:Key="ProjectPageViewTemplate">
+                <local:ProjectPageView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
@@ -87,6 +91,13 @@
 
                         <Setter Property="ContentTemplate"
                                 Value="{StaticResource NewProjectPageViewTemplate}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding PageType, Converter={StaticResource PageTypeConverter}}"
+                                 Value="ProjectPage">
+
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource ProjectPageViewTemplate}"/>
                     </DataTrigger>
 
                 </Style.Triggers>

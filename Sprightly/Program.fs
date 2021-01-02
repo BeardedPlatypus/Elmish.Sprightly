@@ -91,6 +91,7 @@ module public App =
         match pageModel with 
         | Model.StartingPage   -> Sprightly.Presentation.Common.PageType.StartingPage
         | Model.NewProjectPage -> Sprightly.Presentation.Common.PageType.NewProjectPage
+        | Model.ProjectPage    -> Sprightly.Presentation.Common.PageType.ProjectPage
 
     /// Elmish uses this to provide the data context for your view based on a model
     let bindings () : Binding<Model, Msg> list = 

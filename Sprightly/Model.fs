@@ -4,6 +4,7 @@ module Model =
     type public PageModel = 
         | StartingPage
         | NewProjectPage
+        | ProjectPage
 
     type public Model = 
         { PageModel : PageModel
