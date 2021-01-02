@@ -50,6 +50,8 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox materialDesign:HintAssist.Hint="Project Directory"
+                             Text="{Binding Path=NewProjectPageModel.DirectoryPath, 
+                                            UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" 
                              Grid.Column="0"/>
