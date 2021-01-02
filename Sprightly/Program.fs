@@ -37,6 +37,7 @@ module public App =
         Presentation.Pages.NewProjectPage.toCmd
             (Msg.PageMsg << PageMsg.NewProjectPage)
             (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.StartingPage))
+            (fun _  -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
 
     let private mapPageCmd (cmdMsg: PageCmdMsg) : Cmd<Msg> = 
         match cmdMsg with 

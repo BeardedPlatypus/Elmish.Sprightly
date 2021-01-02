@@ -20,11 +20,13 @@ module public NewProjectPage =
         | SetFullPath of Common.Path.T
         | RequestOpenFilePicker
         | RequestMoveToStartingPage
+        | RequestCreateNewProject
         | NoOp
 
     type public CmdMsg = 
         | OpenFilePicker
         | MoveToStartingPage
+        | CreateNewProject of Model
 
     let private openFilePickerCmd () : Cmd<Msg> =
         let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
@@ -44,12 +46,15 @@ module public NewProjectPage =
 
     let public toCmd (toParentCmd : Msg -> 'ParentMsg)
                       (moveToStartingPageCmd : unit -> Cmd<'ParentMsg>)
+                      (createNewProjectCmd : Model -> Cmd<'ParentMsg>)
                       (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | OpenFilePicker -> 
             openFilePickerCmd () |> Cmd.map toParentCmd
         | MoveToStartingPage ->
             moveToStartingPageCmd ()
+        | CreateNewProject model ->
+            createNewProjectCmd model
 
     let public init () : Model * CmdMsg list = 
         { ProjectName = None 
@@ -73,8 +78,19 @@ module public NewProjectPage =
             model, [ OpenFilePicker ]
         | RequestMoveToStartingPage ->
             model, [ MoveToStartingPage ]
+        | RequestCreateNewProject ->
+            model, [ CreateNewProject model ]
         | NoOp -> 
             model, []
+
+    let private isValidNewSolutionDescription (model: Model): bool =
+        match model.DirectoryPath, model.ProjectName with
+        | Some directoryPath, Some projectName ->
+            Common.Path.isValid directoryPath &&
+            Common.Path.isRooted directoryPath && 
+            projectName.Length > 0
+        | _ -> 
+            false
 
     let public bindings () = 
         [ // Field Bindings
@@ -92,6 +108,6 @@ module public NewProjectPage =
           // Command Bindings
           "RequestOpenFilePicker" |> Binding.cmd RequestOpenFilePicker
           "RequestStartPageCommand" |> Binding.cmd RequestMoveToStartingPage
+          "RequestNewProjectCommand" |> Binding.cmdIf 
+            (fun m -> if isValidNewSolutionDescription m then Some RequestCreateNewProject else None )
         ]
-
-

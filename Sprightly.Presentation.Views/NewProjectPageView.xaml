@@ -88,6 +88,7 @@
                            Grid.Row="1"
                            Margin="0 16">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Command="{Binding Path=NewProjectPageModel.RequestNewProjectCommand}"
                             DockPanel.Dock="Top">
                         Create Project
                     </Button>
