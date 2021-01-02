@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sprightly.Domain\Sprightly.Domain.fsproj" />
     <ProjectReference Include="..\Sprightly.Presentation.Common\Sprightly.Presentation.Common.fsproj" />
     <ProjectReference Include="..\Sprightly.Presentation.Views\Sprightly.Presentation.Views.csproj" />
     <ProjectReference Include="..\Sprightly.Presentation\Sprightly.Presentation.fsproj" />

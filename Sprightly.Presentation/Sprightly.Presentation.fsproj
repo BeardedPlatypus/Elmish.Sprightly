@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sprightly.Common\Sprightly.Common.fsproj" />
+    <ProjectReference Include="..\Sprightly.Domain\Sprightly.Domain.fsproj" />
   </ItemGroup>
 
 </Project>
