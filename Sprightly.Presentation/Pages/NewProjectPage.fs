@@ -13,6 +13,7 @@ module NewProjectPage =
 
     type public Msg = 
         | SetProjectName of string
+        | SetCreateNewDirectory of bool
         | RequestStartPage
         | RequestOpenFilePicker
 
@@ -28,6 +29,8 @@ module NewProjectPage =
         match msg with 
         | SetProjectName projectName ->
             { model with ProjectName = Some projectName }, []
+        | SetCreateNewDirectory createNewDirectory ->
+            { model with CreateNewDirectory = createNewDirectory }, []
         | _ -> 
             model, []
 
@@ -35,6 +38,9 @@ module NewProjectPage =
         [ "ProjectName" |> Binding.twoWay(
             (fun (m: Model) -> m.ProjectName |> Option.defaultValue "" ),
             (fun (v: string) _ -> SetProjectName v))
+          "CreateNewDirectory" |> Binding.twoWay(
+            (fun (m: Model) -> m.CreateNewDirectory),
+            (fun (v: bool) _ -> SetCreateNewDirectory v))
         ]
 
 

@@ -37,7 +37,8 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBox materialDesign:HintAssist.Hint="Project Name"
-                             Text="{Binding Path=NewProjectPageModel.ProjectName, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Path=NewProjectPageModel.ProjectName, 
+                                            UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" />
                 </Grid>
@@ -60,7 +61,8 @@
                     </Button>
                 </Grid>
 
-                <CheckBox IsChecked="True"
+                <CheckBox IsChecked="{Binding Path=NewProjectPageModel.CreateNewDirectory, 
+                                              UpdateSourceTrigger=PropertyChanged}"
                           Margin="32 4">
                     Create the new project in a new directory.
                 </CheckBox>
