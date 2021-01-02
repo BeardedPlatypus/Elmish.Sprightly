@@ -14,25 +14,29 @@ module public StartingPage =
 
     type public Msg = 
         | RecentProjectMsg of Domain.RecentProject.Id * RecentProjectMsg
-        | NoOp
+        | RequestMoveToNewProjectPage
 
     type public CmdMsg =
         | OpenProject of Common.Path.T
+        | MoveToNewProjectPage
 
     let public toCmd (toParentCmd : Msg -> 'ParentMsg )
                      (openProjectCmd : Common.Path.T -> Cmd<'ParentMsg>) 
+                     (moveToNewProjectPageCmd : unit -> Cmd<'ParentMsg>)
                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | OpenProject path ->
             openProjectCmd path
+        | MoveToNewProjectPage ->
+            moveToNewProjectPageCmd ()
 
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with
         | RecentProjectMsg (id, RequestOpenRecentProject) ->
             let recentProject = List.find (fun (e: Domain.RecentProject.T) -> e.Id = id) model.RecentProjects
             model, [ OpenProject recentProject.Data.Path ]
-        | NoOp -> 
-            model, []
+        | RequestMoveToNewProjectPage ->
+            model, [ MoveToNewProjectPage ]
 
     let private selectedToMsg (i: int) (m: Model) =
             RecentProjectMsg ((m.RecentProjects |> List.item i).Id, RequestOpenRecentProject)
@@ -59,4 +63,7 @@ module public StartingPage =
           "SelectedIndex" |> Binding.twoWay(
             (fun _ -> -1),
             selectedToMsg)
+
+          // Dispatch commands
+          "RequestNewProjectPageCommand" |> Binding.cmd RequestMoveToNewProjectPage
         ]

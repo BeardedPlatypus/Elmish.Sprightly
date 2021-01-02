@@ -60,7 +60,7 @@
                            Grid.Row="1"
                            Margin="0 16">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{Binding RequestNewProjectPageCommand}">
+                            Command="{Binding Path=StartingPageModel.RequestNewProjectPageCommand}">
                         New Project
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButton}">

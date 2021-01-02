@@ -30,7 +30,8 @@ module public App =
     let private mapStartingPageCmd : (Presentation.Pages.StartingPage.CmdMsg -> Cmd<Msg>) = 
         Presentation.Pages.StartingPage.toCmd
             (Msg.PageMsg << PageMsg.StartingPage)
-            (fun _ -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
+            (fun _  -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
+            (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.NewProjectPage))
 
     let private mapPageCmd (cmdMsg: PageCmdMsg) : Cmd<Msg> = 
         match cmdMsg with 
@@ -122,7 +123,6 @@ module public App =
                 Presentation.Pages.StartingPage.bindings)
 
           // Dispatch commands
-          "RequestNewProjectPageCommand" |> Binding.cmd (MoveToPage (PageModel.NewProjectPage))
           "RequestStartPageCommand" |> Binding.cmd (MoveToPage PageModel.StartingPage)
         ]
 
