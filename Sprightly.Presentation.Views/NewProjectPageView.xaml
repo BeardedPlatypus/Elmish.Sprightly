@@ -59,6 +59,11 @@
                         ...
                     </Button>
                 </Grid>
+
+                <CheckBox IsChecked="True"
+                          Margin="32 4">
+                    Create the new project in a new directory.
+                </CheckBox>
             </StackPanel>
         </materialDesign:Card>
         <materialDesign:Card Margin="4"
@@ -76,7 +81,8 @@
                        Grid.Row="0"/>
                 <DockPanel HorizontalAlignment="Stretch"
                            LastChildFill="True"
-                           Grid.Row="1">
+                           Grid.Row="1"
+                           Margin="0 16">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
                             DockPanel.Dock="Top">
                         Create Project
