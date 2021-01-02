@@ -1,8 +1,10 @@
 ﻿namespace Sprightly.Presentation.Pages
 
+open Elmish
 open Elmish.WPF
 
 open Sprightly
+open Sprightly.Presentation
 
 module public NewProjectPage =
     type public Model = 
@@ -15,16 +17,41 @@ module public NewProjectPage =
         | SetProjectName of string
         | SetDirectoryPath of Common.Path.T
         | SetCreateNewDirectory of bool
-        | RequestStartPage
+        | SetFullPath of Common.Path.T
         | RequestOpenFilePicker
+        | NoOp
 
-    type public CmdMsg = unit
+    type public CmdMsg = 
+        | OpenFilePicker
 
-    let public init () : Model = // * CmdMsg list = 
+    let private openFilePickerCmd () : Cmd<Msg> =
+        let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
+                                                                checkIfFileExists = false,
+                                                                dereferenceLinks = true,
+                                                                filter = "Sprightly solution files (*.sprightly)|*.sprightly|All files (*.*)|*.*",
+                                                                filterIndex = 1, 
+                                                                multiSelect = false,
+                                                                restoreDirectory = false, 
+                                                                title = "Select a new sprightly solution location")
+        Presentation.Components.Dialogs.FileDialog.showDialogCmd 
+            SetFullPath
+            (fun _ -> NoOp)
+            (fun _ -> NoOp)
+            Components.Dialogs.FileDialog.DialogType.Open
+            config
+
+
+    let public mapCmd (cmdMsg: CmdMsg) : Cmd<Msg> =
+        match cmdMsg with 
+        | OpenFilePicker -> 
+            openFilePickerCmd ()
+        
+
+    let public init () : Model * CmdMsg list = 
         { ProjectName = None 
           DirectoryPath = None 
           CreateNewDirectory = true
-        }//, []
+        }, []
 
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with 
@@ -34,11 +61,18 @@ module public NewProjectPage =
             { model with DirectoryPath = Some directoryPath }, []
         | SetCreateNewDirectory createNewDirectory ->
             { model with CreateNewDirectory = createNewDirectory }, []
-        | _ -> 
+        | SetFullPath path ->
+            { model with ProjectName = Some (Common.Path.name path)
+                         DirectoryPath = Some (Common.Path.parentDirectory path)
+            }, []
+        | RequestOpenFilePicker -> 
+            model, [ OpenFilePicker ]
+        | NoOp -> 
             model, []
 
     let public bindings () = 
-        [ "ProjectName" |> Binding.twoWay(
+        [ // Field Bindings
+          "ProjectName" |> Binding.twoWay(
             (fun (m: Model) -> m.ProjectName |> Option.defaultValue "" ),
             (fun (v: string) _ -> SetProjectName v))
           "DirectoryPath" |> Binding.twoWay(
@@ -48,6 +82,9 @@ module public NewProjectPage =
           "CreateNewDirectory" |> Binding.twoWay(
             (fun (m: Model) -> m.CreateNewDirectory),
             (fun (v: bool) _ -> SetCreateNewDirectory v))
+
+          // Command Bindings
+          "RequestOpenFilePicker" |> Binding.cmd RequestOpenFilePicker
         ]
 
 

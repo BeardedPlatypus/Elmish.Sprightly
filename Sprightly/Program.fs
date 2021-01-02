@@ -8,7 +8,7 @@ open Sprightly.Model
 
 
 module public App =
-
+    [<RequireQualifiedAccess>]
     type public PageMsg =
         | NewProjectPage of Presentation.Pages.NewProjectPage.Msg
 
@@ -17,7 +17,24 @@ module public App =
         | MoveToPage of PageModel
         | PageMsg of PageMsg
 
-    type public CmdMsg = unit
+    [<RequireQualifiedAccess>]
+    type public PageCmdMsg =
+        | NewProjectPage of Presentation.Pages.NewProjectPage.CmdMsg
+
+    [<RequireQualifiedAccess>]
+    type public CmdMsg = 
+        | PageCmdMsg of PageCmdMsg
+
+    let private mapPageCmd (cmdMsg: PageCmdMsg) : Cmd<Msg> = 
+        match cmdMsg with 
+        | PageCmdMsg.NewProjectPage newProjectPageCmdMsg ->
+            Presentation.Pages.NewProjectPage.mapCmd newProjectPageCmdMsg
+            |> Cmd.map (Msg.PageMsg << PageMsg.NewProjectPage)
+
+    let public toCmd (cmdMsg: CmdMsg) : Cmd<Msg> =
+        match cmdMsg with 
+        | CmdMsg.PageCmdMsg pageCmdMsg ->
+            mapPageCmd pageCmdMsg
 
     /// This is used to define the initial state of our application
     let public init () = 
@@ -28,9 +45,10 @@ module public App =
     let updatePage (msg: PageMsg) (model: Model) : Model * CmdMsg list =
         match msg, model.PageModel with 
         | (PageMsg.NewProjectPage pageMsg, PageModel.NewProjectPage) when model.NewProjectPageModel.IsSome ->
-            let newPageModel, _ = Presentation.Pages.NewProjectPage.update pageMsg model.NewProjectPageModel.Value
+            let newPageModel, newPageCmdMsgs = Presentation.Pages.NewProjectPage.update pageMsg model.NewProjectPageModel.Value
 
-            { model with NewProjectPageModel = Some newPageModel }, []
+            { model with NewProjectPageModel = Some newPageModel 
+            }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) newPageCmdMsgs
         | _ ->
             model, []
 
@@ -40,15 +58,17 @@ module public App =
         | MoveToPage pageModel -> 
             match pageModel with
             | PageModel.NewProjectPage -> 
+                let newProjectPageModel, initCmds = 
+                    model.NewProjectPageModel
+                    |> Option.map (fun m -> m, [])
+                    |> Option.defaultValue (Presentation.Pages.NewProjectPage.init ())
                 { model with PageModel = pageModel 
-                             NewProjectPageModel = Some ( model.NewProjectPageModel |> Option.defaultValue (Presentation.Pages.NewProjectPage.init ())) }, []
+                             NewProjectPageModel = Some newProjectPageModel 
+                }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) initCmds
             | _ ->
                 { model with PageModel = pageModel }, []
         | PageMsg pageMsg ->
             updatePage pageMsg model
-
-    let public toCmd (cmdMsg: CmdMsg) = 
-        Cmd.none
 
     let private toCommonPage (pageModel: PageModel) : Sprightly.Presentation.Common.PageType =
         match pageModel with 

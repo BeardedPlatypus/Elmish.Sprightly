@@ -55,10 +55,10 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" 
                              Grid.Column="0"/>
-                    <Button
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        ToolTip="MaterialDesignFlatButton"
-                        Grid.Column="1">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding Path=NewProjectPageModel.RequestOpenFilePicker}"
+                            ToolTip="MaterialDesignFlatButton"
+                            Grid.Column="1">
                         ...
                     </Button>
                 </Grid>
