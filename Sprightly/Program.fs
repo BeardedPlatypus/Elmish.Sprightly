@@ -55,9 +55,6 @@ module public App =
         | Model.StartingPage   -> Sprightly.Presentation.Common.PageType.StartingPage
         | Model.NewProjectPage -> Sprightly.Presentation.Common.PageType.NewProjectPage
 
-    type private NewProjectPageModel = Presentation.Pages.NewProjectPage.Model
-
-
     /// Elmish uses this to provide the data context for your view based on a model
     let bindings () : Binding<Model, Msg> list = 
         [ // Bindings
