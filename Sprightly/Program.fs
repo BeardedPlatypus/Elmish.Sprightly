@@ -27,8 +27,16 @@ module public App =
     type public CmdMsg = 
         | PageCmdMsg of PageCmdMsg
 
+    let private mapStartingPageCmd : (Presentation.Pages.StartingPage.CmdMsg -> Cmd<Msg>) = 
+        Presentation.Pages.StartingPage.toCmd
+            (Msg.PageMsg << PageMsg.StartingPage)
+            (fun _ -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
+
     let private mapPageCmd (cmdMsg: PageCmdMsg) : Cmd<Msg> = 
         match cmdMsg with 
+        | PageCmdMsg.StartingPage startingPageCmdMsg ->
+            mapStartingPageCmd startingPageCmdMsg
+            
         | PageCmdMsg.NewProjectPage newProjectPageCmdMsg ->
             Presentation.Pages.NewProjectPage.mapCmd newProjectPageCmdMsg
             |> Cmd.map (Msg.PageMsg << PageMsg.NewProjectPage)

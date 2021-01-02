@@ -1,5 +1,6 @@
 ﻿namespace Sprightly.Presentation.Pages
 
+open Elmish
 open Elmish.WPF
 
 open Sprightly
@@ -17,6 +18,13 @@ module public StartingPage =
 
     type public CmdMsg =
         | OpenProject of Common.Path.T
+
+    let public toCmd (toParentCmd : Msg -> 'ParentMsg )
+                     (openProjectCmd : Common.Path.T -> Cmd<'ParentMsg>) 
+                     (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
+        match cmdMsg with 
+        | OpenProject path ->
+            openProjectCmd path
 
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with
