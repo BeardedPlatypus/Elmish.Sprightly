@@ -51,7 +51,8 @@
                        Margin="8" 
                        Grid.Row="0"/>
                 <StackPanel HorizontalAlignment="Stretch"
-                           Grid.Row="1">
+                           Grid.Row="1"
+                           Margin="0 16">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
                             Command="{Binding RequestNewProjectPageCommand}">
                         New Project
