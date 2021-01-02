@@ -29,11 +29,17 @@
                            Margin="16">
                     Recent Projects:
                 </TextBlock>
-                <ListBox>
-                    <local:RecentProjectView/>
-                    <local:RecentProjectView/>
-                    <local:RecentProjectView/>
-                </ListBox>
+                <ListView ItemsSource="{Binding Path=StartingPageModel.RecentProjects}" 
+                          SelectionMode="Single"
+                          HorizontalContentAlignment="Stretch"
+                          SelectedIndex="{Binding Path=StartingPageModel.SelectedIndex,
+                                                  UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:RecentProjectView/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
             </StackPanel>
         </materialDesign:Card>
 

@@ -14,8 +14,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <Grid HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch"
           Margin="32 10 32 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
@@ -28,19 +28,19 @@
 
         <TextBlock Grid.Row="0" 
                    Grid.Column="0"
-                   Text="DemoProject6.sprightly"
+                   Text="{Binding ProjectName}"
                    TextAlignment="Left"
                    HorizontalAlignment="Stretch"
                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
         <TextBlock Grid.Row="0" 
                    Grid.Column="1"
-                   Text="15-11-2020 17:56"
+                   Text="{Binding LastOpened}"
                    TextAlignment="Right"
                    HorizontalAlignment="Stretch"
                    Style="{StaticResource MaterialDesignBody2TextBlock}"/>
         <TextBlock Grid.Row="1" 
                    Grid.Column="0"
-                   Text="D:\Demo\DemoProject5"
+                   Text="{Binding ProjectDirectory}"
                    TextAlignment="Left"
                    HorizontalAlignment="Stretch"
                    Style="{StaticResource MaterialDesignBody2TextBlock}"/>
