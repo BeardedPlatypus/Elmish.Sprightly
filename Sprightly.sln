@@ -13,6 +13,18 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sprightly.Presentation", "S
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sprightly.Common", "Sprightly.Common\Sprightly.Common.fsproj", "{531331FD-E39D-4766-8534-0AF932ED99AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{E1418A33-ACCB-4888-A4D6-37D8E828891B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{76D5DEE2-E59F-4B3C-ADFE-4FC2894E614F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{EE748E33-52B9-4C01-9C73-448ED5E3AC07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9047EA70-88C1-494A-8CDD-1D17F0247E94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{2681A860-916F-44A8-91E3-A3413CF4C778}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{65D09226-7B13-4080-BCC0-1D1AC7F3B6DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +54,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{28D2FB7C-A8EB-4EC9-9272-FA95F92553EA} = {E1418A33-ACCB-4888-A4D6-37D8E828891B}
+		{4B68A56B-79B7-4ED7-BE80-F799873883FE} = {E1418A33-ACCB-4888-A4D6-37D8E828891B}
+		{3AEE5FAB-DAB4-43F2-BAB0-D065BB4C7329} = {E1418A33-ACCB-4888-A4D6-37D8E828891B}
+		{531331FD-E39D-4766-8534-0AF932ED99AB} = {76D5DEE2-E59F-4B3C-ADFE-4FC2894E614F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {953A38AA-9397-45F1-ACB4-7087C5B37827}
