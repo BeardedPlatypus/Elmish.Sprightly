@@ -19,10 +19,12 @@ module public NewProjectPage =
         | SetCreateNewDirectory of bool
         | SetFullPath of Common.Path.T
         | RequestOpenFilePicker
+        | RequestMoveToStartingPage
         | NoOp
 
     type public CmdMsg = 
         | OpenFilePicker
+        | MoveToStartingPage
 
     let private openFilePickerCmd () : Cmd<Msg> =
         let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
@@ -40,12 +42,14 @@ module public NewProjectPage =
             Components.Dialogs.FileDialog.DialogType.Open
             config
 
-
-    let public mapCmd (cmdMsg: CmdMsg) : Cmd<Msg> =
+    let public toCmd (toParentCmd : Msg -> 'ParentMsg)
+                      (moveToStartingPageCmd : unit -> Cmd<'ParentMsg>)
+                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | OpenFilePicker -> 
-            openFilePickerCmd ()
-        
+            openFilePickerCmd () |> Cmd.map toParentCmd
+        | MoveToStartingPage ->
+            moveToStartingPageCmd ()
 
     let public init () : Model * CmdMsg list = 
         { ProjectName = None 
@@ -67,6 +71,8 @@ module public NewProjectPage =
             }, []
         | RequestOpenFilePicker -> 
             model, [ OpenFilePicker ]
+        | RequestMoveToStartingPage ->
+            model, [ MoveToStartingPage ]
         | NoOp -> 
             model, []
 
@@ -85,6 +91,7 @@ module public NewProjectPage =
 
           // Command Bindings
           "RequestOpenFilePicker" |> Binding.cmd RequestOpenFilePicker
+          "RequestStartPageCommand" |> Binding.cmd RequestMoveToStartingPage
         ]
 
 

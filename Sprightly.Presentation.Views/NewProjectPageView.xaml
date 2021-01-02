@@ -92,7 +92,7 @@
                         Create Project
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{Binding RequestStartPageCommand}"
+                            Command="{Binding Path=NewProjectPageModel.RequestStartPageCommand}"
                             VerticalAlignment="Bottom"
                             DockPanel.Dock="Bottom">
                         Back

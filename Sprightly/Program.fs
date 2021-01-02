@@ -33,14 +33,17 @@ module public App =
             (fun _  -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
             (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.NewProjectPage))
 
+    let private mapNewProjectPageCmd : (Presentation.Pages.NewProjectPage.CmdMsg -> Cmd<Msg>) =
+        Presentation.Pages.NewProjectPage.toCmd
+            (Msg.PageMsg << PageMsg.NewProjectPage)
+            (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.StartingPage))
+
     let private mapPageCmd (cmdMsg: PageCmdMsg) : Cmd<Msg> = 
         match cmdMsg with 
         | PageCmdMsg.StartingPage startingPageCmdMsg ->
             mapStartingPageCmd startingPageCmdMsg
-            
         | PageCmdMsg.NewProjectPage newProjectPageCmdMsg ->
-            Presentation.Pages.NewProjectPage.mapCmd newProjectPageCmdMsg
-            |> Cmd.map (Msg.PageMsg << PageMsg.NewProjectPage)
+            mapNewProjectPageCmd newProjectPageCmdMsg
         | _ -> 
             Cmd.none
 
@@ -121,9 +124,6 @@ module public App =
                 (fun (_, m) -> m), 
                 Msg.PageMsg << PageMsg.StartingPage,
                 Presentation.Pages.StartingPage.bindings)
-
-          // Dispatch commands
-          "RequestStartPageCommand" |> Binding.cmd (MoveToPage PageModel.StartingPage)
         ]
 
             
