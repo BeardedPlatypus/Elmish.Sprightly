@@ -10,6 +10,7 @@ open Sprightly.Model
 module public App =
     [<RequireQualifiedAccess>]
     type public PageMsg =
+        | StartingPage of Presentation.Pages.StartingPage.Msg
         | NewProjectPage of Presentation.Pages.NewProjectPage.Msg
 
     /// This is a discriminated union of the available messages from the user interface
@@ -19,6 +20,7 @@ module public App =
 
     [<RequireQualifiedAccess>]
     type public PageCmdMsg =
+        | StartingPage of Presentation.Pages.StartingPage.CmdMsg
         | NewProjectPage of Presentation.Pages.NewProjectPage.CmdMsg
 
     [<RequireQualifiedAccess>]
@@ -30,6 +32,8 @@ module public App =
         | PageCmdMsg.NewProjectPage newProjectPageCmdMsg ->
             Presentation.Pages.NewProjectPage.mapCmd newProjectPageCmdMsg
             |> Cmd.map (Msg.PageMsg << PageMsg.NewProjectPage)
+        | _ -> 
+            Cmd.none
 
     let public toCmd (cmdMsg: CmdMsg) : Cmd<Msg> =
         match cmdMsg with 
@@ -39,11 +43,24 @@ module public App =
     /// This is used to define the initial state of our application
     let public init () = 
         { PageModel = StartingPage
+          StartingPageModel = 
+            { RecentProjects = [ { Id = Domain.RecentProject.Id 0 
+                                   Data = { Path = "D:\\Sprightly\\Demo6\\Demo6.sprightly" |> Common.Path.fromString 
+                                            LastOpened = System.DateTime.Now
+                                          }
+                                 }
+                               ]
+            }
           NewProjectPageModel = None
         }, []
 
     let updatePage (msg: PageMsg) (model: Model) : Model * CmdMsg list =
         match msg, model.PageModel with 
+        | (PageMsg.StartingPage pageMsg, PageModel.StartingPage) ->
+            let newPageModel, newPageCmdMsg = Presentation.Pages.StartingPage.update pageMsg model.StartingPageModel
+
+            { model with StartingPageModel = newPageModel 
+            }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.StartingPage) newPageCmdMsg
         | (PageMsg.NewProjectPage pageMsg, PageModel.NewProjectPage) when model.NewProjectPageModel.IsSome ->
             let newPageModel, newPageCmdMsgs = Presentation.Pages.NewProjectPage.update pageMsg model.NewProjectPageModel.Value
 
@@ -87,6 +104,13 @@ module public App =
                 (fun (_, m) -> m),
                 Msg.PageMsg << PageMsg.NewProjectPage, 
                 Presentation.Pages.NewProjectPage.bindings)
+
+          "StartingPageModel" |>
+            Binding.subModel(
+                (fun (m: Model) -> m.StartingPageModel ),
+                (fun (_, m) -> m), 
+                Msg.PageMsg << PageMsg.StartingPage,
+                Presentation.Pages.StartingPage.bindings)
 
           // Dispatch commands
           "RequestNewProjectPageCommand" |> Binding.cmd (MoveToPage (PageModel.NewProjectPage))
