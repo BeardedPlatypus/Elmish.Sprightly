@@ -63,7 +63,8 @@
                             Command="{Binding Path=StartingPageModel.RequestNewProjectPageCommand}">
                         New Project
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{Binding Path=StartingPageModel.RequestOpenProjectFilePickerCommand}">
                         Open Project
                     </Button>
                 </StackPanel>

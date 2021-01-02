@@ -37,7 +37,7 @@ module public NewProjectPage =
                                                                 multiSelect = false,
                                                                 restoreDirectory = false, 
                                                                 title = "Select a new sprightly solution location")
-        Presentation.Components.Dialogs.FileDialog.showDialogCmd 
+        Components.Dialogs.FileDialog.showDialogCmd 
             SetFullPath
             (fun _ -> NoOp)
             (fun _ -> NoOp)

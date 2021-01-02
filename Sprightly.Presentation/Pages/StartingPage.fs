@@ -4,6 +4,7 @@ open Elmish
 open Elmish.WPF
 
 open Sprightly
+open Sprightly.Presentation
 
 module public StartingPage =
     type public Model = 
@@ -15,16 +16,38 @@ module public StartingPage =
     type public Msg = 
         | RecentProjectMsg of Domain.RecentProject.Id * RecentProjectMsg
         | RequestMoveToNewProjectPage
+        | RequestOpenProjectFilePicker
+        | RequestOpenProject of Common.Path.T
+        | NoOp
 
     type public CmdMsg =
+        | OpenProjectFilePicker
         | OpenProject of Common.Path.T
         | MoveToNewProjectPage
+
+    let private openProjectFilePickerCmd () =
+        let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
+                                                            checkIfFileExists = true,
+                                                            dereferenceLinks = true,
+                                                            filter = "Sprightly solution files (*.sprightly)|*.sprightly|All files (*.*)|*.*",
+                                                            filterIndex = 1, 
+                                                            multiSelect = false,
+                                                            restoreDirectory = false, 
+                                                            title = "Load a sprightly solution")
+        Components.Dialogs.FileDialog.showDialogCmd
+            RequestOpenProject
+            (fun _ -> NoOp)
+            (fun _ -> NoOp)
+            Components.Dialogs.FileDialog.DialogType.Open
+            config
 
     let public toCmd (toParentCmd : Msg -> 'ParentMsg )
                      (openProjectCmd : Common.Path.T -> Cmd<'ParentMsg>) 
                      (moveToNewProjectPageCmd : unit -> Cmd<'ParentMsg>)
                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
+        | OpenProjectFilePicker ->
+            openProjectFilePickerCmd () |> Cmd.map toParentCmd
         | OpenProject path ->
             openProjectCmd path
         | MoveToNewProjectPage ->
@@ -37,6 +60,12 @@ module public StartingPage =
             model, [ OpenProject recentProject.Data.Path ]
         | RequestMoveToNewProjectPage ->
             model, [ MoveToNewProjectPage ]
+        | RequestOpenProjectFilePicker ->
+            model, [ OpenProjectFilePicker ]
+        | RequestOpenProject path ->
+            model, [ OpenProject path ]
+        | NoOp ->
+            model, []
 
     let private selectedToMsg (i: int) (m: Model) =
             RecentProjectMsg ((m.RecentProjects |> List.item i).Id, RequestOpenRecentProject)
@@ -66,4 +95,5 @@ module public StartingPage =
 
           // Dispatch commands
           "RequestNewProjectPageCommand" |> Binding.cmd RequestMoveToNewProjectPage
+          "RequestOpenProjectFilePickerCommand" |> Binding.cmd RequestOpenProjectFilePicker
         ]
