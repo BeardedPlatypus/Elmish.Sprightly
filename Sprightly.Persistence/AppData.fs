@@ -5,10 +5,13 @@ open Sprightly
 module public AppData =
     let private fileName = "sprightly.json"
 
-    let private appDataFolder : Common.Path.T = 
+    let private appFolder : Common.Path.T = 
         System.Environment.SpecialFolder.LocalApplicationData
         |> System.Environment.GetFolderPath
         |> Common.Path.fromString
+
+    let private appDataFolder = 
+        Common.Path.combine appFolder ("Sprightly" |> Common.Path.fromString)
 
     let private appDataFilePath = 
         Common.Path.combine appDataFolder (Common.Path.fromString fileName)
