@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="App.fs" />
     <Compile Include="Texture.fs" />
     <Compile Include="Project.fs" />
   </ItemGroup>

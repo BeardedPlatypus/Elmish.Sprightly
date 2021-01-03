@@ -15,6 +15,8 @@ module public App =
 
     /// This is a discriminated union of the available messages from the user interface
     type public Msg =
+        | InitialisationSuccess
+        | InitialisationFailure of exn
         | MoveToPage of PageModel
         | PageMsg of PageMsg
 
@@ -25,6 +27,7 @@ module public App =
 
     [<RequireQualifiedAccess>]
     type public CmdMsg = 
+        | Initialise
         | PageCmdMsg of PageCmdMsg
 
     let private mapStartingPageCmd : (Presentation.Pages.StartingPage.CmdMsg -> Cmd<Msg>) = 
@@ -48,8 +51,18 @@ module public App =
         | _ -> 
             Cmd.none
 
+    let private initialiseCmd () = 
+        Cmd.OfFunc.either
+            ( Application.App.initialise Persistence.AppData.initialise )
+            ()
+            ( fun () -> InitialisationSuccess )
+            InitialisationFailure
+            
+
     let public toCmd (cmdMsg: CmdMsg) : Cmd<Msg> =
         match cmdMsg with 
+        | CmdMsg.Initialise ->
+            initialiseCmd ()
         | CmdMsg.PageCmdMsg pageCmdMsg ->
             mapPageCmd pageCmdMsg
 
@@ -65,7 +78,7 @@ module public App =
                                ]
             }
           NewProjectPageModel = None
-        }, []
+        }, [ CmdMsg.Initialise ]
 
     let updatePage (msg: PageMsg) (model: Model) : Model * CmdMsg list =
         match msg, model.PageModel with 
@@ -85,6 +98,10 @@ module public App =
     /// This is the Reducer Elmish.WPF calls to generate a new model based on a message and an old model
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with 
+        | InitialisationSuccess -> 
+            model, []
+        | InitialisationFailure _ ->
+            model, []
         | MoveToPage pageModel -> 
             match pageModel with
             | PageModel.NewProjectPage -> 
