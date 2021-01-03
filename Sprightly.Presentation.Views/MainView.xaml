@@ -75,33 +75,33 @@
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
-    <ContentControl Content="{Binding}">
-        <ContentControl.Style>
-            <Style TargetType="ContentControl">
-                <Style.Triggers>
+    <materialDesign:Transitioner SelectedIndex="{Binding PageType, Converter={StaticResource PageTypeConverter}}">
+        <materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide.ForwardWipe>
+                <materialDesign:SlideWipe Direction="Left" />
+            </materialDesign:TransitionerSlide.ForwardWipe>
 
-                    <DataTrigger Binding="{Binding PageType, Converter={StaticResource PageTypeConverter}}"
-                                 Value="StartingPage">
-                        <Setter Property="ContentTemplate"
-                                Value="{StaticResource StartingPageViewTemplate}"/>
-                    </DataTrigger>
+            <local:StartingPageView/>
+        </materialDesign:TransitionerSlide>
 
-                    <DataTrigger Binding="{Binding PageType, Converter={StaticResource PageTypeConverter}}"
-                                 Value="NewProjectPage">
+        <materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide.OpeningEffects>
+                <materialDesign:TransitionEffect
+                    Kind="FadeIn"
+                    Duration="0:0:0.8" />
+            </materialDesign:TransitionerSlide.OpeningEffects>
 
-                        <Setter Property="ContentTemplate"
-                                Value="{StaticResource NewProjectPageViewTemplate}"/>
-                    </DataTrigger>
+            <materialDesign:TransitionerSlide.ForwardWipe>
+                <materialDesign:SlideWipe Direction="Left" />
+            </materialDesign:TransitionerSlide.ForwardWipe>
 
-                    <DataTrigger Binding="{Binding PageType, Converter={StaticResource PageTypeConverter}}"
-                                 Value="ProjectPage">
+            <materialDesign:TransitionerSlide.BackwardWipe >
+                <materialDesign:SlideWipe Direction="Right" />
+            </materialDesign:TransitionerSlide.BackwardWipe>
+            
+            <local:NewProjectPageView/>
+        </materialDesign:TransitionerSlide>
 
-                        <Setter Property="ContentTemplate"
-                                Value="{StaticResource ProjectPageViewTemplate}"/>
-                    </DataTrigger>
-
-                </Style.Triggers>
-            </Style>
-        </ContentControl.Style>
-    </ContentControl>
+        <local:ProjectPageView/>
+    </materialDesign:Transitioner>
 </mah:MetroWindow>

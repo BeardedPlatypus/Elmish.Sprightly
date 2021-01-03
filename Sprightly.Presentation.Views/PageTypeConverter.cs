@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace Sprightly.Presentation.Views
 {
     [ValueConversion(typeof(Common.PageType),
-                     typeof(PageType))]
+                     typeof(int))]
     public class PageTypeConverter : IValueConverter
     {
         public object Convert(object value, 
@@ -18,11 +18,11 @@ namespace Sprightly.Presentation.Views
                 return DependencyProperty.UnsetValue;
 
             if (pageType.IsStartingPage)   
-                return PageType.StartingPage;
+                return 0;
             if (pageType.IsNewProjectPage) 
-                return PageType.NewProjectPage;
+                return 1;
             if (pageType.IsProjectPage)    
-                return PageType.ProjectPage;
+                return 2;
 
             return DependencyProperty.UnsetValue;
         }
@@ -32,14 +32,14 @@ namespace Sprightly.Presentation.Views
                                   object parameter, 
                                   CultureInfo culture)
         {
-            if (!(value is PageType))
+            if (!(value is int))
                 return DependencyProperty.UnsetValue;
 
             return value switch
             {
-                PageType.StartingPage => Common.PageType.StartingPage,
-                PageType.NewProjectPage => Common.PageType.NewProjectPage,
-                PageType.ProjectPage => Common.PageType.ProjectPage,
+                0 => Common.PageType.StartingPage,
+                1 => Common.PageType.NewProjectPage,
+                2 => Common.PageType.ProjectPage,
                 _ => DependencyProperty.UnsetValue
             };
         }
