@@ -23,9 +23,7 @@ module public Version =
     /// A <see cref="string"/> corresponding with the provided <paramref name="version"/>.
     /// </returns>
     let public toString (version: T ) : string =
-        [ version.Major; version.Minor; version.Patch ] 
-        |> List.map (fun x -> x.ToString())
-        |> List.fold (fun (acc: string) (x: string) -> acc + "." + x) ""
+        $"{version.Major}.{version.Minor}.{version.Patch}"
      
 
     /// <summary>

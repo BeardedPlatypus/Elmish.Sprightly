@@ -3,6 +3,25 @@
 open Sprightly
 
 module public AppData =
+    [<RequireQualifiedAccess>]
+    module BaseData = 
+        
+        type T = 
+            { Version : Version.T }
+
+        let current : T= 
+            { Version = { Major = 0; Minor = 1; Patch = 0} }
+
+        type DAR = 
+            { Version : string }
+
+        let toDAR (appData : T) : DAR =
+            { Version = appData.Version |> Version.toString }
+
+        let fromDAR (dar : DAR) : T option = 
+            let version = dar.Version |> Version.fromString
+            Option.map (fun v -> { Version = v }) version
+
     let private fileName = "sprightly.json"
 
     let private appFolder : Common.Path.T = 
@@ -18,7 +37,9 @@ module public AppData =
 
     let public initialise () : unit =
         if not (Common.Path.exists appDataFilePath) then
-            Json.writeJsonString appDataFilePath ""
+            (BaseData.current |> BaseData.toDAR)
+            |> Json.serialize
+            |> Json.writeJsonString appDataFilePath
 
     let public retrieveField<'T> (key: string) : Result<'T, exn> =
         Json.readJsonString appDataFilePath
