@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -17,8 +17,8 @@
     <Compile Include="Json.fs" />
     <Compile Include="AppData.fs" />
     <Compile Include="Texture.fs" />
-    <Compile Include="Version.fs" />
     <Compile Include="SolutionFile.fs" />
+    <Compile Include="RecentProject.fs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -48,8 +48,6 @@ module public App =
             mapStartingPageCmd startingPageCmdMsg
         | PageCmdMsg.NewProjectPage newProjectPageCmdMsg ->
             mapNewProjectPageCmd newProjectPageCmdMsg
-        | _ -> 
-            Cmd.none
 
     let private initialiseCmd () = 
         Cmd.OfFunc.either

@@ -47,6 +47,22 @@ module public Json =
         with 
             | ex -> Result.Error ex
 
+    let public updateKey (key: string) (value: 'T) (originalString: JsonString) : Result<JsonString, exn> =
+        try
+            let obj = JObject.Parse(originalString)
+            let prop = obj.Property(key)
+
+            let newValueToken = JToken.FromObject(value)
+
+            if prop <> null then
+                prop.Value <- newValueToken
+            else 
+                obj.Add(key, newValueToken)
+
+            obj.ToString() |> Result.Ok
+        with 
+            | ex -> Result.Error ex
+
     /// <summary>
     /// Write the specified <paramref name="content"/> to the specified
     /// <paramref name="path"/>.

@@ -49,3 +49,12 @@ module public AppData =
         match retrieveField<'T> key with 
         | Ok v    -> v 
         | Error _ -> defaultValue
+
+    let public updateField<'T> (key: string) (data: 'T) : unit =    
+        let newAppData = 
+            Json.readJsonString appDataFilePath
+            |> Json.updateKey key data
+
+        match newAppData with 
+        | Result.Ok newData -> Json.writeJsonString appDataFilePath newData
+        | _                 -> ()
