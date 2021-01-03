@@ -23,7 +23,7 @@ module public RecentProject =
           LastOpened = data.LastOpened 
         }
 
-    let private recentProjectsKey = "recent_projects"
+    let private recentProjectsKey = "RecentProjects"
 
     /// <summary>
     /// Load the recent projects from the appdata.

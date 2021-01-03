@@ -18,12 +18,16 @@ module public StartingPage =
         | RequestMoveToNewProjectPage
         | RequestOpenProjectFilePicker
         | RequestOpenProject of Common.Path.T
+        | UpdateRecentProjects of Domain.RecentProject.T list
         | NoOp
 
     type public CmdMsg =
         | OpenProjectFilePicker
         | OpenProject of Common.Path.T
         | MoveToNewProjectPage
+        | LoadRecentProjects
+
+    let public init () : Model * CmdMsg list  = { RecentProjects = [] }, []
 
     let private openProjectFilePickerCmd () =
         let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
@@ -44,6 +48,7 @@ module public StartingPage =
     let public toCmd (toParentCmd : Msg -> 'ParentMsg )
                      (openProjectCmd : Common.Path.T -> Cmd<'ParentMsg>) 
                      (moveToNewProjectPageCmd : unit -> Cmd<'ParentMsg>)
+                     (loadRecentProjectsCmd : unit -> Cmd<'ParentMsg>)
                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | OpenProjectFilePicker ->
@@ -52,6 +57,8 @@ module public StartingPage =
             openProjectCmd path
         | MoveToNewProjectPage ->
             moveToNewProjectPageCmd ()
+        | LoadRecentProjects ->
+            loadRecentProjectsCmd ()
 
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with
@@ -64,6 +71,8 @@ module public StartingPage =
             model, [ OpenProjectFilePicker ]
         | RequestOpenProject path ->
             model, [ OpenProject path ]
+        | UpdateRecentProjects recentProjects ->
+            { model with RecentProjects = recentProjects }, []
         | NoOp ->
             model, []
 

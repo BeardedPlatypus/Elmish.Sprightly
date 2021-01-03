@@ -30,11 +30,19 @@ module public App =
         | Initialise
         | PageCmdMsg of PageCmdMsg
 
+    let loadRecentProjectsCmd () : Cmd<Msg> = 
+        Cmd.OfFunc.perform 
+            (Application.Project.loadRecentProjects Persistence.RecentProject.loadRecentProjects)
+            ()
+            (Msg.PageMsg << PageMsg.StartingPage << Presentation.Pages.StartingPage.UpdateRecentProjects)
+
     let private mapStartingPageCmd : (Presentation.Pages.StartingPage.CmdMsg -> Cmd<Msg>) = 
+
         Presentation.Pages.StartingPage.toCmd
             (Msg.PageMsg << PageMsg.StartingPage)
             (fun _  -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
             (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.NewProjectPage))
+            loadRecentProjectsCmd
 
     let private mapNewProjectPageCmd : (Presentation.Pages.NewProjectPage.CmdMsg -> Cmd<Msg>) =
         Presentation.Pages.NewProjectPage.toCmd
@@ -66,17 +74,12 @@ module public App =
 
     /// This is used to define the initial state of our application
     let public init () = 
+        let startingPageModel, startingPageCmds = Presentation.Pages.StartingPage.init ()
+
         { PageModel = StartingPage
-          StartingPageModel = 
-            { RecentProjects = [ { Id = Domain.RecentProject.Id 0 
-                                   Data = { Path = "D:\\Sprightly\\Demo6\\Demo6.sprightly" |> Common.Path.fromString 
-                                            LastOpened = System.DateTime.Now
-                                          }
-                                 }
-                               ]
-            }
+          StartingPageModel = startingPageModel
           NewProjectPageModel = None
-        }, [ CmdMsg.Initialise ]
+        }, [ CmdMsg.Initialise ] @ (List.map (CmdMsg.PageCmdMsg << PageCmdMsg.StartingPage) startingPageCmds)
 
     let updatePage (msg: PageMsg) (model: Model) : Model * CmdMsg list =
         match msg, model.PageModel with 
@@ -97,7 +100,7 @@ module public App =
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with 
         | InitialisationSuccess -> 
-            model, []
+            model, [ CmdMsg.PageCmdMsg (PageCmdMsg.StartingPage Presentation.Pages.StartingPage.CmdMsg.LoadRecentProjects) ]
         | InitialisationFailure _ ->
             model, []
         | MoveToPage pageModel -> 

@@ -12,7 +12,7 @@ module public Project =
     /// <summary>
     /// The description of the LoadRecentProjects function.
     /// </summary>
-    type public LoadRecentProjectsFunc = unit -> (RecentProject.T list) option
+    type public LoadRecentProjectsFunc = unit -> RecentProject.T list
 
     /// <summary>
     /// The description of the SaveRecentProjects function.
@@ -29,7 +29,7 @@ module public Project =
     /// The list of <see cref="RecentProject"/> records describing the recent lists
     /// ordered by date.
     /// </returns>
-    let public loadRecentProjects (fLoadRecentProjects: LoadRecentProjectsFunc) () : (RecentProject.T list) option =
+    let public loadRecentProjects (fLoadRecentProjects: LoadRecentProjectsFunc) () : RecentProject.T list =
         fLoadRecentProjects ()
 
     /// <summary>
@@ -55,7 +55,6 @@ module public Project =
                                                 (fSaveRecentProjects: SaveRecentProjectsFunc)
                                                 (recentProject: RecentProject.T) : unit =
         fLoadRecentProjects () 
-        |> Option.defaultValue []
         |> List.filter (fun x -> x.Id <> recentProject.Id)
         |> (fun l -> recentProject :: l)
         |> fSaveRecentProjects
