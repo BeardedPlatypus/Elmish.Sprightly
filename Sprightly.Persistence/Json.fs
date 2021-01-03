@@ -8,6 +8,7 @@ open Sprightly.Common
 /// </summary>
 module public Json =
     open Newtonsoft.Json
+    open Newtonsoft.Json.Linq
 
     /// <summary>
     /// <see cref="JsonString"/> defines a json string to use in this module.
@@ -36,6 +37,13 @@ module public Json =
         try 
             JsonConvert.DeserializeObject<'T> str 
             |> Result.Ok
+        with 
+            | ex -> Result.Error ex
+
+    let public queryKey<'T> (key: string) (str: JsonString) =
+        try 
+            JObject.Parse(str).[key].ToObject<'T>()
+            |> Result.Ok 
         with 
             | ex -> Result.Error ex
 
