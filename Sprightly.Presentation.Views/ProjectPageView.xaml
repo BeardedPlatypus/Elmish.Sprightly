@@ -13,4 +13,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+
+    <Grid>
+
+    </Grid>
 </UserControl>

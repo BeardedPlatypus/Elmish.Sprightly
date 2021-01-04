@@ -104,5 +104,5 @@ module public Project =
     /// <param name="fWriteEmptySolution">Function to write an empty solution file.</param>
     /// <param name="slnFile">The path to the solution file to write.</param>
     let public createNewProject (fWriteEmptySolution) 
-                                (slnFile: Path.T) : unit = 
-        fWriteEmptySolution slnFile
+                                (slnFilePath: Path.T) : unit = 
+        fWriteEmptySolution slnFilePath

@@ -17,6 +17,7 @@ module public App =
     type public Msg =
         | InitialisationSuccess
         | InitialisationFailure of exn
+        | RequestLoadProject of Common.Path.T
         | MoveToPage of PageModel
         | PageMsg of PageMsg
 
@@ -28,6 +29,7 @@ module public App =
     [<RequireQualifiedAccess>]
     type public CmdMsg = 
         | Initialise
+        | LoadProject of Common.Path.T
         | PageCmdMsg of PageCmdMsg
 
     let loadRecentProjectsCmd () : Cmd<Msg> = 
@@ -36,11 +38,33 @@ module public App =
             ()
             (Msg.PageMsg << PageMsg.StartingPage << Presentation.Pages.StartingPage.UpdateRecentProjects)
 
+    let createNewSolutionCmd (newSolutionPath: Common.Path.T): Cmd<Msg> =
+        async {    
+            do! Async.SwitchToThreadPool ()
+            
+            let fWriteEmptySolution (p: Common.Path.T) = 
+            
+                let solutionFileDescription : Sprightly.Persistence.SolutionFile.Description = 
+                    { FileName = Common.Path.name p
+                      DirectoryPath = Common.Path.parentDirectory p
+                    }
+
+                Persistence.SolutionFile.writeEmpty (solutionFileDescription |> Sprightly.Persistence.SolutionFile.descriptionToPath)
+                Persistence.Texture.createTextureFolder solutionFileDescription.DirectoryPath
+
+            Application.Project.createNewProject fWriteEmptySolution newSolutionPath
+
+            return RequestLoadProject newSolutionPath
+        } |> Cmd.OfAsync.result
+
+    let loadProjectCmd (slnPath: Common.Path.T) :  Cmd<Msg> =
+        MoveToPage PageModel.ProjectPage |> Cmd.ofMsg
+
     let private mapStartingPageCmd : (Presentation.Pages.StartingPage.CmdMsg -> Cmd<Msg>) = 
 
         Presentation.Pages.StartingPage.toCmd
             (Msg.PageMsg << PageMsg.StartingPage)
-            (fun _  -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
+            loadProjectCmd    
             (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.NewProjectPage))
             loadRecentProjectsCmd
 
@@ -48,7 +72,7 @@ module public App =
         Presentation.Pages.NewProjectPage.toCmd
             (Msg.PageMsg << PageMsg.NewProjectPage)
             (fun () -> Cmd.ofMsg (MoveToPage Model.PageModel.StartingPage))
-            (fun _  -> Cmd.ofMsg (MoveToPage Model.PageModel.ProjectPage))
+            createNewSolutionCmd
 
     let private mapPageCmd (cmdMsg: PageCmdMsg) : Cmd<Msg> = 
         match cmdMsg with 
@@ -63,12 +87,13 @@ module public App =
             ()
             ( fun () -> InitialisationSuccess )
             InitialisationFailure
-            
 
     let public toCmd (cmdMsg: CmdMsg) : Cmd<Msg> =
         match cmdMsg with 
         | CmdMsg.Initialise ->
             initialiseCmd ()
+        | CmdMsg.LoadProject slnPath ->
+            loadProjectCmd slnPath
         | CmdMsg.PageCmdMsg pageCmdMsg ->
             mapPageCmd pageCmdMsg
 
@@ -103,6 +128,8 @@ module public App =
             model, [ CmdMsg.PageCmdMsg (PageCmdMsg.StartingPage Presentation.Pages.StartingPage.CmdMsg.LoadRecentProjects) ]
         | InitialisationFailure _ ->
             model, []
+        | RequestLoadProject projPath ->
+            model, [ CmdMsg.LoadProject projPath ]
         | MoveToPage pageModel -> 
             match pageModel with
             | PageModel.NewProjectPage -> 

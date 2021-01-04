@@ -23,7 +23,7 @@ module public StartingPage =
 
     type public CmdMsg =
         | OpenProjectFilePicker
-        | OpenProject of Common.Path.T
+        | LoadProject of Common.Path.T
         | MoveToNewProjectPage
         | LoadRecentProjects
 
@@ -46,15 +46,15 @@ module public StartingPage =
             config
 
     let public toCmd (toParentCmd : Msg -> 'ParentMsg )
-                     (openProjectCmd : Common.Path.T -> Cmd<'ParentMsg>) 
+                     (loadProjectCmd : Common.Path.T -> Cmd<'ParentMsg>) 
                      (moveToNewProjectPageCmd : unit -> Cmd<'ParentMsg>)
                      (loadRecentProjectsCmd : unit -> Cmd<'ParentMsg>)
                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | OpenProjectFilePicker ->
             openProjectFilePickerCmd () |> Cmd.map toParentCmd
-        | OpenProject path ->
-            openProjectCmd path
+        | LoadProject path ->
+            loadProjectCmd path
         | MoveToNewProjectPage ->
             moveToNewProjectPageCmd ()
         | LoadRecentProjects ->
@@ -64,13 +64,13 @@ module public StartingPage =
         match msg with
         | RecentProjectMsg (id, RequestOpenRecentProject) ->
             let recentProject = List.find (fun (e: Domain.RecentProject.T) -> e.Id = id) model.RecentProjects
-            model, [ OpenProject recentProject.Data.Path ]
+            model, [ LoadProject recentProject.Data.Path ]
         | RequestMoveToNewProjectPage ->
             model, [ MoveToNewProjectPage ]
         | RequestOpenProjectFilePicker ->
             model, [ OpenProjectFilePicker ]
         | RequestOpenProject path ->
-            model, [ OpenProject path ]
+            model, [ LoadProject path ]
         | UpdateRecentProjects recentProjects ->
             { model with RecentProjects = recentProjects }, []
         | NoOp ->

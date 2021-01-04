@@ -29,18 +29,6 @@
             
             <local:PageTypeConverter x:Key="PageTypeConverter"/>
 
-            <DataTemplate x:Key="StartingPageViewTemplate">
-                <local:StartingPageView/>
-            </DataTemplate>
-
-            <DataTemplate x:Key="NewProjectPageViewTemplate">
-                <local:NewProjectPageView/>
-            </DataTemplate>
-
-            <DataTemplate x:Key="ProjectPageViewTemplate">
-                <local:ProjectPageView/>
-            </DataTemplate>
-
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
 
@@ -81,6 +69,12 @@
                 <materialDesign:SlideWipe Direction="Left" />
             </materialDesign:TransitionerSlide.ForwardWipe>
 
+            <materialDesign:TransitionerSlide.OpeningEffects>
+                <materialDesign:TransitionEffect
+                    Kind="FadeIn"
+                    Duration="0:0:0.8" />
+            </materialDesign:TransitionerSlide.OpeningEffects>
+
             <local:StartingPageView/>
         </materialDesign:TransitionerSlide>
 
@@ -90,18 +84,16 @@
                     Kind="FadeIn"
                     Duration="0:0:0.8" />
             </materialDesign:TransitionerSlide.OpeningEffects>
-
-            <materialDesign:TransitionerSlide.ForwardWipe>
-                <materialDesign:SlideWipe Direction="Left" />
-            </materialDesign:TransitionerSlide.ForwardWipe>
-
-            <materialDesign:TransitionerSlide.BackwardWipe >
-                <materialDesign:SlideWipe Direction="Right" />
-            </materialDesign:TransitionerSlide.BackwardWipe>
-            
             <local:NewProjectPageView/>
         </materialDesign:TransitionerSlide>
 
-        <local:ProjectPageView/>
+        <materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide.OpeningEffects>
+                <materialDesign:TransitionEffect
+                    Kind="FadeIn"
+                    Duration="0:0:0.8" />
+            </materialDesign:TransitionerSlide.OpeningEffects>
+            <local:ProjectPageView/>
+        </materialDesign:TransitionerSlide>
     </materialDesign:Transitioner>
 </mah:MetroWindow>

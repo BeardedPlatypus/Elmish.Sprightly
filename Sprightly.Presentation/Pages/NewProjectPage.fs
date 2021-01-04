@@ -44,9 +44,22 @@ module public NewProjectPage =
             Components.Dialogs.FileDialog.DialogType.Open
             config
 
+    [<RequireQualifiedAccessAttribute>]
+    module private pathConvert =
+        open Common.Path
+        let convert (model: Model) : Common.Path.T option = 
+            match model.DirectoryPath, model.ProjectName with 
+            | Some dirPath, Some projName when model.CreateNewDirectory ->
+                let pName = projName |> fromString
+                Some (dirPath / ( nameWithoutExtension pName |> fromString) / pName )
+            | Some dirPath, Some projName when not model.CreateNewDirectory ->
+                Some (dirPath / ( projName |> fromString ))
+            | _ ->
+                None
+
     let public toCmd (toParentCmd : Msg -> 'ParentMsg)
                       (moveToStartingPageCmd : unit -> Cmd<'ParentMsg>)
-                      (createNewProjectCmd : Model -> Cmd<'ParentMsg>)
+                      (createNewProjectCmd : Common.Path.T -> Cmd<'ParentMsg>)
                       (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | OpenFilePicker -> 
@@ -54,7 +67,12 @@ module public NewProjectPage =
         | MoveToStartingPage ->
             moveToStartingPageCmd ()
         | CreateNewProject model ->
-            createNewProjectCmd model
+            let p = pathConvert.convert model
+
+            if p.IsSome then
+                createNewProjectCmd p.Value
+            else 
+                NoOp |> toParentCmd |> Cmd.ofMsg
 
     let public init () : Model * CmdMsg list = 
         { ProjectName = None 
