@@ -20,6 +20,7 @@ module public App =
         | RequestLoadProject of Common.Path.T
         | MoveToPage of PageModel
         | PageMsg of PageMsg
+        | NoOp
 
     [<RequireQualifiedAccess>]
     type public PageCmdMsg =
@@ -57,8 +58,22 @@ module public App =
             return RequestLoadProject newSolutionPath
         } |> Cmd.OfAsync.result
 
-    let loadProjectCmd (slnPath: Common.Path.T) :  Cmd<Msg> =
+    let loadProjectFromDiskCmd (slnPath: Common.Path.T) :  Cmd<Msg> =
         MoveToPage PageModel.ProjectPage |> Cmd.ofMsg
+
+    let private moveProjectToTopOfRecentProjectsCmd (recentProjectPath: Common.Path.T) =
+        async {
+            do! Async.SwitchToThreadPool ()
+
+            Application.Project.moveProjectToTopOfRecentProjects 
+                Persistence.RecentProject.loadRecentProjects
+                Persistence.RecentProject.saveRecentProjects
+                recentProjectPath
+            return NoOp
+        } |> Cmd.OfAsync.result
+
+    let loadProjectCmd (slnPath: Common.Path.T) =
+        Cmd.batch (seq { loadProjectFromDiskCmd slnPath; moveProjectToTopOfRecentProjectsCmd slnPath })
 
     let private mapStartingPageCmd : (Presentation.Pages.StartingPage.CmdMsg -> Cmd<Msg>) = 
 
@@ -144,6 +159,8 @@ module public App =
                 { model with PageModel = pageModel }, []
         | PageMsg pageMsg ->
             updatePage pageMsg model
+        | NoOp ->
+            model, []
 
     let private toCommonPage (pageModel: PageModel) : Sprightly.Presentation.Common.PageType =
         match pageModel with 

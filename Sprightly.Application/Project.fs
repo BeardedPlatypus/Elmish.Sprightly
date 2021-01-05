@@ -53,11 +53,19 @@ module public Project =
     /// </remarks>
     let public moveProjectToTopOfRecentProjects (fLoadRecentProjects: LoadRecentProjectsFunc) 
                                                 (fSaveRecentProjects: SaveRecentProjectsFunc)
-                                                (recentProject: RecentProject.T) : unit =
-        fLoadRecentProjects () 
-        |> List.filter (fun x -> x.Id <> recentProject.Id)
-        |> (fun l -> recentProject :: l)
-        |> fSaveRecentProjects
+                                                (recentProjectPath: Path.T) : unit =
+        let recentProjects = 
+            fLoadRecentProjects () 
+            |> List.filter (fun x -> x.Data.Path <> recentProjectPath)
+
+        let newRecentProject : RecentProject.T = 
+            { Id = (RecentProject.generateUniqueId recentProjects)
+              Data = { Path = recentProjectPath 
+                       LastOpened = System.DateTime.Now
+                     }
+            } 
+
+        ( newRecentProject :: recentProjects ) |> fSaveRecentProjects
 
     /// <summary>
     /// Function to retrieve texture paths from the solution file at the specified path.

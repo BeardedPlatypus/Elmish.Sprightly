@@ -15,3 +15,10 @@ module RecentProject =
         { Id : Id
           Data : Data
         }
+
+    let generateUniqueId (recentProjects: T list) : Id =
+        List.map (fun proj -> match proj.Id with Id v -> v) recentProjects 
+        |> Set.ofList 
+        |> Set.maxElement
+        |> (fun maxId -> Id (maxId + 1))
+        
