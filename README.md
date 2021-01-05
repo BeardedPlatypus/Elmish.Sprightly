@@ -29,3 +29,16 @@ This application is meant as a proof of concept / prototype and not a
 full-fledged production ready application. In order to allow me to maximise 
 my time learning, I opted not to write any unit tests at this time, though 
 they might be added in the future.
+
+# Gallery
+
+<p align='center'><img align='center' src='https://github.com/BeardedPlatypus/Elmish.Sprightly/blob/master/.readme/starting_view.png?raw=true' width='75%'></p>
+<p align='center'>
+Start page with a recent projects list and the option to open an existing 
+project or create a new one.  
+</p>
+
+<p align='center'><img align='center' src='https://github.com/BeardedPlatypus/Elmish.Sprightly/blob/master/.readme/new_project_view.png?raw=true' width='75%'></p>
+<p align='center'>
+    New project page to set up an initial sprightly project.
+</p>
