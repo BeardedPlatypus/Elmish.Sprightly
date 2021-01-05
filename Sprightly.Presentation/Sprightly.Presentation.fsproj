@@ -17,6 +17,7 @@
     <Compile Include="Components\Dialogs\FileDialog.fs" />
     <Compile Include="Pages\StartingPage.fs" />
     <Compile Include="Pages\NewProjectPage.fs" />
+    <Compile Include="Main.fs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sprightly.Common\Sprightly.Common.fsproj" />
     <ProjectReference Include="..\Sprightly.Domain\Sprightly.Domain.fsproj" />
+    <ProjectReference Include="..\Sprightly.Presentation.Common\Sprightly.Presentation.Common.fsproj" />
   </ItemGroup>
 
 </Project>

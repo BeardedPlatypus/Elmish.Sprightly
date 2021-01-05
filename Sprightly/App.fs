@@ -7,8 +7,8 @@ open Sprightly.Presentation.Views
 [<EntryPoint; STAThread>]
 let main _ =
     Program.mkProgramWpfWithCmdMsg
-        Sprightly.App.init 
-        Sprightly.App.update 
-        Sprightly.App.bindings
-        Sprightly.App.toCmd
+        Sprightly.Presentation.Main.init 
+        Sprightly.Presentation.Main.update 
+        Sprightly.Presentation.Main.bindings
+        Sprightly.CmdMapping.toCmd
     |> Program.runWindow (MainView())
