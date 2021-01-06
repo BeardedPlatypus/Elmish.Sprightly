@@ -15,8 +15,9 @@
                  Background="{DynamicResource MaterialDesignPaper}"
                  FontFamily="{DynamicResource MaterialDesignFont}"
                  Title="Sprightly"
-                 Width="800"
-                 Height="600"
+                 Width="1920"
+                 Height="1080"
+                 WindowState="Maximized"
                  WindowStartupLocation="CenterScreen"
                  TitleCharacterCasing="Normal"
                  mc:Ignorable="d">
