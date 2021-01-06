@@ -65,10 +65,22 @@
     </mah:MetroWindow.RightWindowCommands>
 
     <materialDesign:Transitioner SelectedIndex="{Binding PageType, Converter={StaticResource PageTypeConverter}}">
+
+        <materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide.OpeningEffects>
+                <materialDesign:TransitionEffect Kind="None"/>
+            </materialDesign:TransitionerSlide.OpeningEffects>
+            <local:ProjectPageView/>
+        </materialDesign:TransitionerSlide>
+
         <materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide.ForwardWipe>
                 <materialDesign:SlideWipe Direction="Left" />
             </materialDesign:TransitionerSlide.ForwardWipe>
+
+            <materialDesign:TransitionerSlide.BackwardWipe>
+                <materialDesign:FadeWipe/>
+            </materialDesign:TransitionerSlide.BackwardWipe>
 
             <materialDesign:TransitionerSlide.OpeningEffects>
                 <materialDesign:TransitionEffect
@@ -88,13 +100,5 @@
             <local:NewProjectPageView/>
         </materialDesign:TransitionerSlide>
 
-        <materialDesign:TransitionerSlide>
-            <materialDesign:TransitionerSlide.OpeningEffects>
-                <materialDesign:TransitionEffect
-                    Kind="FadeIn"
-                    Duration="0:0:0.8" />
-            </materialDesign:TransitionerSlide.OpeningEffects>
-            <local:ProjectPageView/>
-        </materialDesign:TransitionerSlide>
     </materialDesign:Transitioner>
 </mah:MetroWindow>

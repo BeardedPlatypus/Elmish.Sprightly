@@ -17,11 +17,11 @@ namespace Sprightly.Presentation.Views
             if (!(value is Common.PageType pageType)) 
                 return DependencyProperty.UnsetValue;
 
-            if (pageType.IsStartingPage)   
-                return 0;
-            if (pageType.IsNewProjectPage) 
-                return 1;
             if (pageType.IsProjectPage)    
+                return 0;
+            if (pageType.IsStartingPage)   
+                return 1;
+            if (pageType.IsNewProjectPage) 
                 return 2;
 
             return DependencyProperty.UnsetValue;

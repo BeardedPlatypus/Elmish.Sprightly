@@ -24,9 +24,9 @@
         <materialDesign:Card Margin="4"
                              materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Grid.Column="0">
-            <Frame HorizontalAlignment="Stretch" 
-                   VerticalAlignment="Stretch"
-                   Background="Gray"/>
+            <local:ViewportControl HorizontalAlignment="Stretch" 
+                                   VerticalAlignment="Stretch"
+                                   Background="Gray"/>
         </materialDesign:Card>
 
         <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
