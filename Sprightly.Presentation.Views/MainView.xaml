@@ -6,7 +6,10 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                 xmlns:local="clr-namespace:Sprightly.Presentation.Views"
+                 xmlns:newProjectPage="clr-namespace:Sprightly.Presentation.Views.Pages.NewProjectPage"
+                 xmlns:startingPage="clr-namespace:Sprightly.Presentation.Views.Pages.StartingPage"
+                 xmlns:projectPage="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage"
+                 xmlns:pages="clr-namespace:Sprightly.Presentation.Views.Pages"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  TextElement.FontWeight="Regular"
                  TextElement.FontSize="13"
@@ -25,10 +28,10 @@
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
-            <local:PageTypeConverter x:Key="PageTypeConverter"/>
+            <pages:PageTypeConverter x:Key="PageTypeConverter"/>
 
         </ResourceDictionary>
     </mah:MetroWindow.Resources>
@@ -70,7 +73,7 @@
             <materialDesign:TransitionerSlide.OpeningEffects>
                 <materialDesign:TransitionEffect Kind="None"/>
             </materialDesign:TransitionerSlide.OpeningEffects>
-            <local:ProjectPageView/>
+            <projectPage:ProjectPageView/>
         </materialDesign:TransitionerSlide>
 
         <materialDesign:TransitionerSlide>
@@ -88,7 +91,7 @@
                     Duration="0:0:0.8" />
             </materialDesign:TransitionerSlide.OpeningEffects>
 
-            <local:StartingPageView/>
+            <startingPage:StartingPageView/>
         </materialDesign:TransitionerSlide>
 
         <materialDesign:TransitionerSlide>
@@ -97,7 +100,7 @@
                     Kind="FadeIn"
                     Duration="0:0:0.8" />
             </materialDesign:TransitionerSlide.OpeningEffects>
-            <local:NewProjectPageView/>
+            <newProjectPage:NewProjectPageView/>
         </materialDesign:TransitionerSlide>
 
     </materialDesign:Transitioner>

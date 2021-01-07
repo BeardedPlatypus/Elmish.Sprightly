@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows;
+using System.Globalization;
 using System.Windows.Data;
 
-namespace Sprightly.Presentation.Views
+namespace Sprightly.Presentation.Views.Pages
 {
     [ValueConversion(typeof(Common.PageType),
                      typeof(int))]

@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="Sprightly.Presentation.Views.ProjectPageView"
+﻿<UserControl x:Class="Sprightly.Presentation.Views.Pages.ProjectPage.ProjectPageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Sprightly.Presentation.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:projectPage="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage"
              mc:Ignorable="d" 
              d:DesignHeight="1920" d:DesignWidth="1080">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -24,9 +24,11 @@
         <materialDesign:Card Margin="4"
                              materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Grid.Column="0">
-            <local:ViewportControl HorizontalAlignment="Stretch" 
-                                   VerticalAlignment="Stretch"
-                                   Background="Gray"/>
+
+            <projectPage:ViewportControl HorizontalAlignment="Stretch" 
+                                         VerticalAlignment="Stretch"
+                                         Background="Gray"/>
+
         </materialDesign:Card>
 
         <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}"

@@ -14,7 +14,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\icon.png" />
+    <Compile Remove="Assets\**" />
+    <EmbeddedResource Remove="Assets\**" />
+    <None Remove="Assets\**" />
+    <Page Remove="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,9 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\icon.png" />
   </ItemGroup>
 
 </Project>

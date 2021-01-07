@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Sprightly.Presentation.Views
+namespace Sprightly.Presentation.Views.Pages.NewProjectPage
 {
     /// <summary>
     /// Interaction logic for NewProjectPageView.xaml

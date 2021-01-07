@@ -1,17 +1,17 @@
-﻿<UserControl x:Class="Sprightly.Presentation.Views.StartingPageView"
+﻿<UserControl x:Class="Sprightly.Presentation.Views.Pages.StartingPage.StartingPageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Sprightly.Presentation.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:startingPage1="clr-namespace:Sprightly.Presentation.Views.Pages.StartingPage"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -36,7 +36,7 @@
                                                   UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <local:RecentProjectView/>
+                            <startingPage1:RecentProjectView/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ListView>
@@ -52,7 +52,7 @@
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
-                <Image Source="Assets/icon.png" 
+                <Image Source="pack://application:,,,/Sprightly.Presentation.Views;component/Resources/icon.png" 
                        Stretch="Uniform" 
                        Margin="8" 
                        Grid.Row="0"/>

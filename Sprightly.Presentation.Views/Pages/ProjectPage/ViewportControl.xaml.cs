@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using Sprightly.Common.KoboldLayer.Components;
 
-namespace Sprightly.Presentation.Views
+namespace Sprightly.Presentation.Views.Pages.ProjectPage
 {
     /// <summary>
     /// Interaction logic for ViewportControl.xaml
