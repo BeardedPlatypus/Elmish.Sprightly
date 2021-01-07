@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:projectPage="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage"
+             xmlns:spriteToolbox="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage.Toolboxes.SpriteToolbox"
              mc:Ignorable="d" 
              d:DesignHeight="1920" d:DesignWidth="1080">
     <UserControl.Resources>
@@ -34,20 +35,17 @@
         <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
                     TabStripPlacement="Right"
                     Grid.Column="1">
-        <TabItem
-            Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
             <TabItem.Header>
-                <materialDesign:PackIcon
-                    Kind="ImageMultipleOutline"
-                    Width="24"
-                    Height="24" />
+                <materialDesign:PackIcon Kind="ImageMultipleOutline"
+                                         Width="24"
+                                         Height="24" />
             </TabItem.Header>
 
-            <materialDesign:Card Margin="4"
-                                 materialDesign:ShadowAssist.ShadowDepth="Depth1">
-
-            </materialDesign:Card>
+                <spriteToolbox:SpriteToolboxView/>
         </TabItem>
+
         <TabItem
             Style="{StaticResource MaterialDesignNavigationRailTabItem}">
             <TabItem.Header>
@@ -62,6 +60,7 @@
 
             </materialDesign:Card>
         </TabItem>
+
     </TabControl>
 
     </Grid>

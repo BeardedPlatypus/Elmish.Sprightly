@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="Sprightly.Presentation.Views.Pages.ProjectPage.Toolboxes.SpriteToolbox.SpriteToolboxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel>
+
+            <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}" 
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                 Margin="4">
+                <StackPanel>
+                    <Expander HorizontalAlignment="Stretch"
+                              Header="Project Tree"
+                              IsExpanded="True">
+                        <StackPanel Orientation="Vertical"
+                                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                    Margin="24,8,24,16">
+
+                            <Separator Style="{StaticResource MaterialDesignSeparator}"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="0 4"/>
+
+                            <TreeView Margin="0 4">
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="ImageOutline"
+                                                                     Width="16"
+                                                                     Height="16" />
+                                            <TextBlock Margin="8 0 0 0">
+                                                Texture 0
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="ScanHelper"
+                                                                         Width="12"
+                                                                         Height="12"
+                                                                         Margin="2" />
+                                                <TextBlock Margin="8 0 0 0">
+                                                    Sprite 0
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="ScanHelper"
+                                                                         Width="12"
+                                                                         Height="12"
+                                                                         Margin="2" />
+                                                <TextBlock Margin="8 0 0 0">
+                                                    Sprite 1
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="ScanHelper"
+                                                                         Width="12"
+                                                                         Height="12"
+                                                                         Margin="2" />
+                                                <TextBlock Margin="8 0 0 0">
+                                                    Sprite 2
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                </TreeViewItem>
+
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="ImageOutline"
+                                                                     Width="16"
+                                                                     Height="16" />
+                                            <TextBlock Margin="8 0 0 0">
+                                                Texture 1
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+
+                            </TreeView>
+
+                            <Separator Style="{StaticResource MaterialDesignSeparator}"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="0 4"/>
+
+                            <Grid Margin="0 2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Content="{materialDesign:PackIcon PlusBold}"
+                                        Grid.Column="0" />
+                                
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Content="{materialDesign:PackIcon Pencil}"
+                                        IsEnabled="False"
+                                        Grid.Column="1" />
+
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Content="{materialDesign:PackIcon Bin}"
+                                        Grid.Column="2" />
+                            </Grid>
+
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}" 
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                 Margin="4">
+                <StackPanel>
+                    <Expander HorizontalAlignment="Stretch"
+                              Header="Detail View"
+                              IsExpanded="True">
+                        <StackPanel Orientation="Vertical"
+                                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                    Margin="24,8,24,16">
+                            <TextBlock Text="Your Content" />
+                            <TextBlock Opacity=".68"
+                                       Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
