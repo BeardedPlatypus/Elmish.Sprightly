@@ -17,6 +17,7 @@
     <Compile Include="Components\Dialogs\FileDialog.fs" />
     <Compile Include="Pages\StartingPage.fs" />
     <Compile Include="Pages\NewProjectPage.fs" />
+    <Compile Include="Pages\ProjectPage.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 
