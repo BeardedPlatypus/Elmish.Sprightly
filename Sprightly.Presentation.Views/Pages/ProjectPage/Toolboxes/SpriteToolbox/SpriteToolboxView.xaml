@@ -33,76 +33,18 @@
                                        HorizontalAlignment="Stretch"
                                        Margin="0 4"/>
 
-                            <TreeView Margin="0 4">
-                                <TreeViewItem>
-                                    <TreeViewItem.Header>
+                            <TreeView Margin="0 4"
+                                      ItemsSource="{Binding Path=ProjectPageModel.Textures}">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate >
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="ImageOutline"
                                                                      Width="16"
                                                                      Height="16" />
-                                            <TextBlock Margin="8 0 0 0">
-                                                Texture 0
-                                            </TextBlock>
+                                            <TextBlock Margin="8 0 0 0" Text="{Binding Name}"/>
                                         </StackPanel>
-                                    </TreeViewItem.Header>
-
-                                    <TreeViewItem>
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="ScanHelper"
-                                                                         Width="12"
-                                                                         Height="12"
-                                                                         Margin="2" />
-                                                <TextBlock Margin="8 0 0 0">
-                                                    Sprite 0
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-                                    <TreeViewItem>
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="ScanHelper"
-                                                                         Width="12"
-                                                                         Height="12"
-                                                                         Margin="2" />
-                                                <TextBlock Margin="8 0 0 0">
-                                                    Sprite 1
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-                                    <TreeViewItem>
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="ScanHelper"
-                                                                         Width="12"
-                                                                         Height="12"
-                                                                         Margin="2" />
-                                                <TextBlock Margin="8 0 0 0">
-                                                    Sprite 2
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-                                </TreeViewItem>
-
-                                <TreeViewItem>
-                                    <TreeViewItem.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="ImageOutline"
-                                                                     Width="16"
-                                                                     Height="16" />
-                                            <TextBlock Margin="8 0 0 0">
-                                                Texture 1
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </TreeViewItem.Header>
-                                </TreeViewItem>
-
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
                             </TreeView>
 
                             <Separator Style="{StaticResource MaterialDesignSeparator}"
