@@ -16,12 +16,14 @@ module Main =
         { PageModel : PageModel
           StartingPageModel : Presentation.Pages.StartingPage.Model
           NewProjectPageModel : Presentation.Pages.NewProjectPage.Model option
+          ProjectPageModel : Presentation.Pages.ProjectPage.Model option
         }
 
     [<RequireQualifiedAccess>]
     type public PageMsg =
         | StartingPage of Presentation.Pages.StartingPage.Msg
         | NewProjectPage of Presentation.Pages.NewProjectPage.Msg
+        | ProjectPage of Presentation.Pages.ProjectPage.Msg
 
     /// This is a discriminated union of the available messages from the user interface
     type public Msg =
@@ -36,6 +38,7 @@ module Main =
     type public PageCmdMsg =
         | StartingPage of Presentation.Pages.StartingPage.CmdMsg
         | NewProjectPage of Presentation.Pages.NewProjectPage.CmdMsg
+        | ProjectPage of unit
 
     [<RequireQualifiedAccess>]
     type public CmdMsg = 
@@ -50,6 +53,7 @@ module Main =
         { PageModel = PageModel.StartingPage
           StartingPageModel = startingPageModel
           NewProjectPageModel = None
+          ProjectPageModel = None
         }, [ CmdMsg.Initialise ] @ (List.map (CmdMsg.PageCmdMsg << PageCmdMsg.StartingPage) startingPageCmds)
 
     let updatePage (msg: PageMsg) (model: Model) : Model * CmdMsg list =
@@ -86,6 +90,12 @@ module Main =
                 { model with PageModel = pageModel 
                              NewProjectPageModel = Some newProjectPageModel 
                 }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) initCmds
+            | PageModel.ProjectPage ->
+                let projectPageModel = Pages.ProjectPage.init (Common.Path.T "slnPath")
+
+                { model with PageModel = pageModel
+                             ProjectPageModel = Some projectPageModel
+                }, []
             | _ ->
                 { model with PageModel = pageModel }, []
         | PageMsg pageMsg ->
@@ -118,4 +128,10 @@ module Main =
                 (fun (_, m) -> m), 
                 Msg.PageMsg << PageMsg.StartingPage,
                 Presentation.Pages.StartingPage.bindings)
+          "ProjectPageModel" |> 
+            Binding.subModelOpt(
+                (fun (m: Model) -> m.ProjectPageModel ),
+                (fun (_, m) -> m), 
+                Msg.PageMsg << PageMsg.ProjectPage,
+                Presentation.Pages.ProjectPage.bindings)
         ]
