@@ -14,6 +14,21 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <spriteToolbox:DetailTypeConverter x:Key="DetailTypeConverter"/>
+
+            <DataTemplate x:Key="TextureDetailTemplate">
+                <spriteToolbox:TextureDetailView/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SpriteDetailTemplate">
+                <Grid/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="NoDetailTemplate">
+                <Grid/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -97,14 +112,34 @@
                     <Expander HorizontalAlignment="Stretch"
                               Header="Detail View"
                               IsExpanded="True">
-                        <StackPanel Orientation="Vertical"
-                                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                    Margin="24,8,24,16">
-                            <TextBlock Text="Your Content" />
-                            <TextBlock Opacity=".68"
-                                       Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                       TextWrapping="Wrap" />
-                        </StackPanel>
+                        <ContentControl Content="{Binding}">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
+                                                                       Converter={StaticResource DetailTypeConverter}}"
+                                                                       Value="Texture">
+                                            <Setter Property="ContentTemplate"
+                                                    Value="{StaticResource TextureDetailTemplate}"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
+                                                                       Converter={StaticResource DetailTypeConverter}}"
+                                                                       Value="Sprite">
+                                            <Setter Property="ContentTemplate"
+                                                    Value="{StaticResource SpriteDetailTemplate}"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
+                                                                       Converter={StaticResource DetailTypeConverter}}"
+                                                                       Value="None">
+                                            <Setter Property="ContentTemplate"
+                                                    Value="{StaticResource NoDetailTemplate}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
                     </Expander>
                 </StackPanel>
             </materialDesign:Card>

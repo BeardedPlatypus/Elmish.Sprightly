@@ -90,6 +90,22 @@ module public ProjectPage =
         | :? SelectedId as id -> Some id
         | _ -> None
 
+    let private toDetailType (selected: SelectedId option) : Presentation.Common.DetailType =
+        match selected with 
+        | Some(SelectedId.Texture _)  -> 
+            Presentation.Common.DetailType.Texture
+        | Some(SelectedId.Sprite _) -> 
+            Presentation.Common.DetailType.Sprite
+        | None -> 
+            Presentation.Common.DetailType.None
+
+    let private toTextureDetailModel (selected: SelectedId option) : Domain.Textures.Texture.Id option =
+        match selected with
+        | Some(SelectedId.Texture id)  -> 
+            Some id
+        | _ -> 
+            None
+
     let public bindings () = 
         [ "Textures" |> Binding.subModelSeq(
             (fun (m: Model) -> m.TextureStore),
@@ -110,5 +126,17 @@ module public ProjectPage =
                                         "Children" |> Binding.oneWay (fun _ -> [])
                                       ]))
                        ]))
+          "DetailType" |> Binding.oneWay(fun (m: Model) -> toDetailType m.Selected )
+          "TextureDetail" |> Binding.subModelOpt(
+            (fun (m: Model) ->  toTextureDetailModel m.Selected),
+            (fun (p: Model, m: Domain.Textures.Texture.Id) -> p.TextureStore |> List.find (fun e -> e.Id = m)),
+            (fun m -> NoOp), 
+            (fun () -> [ "Name" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.Name with | Domain.Textures.Texture.Name v -> v ) 
+                         "IdString" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Id with | Domain.Textures.Texture.Id (str, _) -> str )
+                         "IdIndex" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Id with | Domain.Textures.Texture.Id (_, index) -> index )
+                         "Dimensions" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.Width, m.Data.MetaData.Height with | Domain.Textures.MetaData.Pixel w, Domain.Textures.MetaData.Pixel h -> $"{w} px x {h} px")
+                         "DiskSize" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.DiskSize with | Domain.Textures.MetaData.Size s -> $"{s} Kb")
+                       ]))
+
           "OnSelectedItemChanged" |> Binding.cmdParam(fun (selectedId) (m: Model) -> ChangeSelected (toSelectedId selectedId))
         ]
