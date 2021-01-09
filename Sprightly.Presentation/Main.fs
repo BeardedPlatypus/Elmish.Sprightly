@@ -68,6 +68,11 @@ module Main =
 
             { model with NewProjectPageModel = Some newPageModel 
             }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) newPageCmdMsgs
+        | (PageMsg.ProjectPage pageMsg, PageModel.ProjectPage) when model.ProjectPageModel.IsSome -> 
+            let newPageModel, _ = Presentation.Pages.ProjectPage.update pageMsg model.ProjectPageModel.Value
+
+            { model with ProjectPageModel = Some newPageModel 
+            }, []
         | _ ->
             model, []
 
