@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DetailType.fs" />
     <Compile Include="PageType.fs" />
   </ItemGroup>
 
