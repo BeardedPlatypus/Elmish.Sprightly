@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Sprightly.Presentation.Views.Pages.ProjectPage.Toolboxes.SpriteToolbox.TextureDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage.Toolboxes.SpriteToolbox"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Margin="12 2 12 12">
+        
+        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Path=ProjectPageModel.TextureDetail.Name}"
+                 Margin="4"
+                 VerticalAlignment="Center">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock Text="Name"/>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+
+        <Grid Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Path=ProjectPageModel.TextureDetail.IdString}"
+                 VerticalAlignment="Center"
+                 Margin="0 0 4 0"
+                 Grid.Column="0">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock Text="Id String"/>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Path=ProjectPageModel.TextureDetail.IdIndex}"
+                 VerticalAlignment="Center"
+                 Margin="4 0 0 0"
+                 Grid.Column="1">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock Text="Id Index"/>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+        </Grid>
+
+        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Path=ProjectPageModel.TextureDetail.Dimensions}"
+                 VerticalAlignment="Center"
+                 Margin="4"
+                 IsEnabled="False">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock Text="Dimensions"/>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+
+        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Path=ProjectPageModel.TextureDetail.DiskSize}"
+                 VerticalAlignment="Center"
+                 Margin="4"
+                 IsEnabled="False">
+            <materialDesign:HintAssist.Hint>
+                <TextBlock Text="Size"/>
+            </materialDesign:HintAssist.Hint>
+        </TextBox>
+
+    </StackPanel>
+</UserControl>
