@@ -1,6 +1,7 @@
 ﻿namespace Sprightly.Domain.Textures
 
 open Sprightly.Common
+open Sprightly.Domain
 
 /// <summary>
 /// <see cref="Texture"/> defines the <see cref="Texture.T"/> and related
@@ -38,6 +39,7 @@ module public Texture =
         Name: Name
         Path: Path.T
         MetaData: MetaData.T
+        Sprites: Sprite.T list
     }
 
     /// <summary>
@@ -61,6 +63,7 @@ module public Texture =
           Data = { Name = Name name
                    Path = path
                    MetaData = metaData
+                   Sprites = []
                  }
         }
 

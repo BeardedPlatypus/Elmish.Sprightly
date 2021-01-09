@@ -77,6 +77,7 @@ module public Texture =
                                             Data = { Name = name |> Name
                                                      Path = texturePath
                                                      MetaData= md
+                                                     Sprites = []
                                                    }
                                           })
 
