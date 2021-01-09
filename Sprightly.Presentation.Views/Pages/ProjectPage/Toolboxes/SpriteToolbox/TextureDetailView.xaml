@@ -18,7 +18,8 @@
     <StackPanel Margin="12 2 12 12">
         
         <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Path=ProjectPageModel.TextureDetail.Name}"
+                 Text="{Binding Path=ProjectPageModel.TextureDetail.Name,
+                                UpdateSourceTrigger=PropertyChanged}"
                  Margin="4"
                  VerticalAlignment="Center">
             <materialDesign:HintAssist.Hint>
@@ -32,24 +33,26 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Path=ProjectPageModel.TextureDetail.IdString}"
-                 VerticalAlignment="Center"
-                 Margin="0 0 4 0"
-                 Grid.Column="0">
-            <materialDesign:HintAssist.Hint>
-                <TextBlock Text="Id String"/>
-            </materialDesign:HintAssist.Hint>
-        </TextBox>
-        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Path=ProjectPageModel.TextureDetail.IdIndex}"
-                 VerticalAlignment="Center"
-                 Margin="4 0 0 0"
-                 Grid.Column="1">
-            <materialDesign:HintAssist.Hint>
-                <TextBlock Text="Id Index"/>
-            </materialDesign:HintAssist.Hint>
-        </TextBox>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Path=ProjectPageModel.TextureDetail.IdString,
+                                    UpdateSourceTrigger=PropertyChanged}"
+                     VerticalAlignment="Center"
+                     Margin="0 0 4 0"
+                     Grid.Column="0">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock Text="Id String"/>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Path=ProjectPageModel.TextureDetail.IdIndex,
+                                    UpdateSourceTrigger=PropertyChanged}"
+                     VerticalAlignment="Center"
+                     Margin="4 0 0 0"
+                     Grid.Column="1">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock Text="Id Index"/>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
         </Grid>
 
         <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"

@@ -8,8 +8,8 @@ open Sprightly
 module public ProjectPage =
     [<RequireQualifiedAccess>]
     type public SelectedId =
-        | Texture of Domain.Textures.Texture.Id
-        | Sprite of Domain.Textures.Texture.Id * Domain.Sprite.Id
+        | Texture of Domain.Textures.Texture.InternalStoreId
+        | Sprite of Domain.Textures.Texture.InternalStoreId * Domain.Sprite.Id
 
     type public Model =
         { SolutionPath : Common.Path.T
@@ -17,15 +17,21 @@ module public ProjectPage =
           Selected : SelectedId option
         }
 
+    type public TextureDetailMsg =
+        | UpdateName of Domain.Textures.Texture.Name
+        | UpdateId of Domain.Textures.Texture.Id
+
     type public Msg = 
         | ChangeSelected of SelectedId option
+        | TextureDetailMsg of id: Domain.Textures.Texture.InternalStoreId * msg: TextureDetailMsg
         | NoOp
 
     let public init (slnPath: Common.Path.T) : Model = 
         { SolutionPath = slnPath
           TextureStore = 
-            [ { Id = Domain.Textures.Texture.Id ("tex", (uint) 1) 
-                Data = { Name = Domain.Textures.Texture.Name "Texture 1" 
+            [ { Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) 1)
+                Data = { Id = { Str = "tex"; Index = (uint) 1 }
+                         Name = Domain.Textures.Texture.Name "Texture 1" 
                          Path = Common.Path.T "empty" 
                          MetaData = { Width = Domain.Textures.MetaData.Pixel 256
                                       Height = Domain.Textures.MetaData.Pixel 512
@@ -43,8 +49,9 @@ module public ProjectPage =
                                    ]
                        }
               }
-              { Id = Domain.Textures.Texture.Id ("tex", (uint) 2) 
-                Data = { Name = Domain.Textures.Texture.Name "Texture 2" 
+              { Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) 2)
+                Data = { Id = { Str = "tex"; Index = (uint) 2 }
+                         Name = Domain.Textures.Texture.Name "Texture 2" 
                          Path = Common.Path.T "empty" 
                          MetaData = { Width = Domain.Textures.MetaData.Pixel 256
                                       Height = Domain.Textures.MetaData.Pixel 512
@@ -53,8 +60,9 @@ module public ProjectPage =
                          Sprites = []
                        }
               }
-              { Id = Domain.Textures.Texture.Id ("tex", (uint) 3) 
-                Data = { Name = Domain.Textures.Texture.Name "Texture 3" 
+              { Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) 3)
+                Data = { Id = { Str = "tex"; Index = (uint) 3 }
+                         Name = Domain.Textures.Texture.Name "Texture 3" 
                          Path = Common.Path.T "empty" 
                          MetaData = { Width = Domain.Textures.MetaData.Pixel 256
                                       Height = Domain.Textures.MetaData.Pixel 512
@@ -67,15 +75,31 @@ module public ProjectPage =
           Selected = None
         }
 
-    let public update (msg: Msg) (model) : Model * 'CmdMsg list =
+    let private updateTextureDetail (id: Domain.Textures.Texture.InternalStoreId) 
+                                    (msg: TextureDetailMsg) 
+                                    (model: Model) : Model * 'CmdMsg list = 
+        let updateFunc =
+            match msg with 
+            | UpdateName name ->
+                fun (t: Domain.Textures.Texture.T) -> 
+                    { t with Data = { t.Data with Name = name }}
+            | UpdateId id -> 
+                fun (t: Domain.Textures.Texture.T) -> {t with Data = { t.Data with Id = id}}
+
+        let newStore = Domain.Textures.Texture.updateTextureInStore model.TextureStore id updateFunc
+        { model with TextureStore =  newStore }, []
+
+    let public update (msg: Msg) (model: Model) : Model * 'CmdMsg list =
         match msg with 
         | ChangeSelected newSelected ->
             { model with Selected = newSelected}, []
+        | TextureDetailMsg (id, textureDetailMsg) ->
+            updateTextureDetail id textureDetailMsg model
         | NoOp ->
             model, []
 
     type private SpriteBindingModel = 
-        { ParentTexture : Domain.Textures.Texture.Id 
+        { ParentTexture : Domain.Textures.Texture.InternalStoreId 
           Sprite : Domain.Sprite.T
         }
 
@@ -99,7 +123,7 @@ module public ProjectPage =
         | None -> 
             Presentation.Common.DetailType.None
 
-    let private toTextureDetailModel (selected: SelectedId option) : Domain.Textures.Texture.Id option =
+    let private toTextureDetailModel (selected: SelectedId option) : Domain.Textures.Texture.InternalStoreId option =
         match selected with
         | Some(SelectedId.Texture id)  -> 
             Some id
@@ -111,7 +135,7 @@ module public ProjectPage =
             (fun (m: Model) -> m.TextureStore),
             (fun (_, m) -> m),
             (fun (e: Domain.Textures.Texture.T) -> e.Id),
-            (fun (id: Domain.Textures.Texture.Id, msg) -> NoOp),
+            (fun (id: Domain.Textures.Texture.InternalStoreId, msg) -> NoOp),
             (fun () -> [ "Name" |> Binding.oneWay (fun m -> match m.Data.Name with | Domain.Textures.Texture.Name n -> n) 
                          "Icon" |> Binding.oneWay (fun _ -> "ImageOutline")
                          "SelectedId" |> Binding.oneWay (fun m -> SelectedId.Texture m.Id)
@@ -129,11 +153,17 @@ module public ProjectPage =
           "DetailType" |> Binding.oneWay(fun (m: Model) -> toDetailType m.Selected )
           "TextureDetail" |> Binding.subModelOpt(
             (fun (m: Model) ->  toTextureDetailModel m.Selected),
-            (fun (p: Model, m: Domain.Textures.Texture.Id) -> p.TextureStore |> List.find (fun e -> e.Id = m)),
-            (fun m -> NoOp), 
-            (fun () -> [ "Name" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.Name with | Domain.Textures.Texture.Name v -> v ) 
-                         "IdString" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Id with | Domain.Textures.Texture.Id (str, _) -> str )
-                         "IdIndex" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Id with | Domain.Textures.Texture.Id (_, index) -> index )
+            (fun (p: Model, m: Domain.Textures.Texture.InternalStoreId) -> Domain.Textures.Texture.getTextureFromStore p.TextureStore m),
+            TextureDetailMsg, 
+            (fun () -> [ "Name" |> Binding.twoWay(
+                            (fun (m: Domain.Textures.Texture.T) -> match m.Data.Name with | Domain.Textures.Texture.Name v -> v ),
+                            (fun (v: string) (m: Domain.Textures.Texture.T) -> (m.Id, UpdateName (Domain.Textures.Texture.Name v))))
+                         "IdString" |> Binding.twoWay(
+                            (fun (m: Domain.Textures.Texture.T) -> m.Data.Id.Str),
+                            (fun (v: string) (m: Domain.Textures.Texture.T) -> (m.Id, UpdateId { m.Data.Id with Str = v })))
+                         "IdIndex" |> Binding.twoWay(
+                            (fun (m: Domain.Textures.Texture.T) -> m.Data.Id.Index),
+                            (fun (v: uint) (m: Domain.Textures.Texture.T) -> (m.Id, UpdateId { m.Data.Id with Index = v })))
                          "Dimensions" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.Width, m.Data.MetaData.Height with | Domain.Textures.MetaData.Pixel w, Domain.Textures.MetaData.Pixel h -> $"{w} px x {h} px")
                          "DiskSize" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.DiskSize with | Domain.Textures.MetaData.Size s -> $"{s} Kb")
                        ]))

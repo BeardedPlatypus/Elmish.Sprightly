@@ -85,8 +85,9 @@ module public Texture =
             if metaData.IsSome then 
                 let name = Path.nameWithoutExtension slnTexturePath.Value
                 let id = Textures.Texture.getUniqueId store name
+                let storeId = Textures.Texture.GetUniqueStoreInternalId store
                 let newTexture = 
-                    Textures.Texture.construct id name slnTexturePath.Value metaData.Value
+                    Textures.Texture.construct storeId id name slnTexturePath.Value metaData.Value
             
                 fLoadTexture newTexture
             

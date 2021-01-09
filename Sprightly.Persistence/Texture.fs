@@ -27,11 +27,10 @@ module public Texture =
     /// The corresponding <see cref="DataAccessRecord"/>.
     /// <returns>
     let public toDataAccessRecord (tex: Domain.Textures.Texture.T) : DataAccessRecord =
-        let idString, idIndex = match tex.Id with | Domain.Textures.Texture.Id (idString, idIndex) -> idString, idIndex
         { Name = match tex.Data.Name with | Domain.Textures.Texture.Name name -> name
           FileName = tex.Data.Path |> Common.Path.name
-          idString = idString
-          idIndex = idIndex
+          idString = tex.Data.Id.Str
+          idIndex = tex.Data.Id.Index
         }
 
     open Common.Path
@@ -68,16 +67,18 @@ module public Texture =
     /// <paramref name="texturePath"/>, else <see cref="Option.None"/>.
     /// </returns>
     let public loadDomainTexture (inspector: Domain.Textures.Inspector)
+                                 (internalStoreId : InternalStoreId)
                                  (name: string)
                                  (id: Id)
                                  (texturePath: Common.Path.T) : T option =
         let metaData = inspector.ReadMetaData texturePath
 
-        metaData |> Option.map (fun md -> { Id = id
+        metaData |> Option.map (fun md -> { Id = internalStoreId
                                             Data = { Name = name |> Name
                                                      Path = texturePath
                                                      MetaData= md
                                                      Sprites = []
+                                                     Id = id
                                                    }
                                           })
 

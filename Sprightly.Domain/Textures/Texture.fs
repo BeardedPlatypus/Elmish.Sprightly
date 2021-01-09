@@ -8,10 +8,16 @@ open Sprightly.Domain
 /// functions.
 /// </summary>
 module public Texture = 
+    type public InternalStoreId = 
+        | Id of uint
+
     /// <summary>
     /// <see cref="Id"/> defines a texture id.
     /// </summary>
-    type public Id = | Id of string * uint
+    type public Id = 
+        { Str : string 
+          Index : uint
+        }
 
     /// <summary>
     /// Convert the specified <paramref name="id"/> to its corresponding key
@@ -21,11 +27,7 @@ module public Texture =
     /// <returns>
     /// The corresponding key string.
     /// </returns>
-    let public toKeyString (id: Id): string = 
-        match id with | Id (idVal, idInt) -> idVal + "#" + idInt.ToString()
-
-    let private getIdString (id: Id) : string = match id with Id (s, _) -> s
-    let private getIdIndex (id: Id) : uint = match id with Id (_, i) -> i
+    let public toKeyString (id: Id): string = $"{id.Str}#{id.Index}"
 
     /// <summary>
     /// <see cref="Name"/> defines a texture name.
@@ -40,13 +42,14 @@ module public Texture =
         Path: Path.T
         MetaData: MetaData.T
         Sprites: Sprite.T list
+        Id: Id
     }
 
     /// <summary>
     /// <see cref="T"/> defines the texture type.
     /// </summary>
     type public T = {
-        Id: Id
+        Id: InternalStoreId
         Data: Data
     }
 
@@ -58,9 +61,14 @@ module public Texture =
     /// <returns>
     /// A new texture.
     /// </returns>
-    let construct (id: Id) (name: string) (path: Path.T) (metaData: MetaData.T) : T =
-        { Id = id
-          Data = { Name = Name name
+    let construct (internalStoreId: InternalStoreId)
+                  (id: Id) 
+                  (name: string) 
+                  (path: Path.T) 
+                  (metaData: MetaData.T) : T =
+        { Id = internalStoreId
+          Data = { Id = id
+                   Name = Name name
                    Path = path
                    MetaData = metaData
                    Sprites = []
@@ -92,7 +100,7 @@ module public Texture =
     /// </returns>
     let public addTexturesToStore (store: Store) (textures: T list) : Store =
         textures @ store 
-        |> List.sortBy (fun (t: T) -> (match t.Id with | Id (v, _) -> v))
+        |> List.sortBy (fun (t: T) -> match t.Id with InternalStoreId.Id v -> v)
 
     /// <summary>
     /// Add the specified <paramref name="texture"/> to the provided 
@@ -117,8 +125,8 @@ module public Texture =
     /// An <see cref="Id"/> with the given idString and a unique index.
     /// </returns>
     let public getUniqueId (store: Store) (idString: string) : Id = 
-        let usedIndices: uint Set = List.filter (fun (e: T) -> getIdString e.Id = idString) store
-                                    |> List.map (fun (e: T) -> getIdIndex e.Id)
+        let usedIndices: uint Set = List.filter (fun (e: T) -> e.Data.Id.Str = idString) store
+                                    |> List.map (fun (e: T) -> e.Data.Id.Index)
                                     |> Set.ofList
 
         let rec generateId (id: uint) =
@@ -127,4 +135,15 @@ module public Texture =
             else 
                 id
 
-        Id (idString, generateId <| uint 0)
+        { Str = idString; Index = generateId <| uint 0 }
+
+    let public getTextureFromStore (store: Store) (id: InternalStoreId) : T =
+        List.find (fun e -> e.Id = id) store
+
+    let public updateTextureInStore (store: Store) (id: InternalStoreId) (fUpdate : T -> T) : Store =
+        List.map (fun (e: T) -> if e.Id = id then fUpdate e else e ) store
+
+    let public GetUniqueStoreInternalId (store: Store) : InternalStoreId =
+        List.map (fun e -> match e.Id with InternalStoreId.Id v -> v) store
+        |> (fun l -> (List.max l) + (uint) 1)
+        |> InternalStoreId.Id
