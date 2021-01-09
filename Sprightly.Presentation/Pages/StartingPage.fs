@@ -31,13 +31,13 @@ module public StartingPage =
 
     let private openProjectFilePickerCmd () =
         let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
-                                                            checkIfFileExists = true,
-                                                            dereferenceLinks = true,
-                                                            filter = "Sprightly solution files (*.sprightly)|*.sprightly|All files (*.*)|*.*",
-                                                            filterIndex = 1, 
-                                                            multiSelect = false,
-                                                            restoreDirectory = false, 
-                                                            title = "Load a sprightly solution")
+                                                                checkIfFileExists = true,
+                                                                dereferenceLinks = true,
+                                                                filter = "Sprightly solution files (*.sprightly)|*.sprightly|All files (*.*)|*.*",
+                                                                filterIndex = 1, 
+                                                                multiSelect = false,
+                                                                restoreDirectory = false, 
+                                                                title = "Load a sprightly solution")
         Components.Dialogs.FileDialog.showDialogCmd
             RequestOpenProject
             (fun _ -> NoOp)

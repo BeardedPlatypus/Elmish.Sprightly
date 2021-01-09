@@ -57,7 +57,7 @@
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectedItemChanged">
-                                        <i:InvokeCommandAction Command="{Binding Path=ProjectPageModel.OnSelectedItemChanged}"
+                                        <i:InvokeCommandAction Command="{Binding Path=ProjectPageModel.OnSelectedItemChangedCommand}"
                                                                PassEventArgsToCommand="True"
                                                                EventArgsParameterPath="Source.SelectedValue"/>
                                     </i:EventTrigger>
@@ -88,6 +88,7 @@
 
                                 <Button Style="{StaticResource MaterialDesignFlatButton}"
                                         Content="{materialDesign:PackIcon PlusBold}"
+                                        Command="{Binding Path=ProjectPageModel.RequestOpenTextureFilePickerCommand}"
                                         Grid.Column="0" />
                                 
                                 <Button Style="{StaticResource MaterialDesignFlatButton}"
@@ -96,6 +97,7 @@
                                         Grid.Column="1" />
 
                                 <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Command="{Binding Path=ProjectPageModel.RequestRemoveSelectedCommand}"
                                         Content="{materialDesign:PackIcon Bin}"
                                         Grid.Column="2" />
                             </Grid>

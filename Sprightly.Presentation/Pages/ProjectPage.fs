@@ -4,6 +4,7 @@ open Elmish
 open Elmish.WPF
 
 open Sprightly
+open Sprightly.Presentation
 
 module public ProjectPage =
     [<RequireQualifiedAccess>]
@@ -24,56 +25,54 @@ module public ProjectPage =
     type public Msg = 
         | ChangeSelected of SelectedId option
         | TextureDetailMsg of id: Domain.Textures.Texture.InternalStoreId * msg: TextureDetailMsg
+        | RequestOpenTextureFilePicker
+        | RequestAddTexture of Common.Path.T
+        | RequestRemoveSelected
+        | UpdateStore of SelectedId option * Domain.Textures.Texture.Store
         | NoOp
 
-    let public init (slnPath: Common.Path.T) : Model = 
+    type public CmdMsg =
+        | LoadProject of Common.Path.T
+        | OpenTextureFilePicker 
+        | AddTexture of path: Common.Path.T * store: Domain.Textures.Texture.Store
+        | RemoveTexture of id: Domain.Textures.Texture.InternalStoreId * store: Domain.Textures.Texture.Store
+
+    let private openProjectFilePickerCmd () =
+        let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
+                                                                checkIfFileExists = true,
+                                                                dereferenceLinks = true,
+                                                                filter = "Texture files (*.png)|*.png|All files (*.*)|*.*",
+                                                                filterIndex = 1, 
+                                                                multiSelect = false,
+                                                                restoreDirectory = false, 
+                                                                title = "Add a new texture")
+        Components.Dialogs.FileDialog.showDialogCmd
+            RequestAddTexture
+            (fun _ -> NoOp)
+            (fun _ -> NoOp)
+            Components.Dialogs.FileDialog.DialogType.Open
+            config
+
+    let public toCmd (toParentCmd : Msg -> 'ParentMsg ) 
+                     (loadProjectCmd : Common.Path.T -> Cmd<'ParentMsg>)
+                     (addTextureCmd : Common.Path.T -> Domain.Textures.Texture.Store -> Cmd<'ParentMsg>)
+                     (removeTextureCmd: (Domain.Textures.Texture.InternalStoreId -> Domain.Textures.Texture.Store -> Cmd<'ParentMsg>))
+                     (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
+        match cmdMsg with 
+        | LoadProject path ->
+            loadProjectCmd path
+        | OpenTextureFilePicker ->
+            openProjectFilePickerCmd () |> Cmd.map toParentCmd
+        | AddTexture (path, store) ->
+            addTextureCmd path store
+        | RemoveTexture (id, store) ->
+            removeTextureCmd id store
+
+    let public init (slnPath: Common.Path.T) : Model * CmdMsg list = 
         { SolutionPath = slnPath
-          TextureStore = 
-            [ { Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) 1)
-                Data = { Id = { Str = "tex"; Index = (uint) 1 }
-                         Name = Domain.Textures.Texture.Name "Texture 1" 
-                         Path = Common.Path.T "empty" 
-                         MetaData = { Width = Domain.Textures.MetaData.Pixel 256
-                                      Height = Domain.Textures.MetaData.Pixel 512
-                                      DiskSize = Domain.Textures.MetaData.Size 12.0
-                                    }
-                         Sprites = [ { Id = Domain.Sprite.Id ("sprite", (uint) 0 )
-                                       Data = { Name = "Sprite 0" }
-                                     } 
-                                     { Id = Domain.Sprite.Id ("sprite", (uint) 1)
-                                       Data = { Name = "Sprite 1" }
-                                     }
-                                     { Id = Domain.Sprite.Id ("sprite", (uint) 1)
-                                       Data = { Name = "Sprite 1" }
-                                     }
-                                   ]
-                       }
-              }
-              { Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) 2)
-                Data = { Id = { Str = "tex"; Index = (uint) 2 }
-                         Name = Domain.Textures.Texture.Name "Texture 2" 
-                         Path = Common.Path.T "empty" 
-                         MetaData = { Width = Domain.Textures.MetaData.Pixel 256
-                                      Height = Domain.Textures.MetaData.Pixel 512
-                                      DiskSize = Domain.Textures.MetaData.Size 13.0
-                                    }
-                         Sprites = []
-                       }
-              }
-              { Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) 3)
-                Data = { Id = { Str = "tex"; Index = (uint) 3 }
-                         Name = Domain.Textures.Texture.Name "Texture 3" 
-                         Path = Common.Path.T "empty" 
-                         MetaData = { Width = Domain.Textures.MetaData.Pixel 256
-                                      Height = Domain.Textures.MetaData.Pixel 512
-                                      DiskSize = Domain.Textures.MetaData.Size 14.0
-                                    }
-                         Sprites = []
-                       }
-              }
-            ]
+          TextureStore = []
           Selected = None
-        }
+        }, [ LoadProject slnPath ]
 
     let private updateTextureDetail (id: Domain.Textures.Texture.InternalStoreId) 
                                     (msg: TextureDetailMsg) 
@@ -89,12 +88,26 @@ module public ProjectPage =
         let newStore = Domain.Textures.Texture.updateTextureInStore model.TextureStore id updateFunc
         { model with TextureStore =  newStore }, []
 
-    let public update (msg: Msg) (model: Model) : Model * 'CmdMsg list =
+    let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with 
         | ChangeSelected newSelected ->
             { model with Selected = newSelected}, []
         | TextureDetailMsg (id, textureDetailMsg) ->
             updateTextureDetail id textureDetailMsg model
+        | RequestOpenTextureFilePicker ->
+            model, [ OpenTextureFilePicker ]
+        | RequestAddTexture path -> 
+            model, [ AddTexture (path, model.TextureStore) ]
+        | RequestRemoveSelected ->
+            match model.Selected with 
+            | Some(SelectedId.Texture id) ->
+                model, [  RemoveTexture (id, model.TextureStore) ]
+            | _ ->
+                model, []
+        | UpdateStore (selectedId, store) ->
+            { model with Selected = selectedId
+                         TextureStore = store
+            }, []
         | NoOp ->
             model, []
 
@@ -168,5 +181,7 @@ module public ProjectPage =
                          "DiskSize" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.DiskSize with | Domain.Textures.MetaData.Size s -> $"{s} Kb")
                        ]))
 
-          "OnSelectedItemChanged" |> Binding.cmdParam(fun (selectedId) (m: Model) -> ChangeSelected (toSelectedId selectedId))
+          "OnSelectedItemChangedCommand" |> Binding.cmdParam(fun (selectedId) (m: Model) -> ChangeSelected (toSelectedId selectedId))
+          "RequestOpenTextureFilePickerCommand" |> Binding.cmd(fun _ -> RequestOpenTextureFilePicker)
+          "RequestRemoveSelectedCommand" |> Binding.cmd(fun _ -> RequestRemoveSelected)
         ]

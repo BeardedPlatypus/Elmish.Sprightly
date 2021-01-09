@@ -30,7 +30,9 @@ module Main =
         | InitialisationSuccess
         | InitialisationFailure of exn
         | RequestLoadProject of Common.Path.T
-        | MoveToPage of PageModel
+        | MoveToNewProjectPage
+        | MoveToStartingPage
+        | MoveToProjectPage of Common.Path.T
         | PageMsg of PageMsg
         | NoOp
 
@@ -38,7 +40,7 @@ module Main =
     type public PageCmdMsg =
         | StartingPage of Presentation.Pages.StartingPage.CmdMsg
         | NewProjectPage of Presentation.Pages.NewProjectPage.CmdMsg
-        | ProjectPage of unit
+        | ProjectPage of Presentation.Pages.ProjectPage.CmdMsg
 
     [<RequireQualifiedAccess>]
     type public CmdMsg = 
@@ -69,10 +71,10 @@ module Main =
             { model with NewProjectPageModel = Some newPageModel 
             }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) newPageCmdMsgs
         | (PageMsg.ProjectPage pageMsg, PageModel.ProjectPage) when model.ProjectPageModel.IsSome -> 
-            let newPageModel, _ = Presentation.Pages.ProjectPage.update pageMsg model.ProjectPageModel.Value
+            let newPageModel, newPageCmdMsgs = Presentation.Pages.ProjectPage.update pageMsg model.ProjectPageModel.Value
 
             { model with ProjectPageModel = Some newPageModel 
-            }, []
+            }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.ProjectPage) newPageCmdMsgs
         | _ ->
             model, []
 
@@ -85,24 +87,23 @@ module Main =
             model, []
         | RequestLoadProject projPath ->
             model, [ CmdMsg.LoadProject projPath ]
-        | MoveToPage pageModel -> 
-            match pageModel with
-            | PageModel.NewProjectPage -> 
-                let newProjectPageModel, initCmds = 
-                    model.NewProjectPageModel
-                    |> Option.map (fun m -> m, [])
-                    |> Option.defaultValue (Presentation.Pages.NewProjectPage.init ())
-                { model with PageModel = pageModel 
-                             NewProjectPageModel = Some newProjectPageModel 
-                }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) initCmds
-            | PageModel.ProjectPage ->
-                let projectPageModel = Pages.ProjectPage.init (Common.Path.T "slnPath")
+        | MoveToStartingPage ->
+            { model with PageModel = PageModel.StartingPage }, []
+        | MoveToNewProjectPage ->
+            let newProjectPageModel, initCmds = 
+                model.NewProjectPageModel
+                |> Option.map (fun m -> m, [])
+                |> Option.defaultValue (Presentation.Pages.NewProjectPage.init ())
+            { model with PageModel = PageModel.NewProjectPage
+                         NewProjectPageModel = Some newProjectPageModel 
+            }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.NewProjectPage) initCmds
+        | MoveToProjectPage slnPath ->
+            let projectPageModel, initCmds = 
+                Presentation.Pages.ProjectPage.init slnPath
 
-                { model with PageModel = pageModel
-                             ProjectPageModel = Some projectPageModel
-                }, []
-            | _ ->
-                { model with PageModel = pageModel }, []
+            { model with PageModel = PageModel.ProjectPage 
+                         ProjectPageModel = Some projectPageModel
+            }, List.map (CmdMsg.PageCmdMsg << PageCmdMsg.ProjectPage) initCmds
         | PageMsg pageMsg ->
             updatePage pageMsg model
         | NoOp ->

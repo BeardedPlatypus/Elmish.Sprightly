@@ -19,12 +19,6 @@ module public Texture =
         }
 
     /// <summary>
-    /// The function to retrieve all information of a texture from a given
-    /// <see cref="TextureDescription"/>.
-    /// <summary>
-    type public RetrieveTextureDataFunc = TextureDescription -> Textures.Texture.T option
-
-    /// <summary>
     /// The function to retrieve the <see cref="MetaData.T"/> of a texture from a given
     /// <see cref="Path.T"/>.
     /// <summary>
@@ -77,7 +71,7 @@ module public Texture =
                                     (fSaveStore: SaveStoreFunc)
                                     (texturePath: Path.T)
                                     (store: Textures.Texture.Store) : 
-                                    (Textures.Texture.Id * Textures.Texture.Store) option =
+                                    (Textures.Texture.InternalStoreId * Textures.Texture.Store) option =
         let slnTexturePath = fCopyTextureIntoSolution texturePath
         if slnTexturePath.IsSome then
             let metaData = fRetrieveMetaData slnTexturePath.Value
@@ -94,7 +88,7 @@ module public Texture =
                 let newStore = Textures.Texture.addTextureToStore store newTexture
 
                 fSaveStore newStore
-                Some (id, newStore)
+                Some (storeId, newStore)
             else 
                 None
         else 

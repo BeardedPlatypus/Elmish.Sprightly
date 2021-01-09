@@ -73,6 +73,12 @@ module public Project =
     type public RetrieveTexturePathsFromSolutionFunc = Path.T -> (Texture.TextureDescription list) option
 
     /// <summary>
+    /// The function to retrieve all information of a texture from a given
+    /// <see cref="TextureDescription"/>.
+    /// <summary>
+    type public RetrieveTextureDataFunc = int -> Texture.TextureDescription -> Textures.Texture.T option
+
+    /// <summary>
     /// Load the project at the given <paramref name="solutionFilePath"/>.
     /// </summary>
     /// <param name ="fRetrieveTexturePathsFromSolution"/>
@@ -82,15 +88,14 @@ module public Project =
     /// Function to retrieve the texture from the given texture path.
     /// </param>
     let public loadProject (fRetrieveTexturePathsFromSolution: RetrieveTexturePathsFromSolutionFunc)
-                           (fRetrieveTextureData: Texture.RetrieveTextureDataFunc)
+                           (fRetrieveTextureData: RetrieveTextureDataFunc)
                            (fLoadTexture: Texture.LoadTextureFunc)
                            (solutionFilePath: Path.T) : Project option =
-        
         let texturePaths = fRetrieveTexturePathsFromSolution solutionFilePath
 
         texturePaths |> Option.map (fun paths ->
             let textureStore : Textures.Texture.Store = 
-                List.map fRetrieveTextureData paths
+                List.mapi fRetrieveTextureData paths
                 |> List.choose id
                 |> Textures.Texture.addTexturesToStore (Textures.Texture.emptyStore ())
 
