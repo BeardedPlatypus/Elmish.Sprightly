@@ -31,10 +31,19 @@ module public ProjectPage =
         | UpdateStore of SelectedId option * Domain.Textures.Texture.Store
         | NoOp
 
+    /// <summary>
+    /// The data required to add a texture to this project.
+    /// </summary>
+    type public AddTextureDescription = 
+        { TexturePath: Common.Path.T
+          Store: Domain.Textures.Texture.Store
+          SolutionPath: Common.Path.T
+        }
+
     type public CmdMsg =
         | LoadProject of Common.Path.T
         | OpenTextureFilePicker 
-        | AddTexture of path: Common.Path.T * store: Domain.Textures.Texture.Store
+        | AddTexture of AddTextureDescription
         | RemoveTexture of id: Domain.Textures.Texture.InternalStoreId * store: Domain.Textures.Texture.Store
 
     let private openProjectFilePickerCmd () =
@@ -55,7 +64,7 @@ module public ProjectPage =
 
     let public toCmd (toParentCmd : Msg -> 'ParentMsg ) 
                      (loadProjectCmd : Common.Path.T -> Cmd<'ParentMsg>)
-                     (addTextureCmd : Common.Path.T -> Domain.Textures.Texture.Store -> Cmd<'ParentMsg>)
+                     (addTextureCmd : AddTextureDescription -> Cmd<'ParentMsg>)
                      (removeTextureCmd: (Domain.Textures.Texture.InternalStoreId -> Domain.Textures.Texture.Store -> Cmd<'ParentMsg>))
                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
@@ -63,8 +72,8 @@ module public ProjectPage =
             loadProjectCmd path
         | OpenTextureFilePicker ->
             openProjectFilePickerCmd () |> Cmd.map toParentCmd
-        | AddTexture (path, store) ->
-            addTextureCmd path store
+        | AddTexture descr ->
+            addTextureCmd descr
         | RemoveTexture (id, store) ->
             removeTextureCmd id store
 
@@ -97,7 +106,10 @@ module public ProjectPage =
         | RequestOpenTextureFilePicker ->
             model, [ OpenTextureFilePicker ]
         | RequestAddTexture path -> 
-            model, [ AddTexture (path, model.TextureStore) ]
+            model, [ AddTexture { TexturePath = path
+                                  Store = model.TextureStore
+                                  SolutionPath = model.SolutionPath
+                                } ]
         | RequestRemoveSelected ->
             match model.Selected with 
             | Some(SelectedId.Texture id) ->

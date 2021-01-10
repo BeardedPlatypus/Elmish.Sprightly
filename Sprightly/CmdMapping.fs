@@ -112,13 +112,14 @@ module public CmdMapping =
             (fun () -> Cmd.ofMsg MoveToStartingPage)
             createNewSolutionCmd
 
-    let private addTextureCmd (path: Common.Path.T) (store: Domain.Textures.Texture.Store) : Cmd<Msg> =
+    let private addTextureCmd (descr: Presentation.Pages.ProjectPage.AddTextureDescription) : Cmd<Msg> =
         async {
             do! Async.SwitchToThreadPool () 
             
+            let solutionDirectoryPath = Common.Path.parentDirectory descr.SolutionPath
             let fCopyTextureIntoSolution : Application.Texture.CopyTextureIntoSolutionFunc = 
-                fun (_) -> Some (Common.Path.T "temp")
-
+                Persistence.Texture.copyTextureIntoTextureFolder solutionDirectoryPath
+            
             let fRetrieveTextureMetaData : Application.Texture.RetrieveTextureMetaDataFunc = 
                 fun (_) ->
                     Some { Width = Domain.Textures.MetaData.Pixel 256 
@@ -130,15 +131,16 @@ module public CmdMapping =
                 ()
 
             let fSaveStore (store: Domain.Textures.Texture.Store) : unit =
-                ()
+                let textureDARs = store |> List.map Persistence.Texture.toDataAccessRecord
+                Persistence.SolutionFile.updateTexturesOnDisk textureDARs descr.SolutionPath
 
             return Application.Texture.addNewTextureToStore
                        fCopyTextureIntoSolution
                        fRetrieveTextureMetaData
                        fLoadTexture
                        fSaveStore
-                       path 
-                       store
+                       descr.TexturePath
+                       descr.Store
                    |> Option.map (fun (id, store) -> (Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore ((Some (Presentation.Pages.ProjectPage.SelectedId.Texture id)), store) ) )))
                    |> Option.defaultValue NoOp
                 

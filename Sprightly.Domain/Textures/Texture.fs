@@ -144,6 +144,9 @@ module public Texture =
         List.map (fun (e: T) -> if e.Id = id then fUpdate e else e ) store
 
     let public GetUniqueStoreInternalId (store: Store) : InternalStoreId =
-        List.map (fun e -> match e.Id with InternalStoreId.Id v -> v) store
-        |> (fun l -> (List.max l) + (uint) 1)
-        |> InternalStoreId.Id
+        if store |> List.isEmpty then 
+            InternalStoreId.Id ((uint) 0)
+        else
+            List.map (fun e -> match e.Id with InternalStoreId.Id v -> v) store
+            |> (fun l -> (List.max l) + (uint) 1)
+            |> InternalStoreId.Id
