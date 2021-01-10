@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Textures\InspectorImpl.fs" />
     <Compile Include="Version.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="AppData.fs" />
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

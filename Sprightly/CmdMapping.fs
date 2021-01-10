@@ -57,21 +57,15 @@ module public CmdMapping =
                 Persistence.SolutionFile.read p
                 |> Option.map (fun dao -> dao.Textures |> List.map toTextureDescription)
 
+            let inspector : Domain.Textures.Inspector = Persistence.Textures.InspectorImpl() :> Domain.Textures.Inspector
             let fRetrieveTextureData (storeId: int) 
                                      (texDescr: Application.Texture.TextureDescription) : Domain.Textures.Texture.T option =
-                // Todo
-                { Domain.Textures.Texture.T.Id = Domain.Textures.Texture.InternalStoreId.Id ((uint) storeId)
-                  Domain.Textures.Texture.T.Data = 
-                    { Id = texDescr.Id 
-                      Name = texDescr.Name |> Domain.Textures.Texture.Name
-                      Path = texDescr.Path
-                      MetaData = { Width = Domain.Textures.MetaData.Pixel 256
-                                   Height = Domain.Textures.MetaData.Pixel 512
-                                   DiskSize = Domain.Textures.MetaData.Size 12.0
-                                 }
-                      Sprites = []
-                         }
-                } |> Some
+                Persistence.Texture.loadDomainTexture
+                    inspector
+                    ((uint) storeId |> Domain.Textures.Texture.InternalStoreId.Id)
+                    texDescr.Name
+                    texDescr.Id
+                    texDescr.Path
 
             let fLoadTexture (tex: Domain.Textures.Texture.T) : unit =
                 ()
@@ -124,12 +118,9 @@ module public CmdMapping =
             let fCopyTextureIntoSolution : Application.Texture.CopyTextureIntoSolutionFunc = 
                 Persistence.Texture.copyTextureIntoTextureFolder solutionDirectoryPath
             
-            let fRetrieveTextureMetaData : Application.Texture.RetrieveTextureMetaDataFunc = 
-                fun (_) ->
-                    Some { Width = Domain.Textures.MetaData.Pixel 256 
-                           Height = Domain.Textures.MetaData.Pixel 512
-                           DiskSize = Domain.Textures.MetaData.Size 12.0
-                         }
+            let inspector : Domain.Textures.Inspector = Persistence.Textures.InspectorImpl() :> Domain.Textures.Inspector
+            let fRetrieveTextureMetaData (path: Common.Path.T) : Domain.Textures.MetaData.T option = 
+                inspector.ReadMetaData(path)
 
             let fLoadTexture (tex: Domain.Textures.Texture.T) : unit =
                 ()
