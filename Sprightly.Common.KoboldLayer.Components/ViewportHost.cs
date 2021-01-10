@@ -55,6 +55,7 @@ namespace Sprightly.Common.KoboldLayer.Components
 
             _viewport.Initialise(_hwndHost);
             _viewport.LoadTexture("sample", "sample.png");
+            _viewport.LoadTexture("0", "D:\\Demo\\DemoProject22\\Textures\\paraaf_2.png");
             _viewport.Update();
 
             return new HandleRef(this, _hwndHost);

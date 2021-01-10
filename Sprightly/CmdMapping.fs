@@ -68,7 +68,7 @@ module public CmdMapping =
                     texDescr.Path
 
             let fLoadTexture (tex: Domain.Textures.Texture.T) : unit =
-                ()
+                Infrastructure.Textures.Texture.loadTexture tex.Id tex.Data.Path
 
             return Application.Project.loadProject fRetrieveTexturePathsFromSolution
                                                    fRetrieveTextureData
@@ -123,7 +123,7 @@ module public CmdMapping =
                 inspector.ReadMetaData(path)
 
             let fLoadTexture (tex: Domain.Textures.Texture.T) : unit =
-                ()
+                Infrastructure.Textures.Texture.loadTexture tex.Id tex.Data.Path
 
             return Application.Texture.addNewTextureToStore
                        fCopyTextureIntoSolution

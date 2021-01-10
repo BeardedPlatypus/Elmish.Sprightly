@@ -37,9 +37,9 @@ namespace Sprightly.Presentation.Views.Pages
 
             return value switch
             {
-                0 => Common.PageType.StartingPage,
+                0 => Common.PageType.ProjectPage,
                 1 => Common.PageType.NewProjectPage,
-                2 => Common.PageType.ProjectPage,
+                2 => Common.PageType.StartingPage,
                 _ => DependencyProperty.UnsetValue
             };
         }

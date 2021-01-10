@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sprightly.Common.KoboldLayer.Components\Sprightly.Common.KoboldLayer.Components.csproj" />
+    <ProjectReference Include="..\Sprightly.Common.KoboldLayer\Sprightly.Common.KoboldLayer.fsproj" />
     <ProjectReference Include="..\Sprightly.Presentation.Common\Sprightly.Presentation.Common.fsproj" />
   </ItemGroup>
 

@@ -23,6 +23,7 @@ module public ProjectPage =
         | UpdateId of Domain.Textures.Texture.Id
 
     type public Msg = 
+        | HasInitialised
         | ChangeSelected of SelectedId option
         | TextureDetailMsg of id: Domain.Textures.Texture.InternalStoreId * msg: TextureDetailMsg
         | RequestOpenTextureFilePicker
@@ -83,7 +84,7 @@ module public ProjectPage =
         { SolutionPath = slnPath
           TextureStore = []
           Selected = None
-        }, [ LoadProject slnPath ]
+        }, []
 
     let private updateTextureDetail (id: Domain.Textures.Texture.InternalStoreId) 
                                     (msg: TextureDetailMsg) 
@@ -101,6 +102,8 @@ module public ProjectPage =
 
     let public update (msg: Msg) (model: Model) : Model * CmdMsg list =
         match msg with 
+        | HasInitialised ->
+            model, [ LoadProject model.SolutionPath ]
         | ChangeSelected newSelected ->
             { model with Selected = newSelected}, []
         | TextureDetailMsg (id, textureDetailMsg) ->
@@ -199,4 +202,5 @@ module public ProjectPage =
           "OnSelectedItemChangedCommand" |> Binding.cmdParam(fun (selectedId) (m: Model) -> ChangeSelected (toSelectedId selectedId))
           "RequestOpenTextureFilePickerCommand" |> Binding.cmd(fun _ -> RequestOpenTextureFilePicker)
           "RequestRemoveSelectedCommand" |> Binding.cmdIf((fun _ -> RequestRemoveSelected), (fun (m: Model) -> m.Selected.IsSome))
+          "OnHasInitialisedCommand" |> Binding.cmd(fun _ -> HasInitialised)
         ]

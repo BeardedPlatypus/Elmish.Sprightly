@@ -6,6 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:projectPage="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage"
              xmlns:spriteToolbox="clr-namespace:Sprightly.Presentation.Views.Pages.ProjectPage.Toolboxes.SpriteToolbox"
+             xmlns:pages="clr-namespace:Sprightly.Presentation.Views.Pages"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="1920" d:DesignWidth="1080">
     <UserControl.Resources>
@@ -13,6 +15,20 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="ViewportTemplate">
+                <projectPage:ViewportControl HorizontalAlignment="Stretch" 
+                                             VerticalAlignment="Stretch"
+                                             Background="Gray"
+                                             HasInitialisedCommand="{Binding Path=ProjectPageModel.OnHasInitialisedCommand}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnloadedViewportTemplate">
+                <Grid HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch"/>
+            </DataTemplate>
+
+            <pages:PageTypeConverter x:Key="PageTypeConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -25,10 +41,36 @@
         <materialDesign:Card Margin="4"
                              materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              Grid.Column="0">
+            <ContentControl Content="{Binding}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            
+                            <DataTrigger Binding="{Binding Path=PageType,
+                                                           Converter={StaticResource PageTypeConverter}}"
+                                         Value="0">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource ViewportTemplate}"/>
+                            </DataTrigger>
 
-            <projectPage:ViewportControl HorizontalAlignment="Stretch" 
-                                         VerticalAlignment="Stretch"
-                                         Background="Gray"/>
+                            <DataTrigger Binding="{Binding Path=PageType,
+                                                           Converter={StaticResource PageTypeConverter}}"
+                                         Value="1">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource UnloadedViewportTemplate}"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Path=PageType,
+                                                           Converter={StaticResource PageTypeConverter}}"
+                                         Value="2">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource UnloadedViewportTemplate}"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
 
         </materialDesign:Card>
 
@@ -43,7 +85,7 @@
                                          Height="24" />
             </TabItem.Header>
 
-                <spriteToolbox:SpriteToolboxView/>
+            <spriteToolbox:SpriteToolboxView/>
         </TabItem>
 
         <TabItem

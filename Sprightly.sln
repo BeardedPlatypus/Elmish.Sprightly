@@ -35,6 +35,8 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sprightly.Common.KoboldLaye
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sprightly.Common.KoboldLayer.Components", "Sprightly.Common.KoboldLayer.Components\Sprightly.Common.KoboldLayer.Components.csproj", "{71B67F43-FE0B-4F15-9488-CB4CB339FB62}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sprightly.Infrastructure", "Sprightly.Infrastructure\Sprightly.Infrastructure.fsproj", "{DBC6CCD4-224A-4303-9FB5-32EC9A61F3D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{71B67F43-FE0B-4F15-9488-CB4CB339FB62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71B67F43-FE0B-4F15-9488-CB4CB339FB62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71B67F43-FE0B-4F15-9488-CB4CB339FB62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBC6CCD4-224A-4303-9FB5-32EC9A61F3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBC6CCD4-224A-4303-9FB5-32EC9A61F3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBC6CCD4-224A-4303-9FB5-32EC9A61F3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBC6CCD4-224A-4303-9FB5-32EC9A61F3D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{5B9B5C2B-90B5-4743-9A6C-B11DE158B52B} = {2681A860-916F-44A8-91E3-A3413CF4C778}
 		{1131BBF9-5DB9-4F1B-84E0-047430A42579} = {76D5DEE2-E59F-4B3C-ADFE-4FC2894E614F}
 		{71B67F43-FE0B-4F15-9488-CB4CB339FB62} = {76D5DEE2-E59F-4B3C-ADFE-4FC2894E614F}
+		{DBC6CCD4-224A-4303-9FB5-32EC9A61F3D9} = {9047EA70-88C1-494A-8CDD-1D17F0247E94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {953A38AA-9397-45F1-ACB4-7087C5B37827}
