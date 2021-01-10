@@ -74,7 +74,7 @@ module public CmdMapping =
                                                    fRetrieveTextureData
                                                    fLoadTexture
                                                    path
-                   |> Option.map (fun (proj: Domain.Project) -> Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.Msg.UpdateStore (None, proj.TextureStore))))
+                   |> Option.map (fun (proj: Domain.Project) -> Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.Msg.UpdateStore (proj.TextureStore, true))))
                    |> Option.defaultValue Msg.MoveToStartingPage
         } |>Cmd.OfAsync.result
 
@@ -132,7 +132,7 @@ module public CmdMapping =
                        ( saveStore descr.SolutionPath )
                        descr.TexturePath
                        descr.Store
-                   |> Option.map (fun (id, store) -> (Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore ((Some (Presentation.Pages.ProjectPage.SelectedId.Texture id)), store) ) )))
+                   |> Option.map (fun (id, store) -> (Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore (store, false) ) )))
                    |> Option.defaultValue NoOp
                 
         } |> Cmd.OfAsync.result
@@ -151,7 +151,7 @@ module public CmdMapping =
                     id 
                     store
 
-            return Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore (None, newStore)))
+            return Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore (newStore, true)))
         } |> Cmd.OfAsync.result
 
     let private mapProjectPageCmd : (Presentation.Pages.ProjectPage.CmdMsg -> Cmd<Msg>) =

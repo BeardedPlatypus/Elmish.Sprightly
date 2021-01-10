@@ -28,7 +28,7 @@ module public ProjectPage =
         | RequestOpenTextureFilePicker
         | RequestAddTexture of Common.Path.T
         | RequestRemoveSelected
-        | UpdateStore of SelectedId option * Domain.Textures.Texture.Store
+        | UpdateStore of store: Domain.Textures.Texture.Store * resetSelected: bool
         | NoOp
 
     /// <summary>
@@ -118,8 +118,8 @@ module public ProjectPage =
                 model, [  RemoveTexture (model.SolutionPath, id, model.TextureStore) ]
             | _ ->
                 model, []
-        | UpdateStore (selectedId, store) ->
-            { model with Selected = selectedId
+        | UpdateStore (store, resetSelected) ->
+            { model with Selected = if resetSelected then None else model.Selected
                          TextureStore = store
             }, []
         | NoOp ->

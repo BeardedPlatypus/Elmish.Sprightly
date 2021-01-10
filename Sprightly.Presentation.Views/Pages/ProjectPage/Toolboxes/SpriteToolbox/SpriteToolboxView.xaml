@@ -27,7 +27,15 @@
                               ItemsSource="{Binding Path=ProjectPageModel.Textures}"
                               SelectedValuePath="SelectedId"
                               Name="ProjectTree">
-                
+
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}"
+                                   BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectedItemChanged">
                                 <i:InvokeCommandAction Command="{Binding Path=ProjectPageModel.OnSelectedItemChangedCommand}"
