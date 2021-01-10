@@ -44,7 +44,9 @@ module public ProjectPage =
         | LoadProject of Common.Path.T
         | OpenTextureFilePicker 
         | AddTexture of AddTextureDescription
-        | RemoveTexture of id: Domain.Textures.Texture.InternalStoreId * store: Domain.Textures.Texture.Store
+        | RemoveTexture of slnPath: Common.Path.T * 
+                           id: Domain.Textures.Texture.InternalStoreId * 
+                           store: Domain.Textures.Texture.Store
 
     let private openProjectFilePickerCmd () =
         let config = Components.Dialogs.FileDialogConfiguration(addExtension = true,
@@ -65,7 +67,7 @@ module public ProjectPage =
     let public toCmd (toParentCmd : Msg -> 'ParentMsg ) 
                      (loadProjectCmd : Common.Path.T -> Cmd<'ParentMsg>)
                      (addTextureCmd : AddTextureDescription -> Cmd<'ParentMsg>)
-                     (removeTextureCmd: (Domain.Textures.Texture.InternalStoreId -> Domain.Textures.Texture.Store -> Cmd<'ParentMsg>))
+                     (removeTextureCmd: (Common.Path.T -> Domain.Textures.Texture.InternalStoreId -> Domain.Textures.Texture.Store -> Cmd<'ParentMsg>))
                      (cmdMsg: CmdMsg) : Cmd<'ParentMsg> =
         match cmdMsg with 
         | LoadProject path ->
@@ -74,8 +76,8 @@ module public ProjectPage =
             openProjectFilePickerCmd () |> Cmd.map toParentCmd
         | AddTexture descr ->
             addTextureCmd descr
-        | RemoveTexture (id, store) ->
-            removeTextureCmd id store
+        | RemoveTexture (slnPath, id, store) ->
+            removeTextureCmd slnPath id store
 
     let public init (slnPath: Common.Path.T) : Model * CmdMsg list = 
         { SolutionPath = slnPath
@@ -113,7 +115,7 @@ module public ProjectPage =
         | RequestRemoveSelected ->
             match model.Selected with 
             | Some(SelectedId.Texture id) ->
-                model, [  RemoveTexture (id, model.TextureStore) ]
+                model, [  RemoveTexture (model.SolutionPath, id, model.TextureStore) ]
             | _ ->
                 model, []
         | UpdateStore (selectedId, store) ->

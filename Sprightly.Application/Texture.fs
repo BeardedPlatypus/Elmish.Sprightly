@@ -93,3 +93,22 @@ module public Texture =
                 None
         else 
             None 
+
+    type public RemoveTextureFromSolutionFunc = Path.T -> unit
+
+    type public UnloadTextureFunc = Textures.Texture.T -> unit
+
+    let public removeTextureFromStore (fRemoveTextureFromSolution: RemoveTextureFromSolutionFunc)
+                                      (fUnloadTexture: UnloadTextureFunc)
+                                      (fSaveStore: SaveStoreFunc)
+                                      (id: Textures.Texture.InternalStoreId)
+                                      (store: Textures.Texture.Store) : Textures.Texture.Store =
+        let tex: Textures.Texture.T = Textures.Texture.getTextureFromStore store id
+        
+        fRemoveTextureFromSolution tex.Data.Path
+        fUnloadTexture tex
+
+        let newStore = Textures.Texture.removeTextureFromStore store id
+        fSaveStore newStore 
+
+        newStore

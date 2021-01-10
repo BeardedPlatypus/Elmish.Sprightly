@@ -143,6 +143,9 @@ module public Texture =
     let public updateTextureInStore (store: Store) (id: InternalStoreId) (fUpdate : T -> T) : Store =
         List.map (fun (e: T) -> if e.Id = id then fUpdate e else e ) store
 
+    let public removeTextureFromStore (store: Store) (id: InternalStoreId) : Store =
+        List.filter (fun (e: T) -> e.Id <> id) store
+
     let public GetUniqueStoreInternalId (store: Store) : InternalStoreId =
         if store |> List.isEmpty then 
             InternalStoreId.Id ((uint) 0)

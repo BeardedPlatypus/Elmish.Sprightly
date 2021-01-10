@@ -112,6 +112,10 @@ module public CmdMapping =
             (fun () -> Cmd.ofMsg MoveToStartingPage)
             createNewSolutionCmd
 
+    let private saveStore (slnPath: Common.Path.T) (store: Domain.Textures.Texture.Store) : unit =
+        let textureDARs = store |> List.map Persistence.Texture.toDataAccessRecord
+        Persistence.SolutionFile.updateTexturesOnDisk textureDARs slnPath
+
     let private addTextureCmd (descr: Presentation.Pages.ProjectPage.AddTextureDescription) : Cmd<Msg> =
         async {
             do! Async.SwitchToThreadPool () 
@@ -130,15 +134,11 @@ module public CmdMapping =
             let fLoadTexture (tex: Domain.Textures.Texture.T) : unit =
                 ()
 
-            let fSaveStore (store: Domain.Textures.Texture.Store) : unit =
-                let textureDARs = store |> List.map Persistence.Texture.toDataAccessRecord
-                Persistence.SolutionFile.updateTexturesOnDisk textureDARs descr.SolutionPath
-
             return Application.Texture.addNewTextureToStore
                        fCopyTextureIntoSolution
                        fRetrieveTextureMetaData
                        fLoadTexture
-                       fSaveStore
+                       ( saveStore descr.SolutionPath )
                        descr.TexturePath
                        descr.Store
                    |> Option.map (fun (id, store) -> (Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore ((Some (Presentation.Pages.ProjectPage.SelectedId.Texture id)), store) ) )))
@@ -146,9 +146,22 @@ module public CmdMapping =
                 
         } |> Cmd.OfAsync.result
 
-    let private removeTextureCmd (id: Domain.Textures.Texture.InternalStoreId) (store: Domain.Textures.Texture.Store ) : Cmd<Msg> =
-        let newStore = List.filter (fun (t: Domain.Textures.Texture.T) -> t.Id <> id) store
-        Cmd.ofMsg (Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore (None, newStore))))
+    let private removeTextureCmd (slnPath: Common.Path.T)
+                                 (id: Domain.Textures.Texture.InternalStoreId) 
+                                 (store: Domain.Textures.Texture.Store ) : Cmd<Msg> =
+        async {
+            do! Async.SwitchToThreadPool ()
+
+            let newStore =
+                Application.Texture.removeTextureFromStore
+                    Persistence.Texture.removeTextureFromSolution
+                    (fun _ -> ())
+                    (saveStore slnPath)
+                    id 
+                    store
+
+            return Msg.PageMsg (PageMsg.ProjectPage (Presentation.Pages.ProjectPage.UpdateStore (None, newStore)))
+        } |> Cmd.OfAsync.result
 
     let private mapProjectPageCmd : (Presentation.Pages.ProjectPage.CmdMsg -> Cmd<Msg>) =
         Presentation.Pages.ProjectPage.toCmd

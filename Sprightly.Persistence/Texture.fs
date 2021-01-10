@@ -106,3 +106,6 @@ module public Texture =
             Some newPath
         else 
             None
+
+    let public removeTextureFromSolution (texturePath: Common.Path.T) : unit =
+        System.IO.File.Delete (texturePath |> Common.Path.toString)
