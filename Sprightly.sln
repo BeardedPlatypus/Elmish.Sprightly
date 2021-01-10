@@ -31,9 +31,9 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sprightly.Application", "Sp
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sprightly.Persistence", "Sprightly.Persistence\Sprightly.Persistence.fsproj", "{5B9B5C2B-90B5-4743-9A6C-B11DE158B52B}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Sprightly.Common.KoboldLayer", "Sprightly.Common.KoboldLayer\Sprightly.Common.KoboldLayer.fsproj", "{1131BBF9-5DB9-4F1B-84E0-047430A42579}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Sprightly.Common.KoboldLayer", "Sprightly.Common.KoboldLayer\Sprightly.Common.KoboldLayer.fsproj", "{1131BBF9-5DB9-4F1B-84E0-047430A42579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sprightly.Common.KoboldLayer.Components", "Sprightly.Common.KoboldLayer.Components\Sprightly.Common.KoboldLayer.Components.csproj", "{71B67F43-FE0B-4F15-9488-CB4CB339FB62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sprightly.Common.KoboldLayer.Components", "Sprightly.Common.KoboldLayer.Components\Sprightly.Common.KoboldLayer.Components.csproj", "{71B67F43-FE0B-4F15-9488-CB4CB339FB62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
