@@ -15,65 +15,75 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Margin="12 2 12 12">
-        
-        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Path=ProjectPageModel.TextureDetail.Name,
-                                UpdateSourceTrigger=PropertyChanged}"
-                 Margin="4"
-                 VerticalAlignment="Center">
-            <materialDesign:HintAssist.Hint>
-                <TextBlock Text="Name"/>
-            </materialDesign:HintAssist.Hint>
-        </TextBox>
-
-        <Grid Margin="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     Text="{Binding Path=ProjectPageModel.TextureDetail.IdString,
-                                    UpdateSourceTrigger=PropertyChanged}"
-                     VerticalAlignment="Center"
-                     Margin="0 0 4 0"
-                     Grid.Column="0">
-                <materialDesign:HintAssist.Hint>
-                    <TextBlock Text="Id String"/>
-                </materialDesign:HintAssist.Hint>
-            </TextBox>
-            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     Text="{Binding Path=ProjectPageModel.TextureDetail.IdIndex,
-                                    UpdateSourceTrigger=PropertyChanged}"
-                     VerticalAlignment="Center"
-                     Margin="4 0 0 0"
-                     Grid.Column="1">
-                <materialDesign:HintAssist.Hint>
-                    <TextBlock Text="Id Index"/>
-                </materialDesign:HintAssist.Hint>
-            </TextBox>
-        </Grid>
-
-        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Path=ProjectPageModel.TextureDetail.Dimensions}"
-                 VerticalAlignment="Center"
-                 Margin="4"
-                 IsEnabled="False">
-            <materialDesign:HintAssist.Hint>
-                <TextBlock Text="Dimensions"/>
-            </materialDesign:HintAssist.Hint>
-        </TextBox>
-
-        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Path=ProjectPageModel.TextureDetail.DiskSize}"
-                 VerticalAlignment="Center"
-                 Margin="4"
-                 IsEnabled="False">
-            <materialDesign:HintAssist.Hint>
-                <TextBlock Text="Size"/>
-            </materialDesign:HintAssist.Hint>
-        </TextBox>
-
-    </StackPanel>
+    <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}" 
+                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                         Margin="4">
+        <StackPanel>
+            <Expander HorizontalAlignment="Stretch"
+                      Header="Detail View"
+                      IsExpanded="True">
+                <StackPanel Margin="12 2 12 12">
+                    
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Path=ProjectPageModel.TextureDetail.Name,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                             Margin="4"
+                             VerticalAlignment="Center">
+                        <materialDesign:HintAssist.Hint>
+                            <TextBlock Text="Name"/>
+                        </materialDesign:HintAssist.Hint>
+                    </TextBox>
+   
+                    <Grid Margin="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+   
+                        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding Path=ProjectPageModel.TextureDetail.IdString,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 VerticalAlignment="Center"
+                                 Margin="0 0 4 0"
+                                 Grid.Column="0">
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock Text="Id String"/>
+                            </materialDesign:HintAssist.Hint>
+                        </TextBox>
+                        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding Path=ProjectPageModel.TextureDetail.IdIndex,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 VerticalAlignment="Center"
+                                 Margin="4 0 0 0"
+                                 Grid.Column="1">
+                            <materialDesign:HintAssist.Hint>
+                                <TextBlock Text="Id Index"/>
+                            </materialDesign:HintAssist.Hint>
+                        </TextBox>
+                    </Grid>
+   
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Path=ProjectPageModel.TextureDetail.Dimensions}"
+                             VerticalAlignment="Center"
+                             Margin="4"
+                             IsEnabled="False">
+                        <materialDesign:HintAssist.Hint>
+                            <TextBlock Text="Dimensions"/>
+                        </materialDesign:HintAssist.Hint>
+                    </TextBox>
+   
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding Path=ProjectPageModel.TextureDetail.DiskSize}"
+                             VerticalAlignment="Center"
+                             Margin="4"
+                             IsEnabled="False">
+                        <materialDesign:HintAssist.Hint>
+                            <TextBlock Text="Size"/>
+                        </materialDesign:HintAssist.Hint>
+                    </TextBox>
+   
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </materialDesign:Card>
 </UserControl>

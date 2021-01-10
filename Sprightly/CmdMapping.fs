@@ -176,6 +176,6 @@ module public CmdMapping =
         | CmdMsg.Initialise ->
             initialiseCmd ()
         | CmdMsg.LoadProject slnPath ->
-            loadProjectCmd slnPath
+            toProjectPageCmd slnPath
         | CmdMsg.PageCmdMsg pageCmdMsg ->
             mapPageCmd pageCmdMsg

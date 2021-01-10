@@ -17,6 +17,47 @@
 
             <spriteToolbox:DetailTypeConverter x:Key="DetailTypeConverter"/>
 
+            <DataTemplate x:Key="TreeTemplate">
+                <StackPanel Margin="0">
+                    <Separator Style="{StaticResource MaterialDesignSeparator}"
+                               HorizontalAlignment="Stretch"
+                               Margin="0 4"/>
+                
+                    <TreeView Margin="0 4"
+                              ItemsSource="{Binding Path=ProjectPageModel.Textures}"
+                              SelectedValuePath="SelectedId"
+                              Name="ProjectTree">
+                
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedItemChanged">
+                                <i:InvokeCommandAction Command="{Binding Path=ProjectPageModel.OnSelectedItemChangedCommand}"
+                                                       PassEventArgsToCommand="True"
+                                                       EventArgsParameterPath="Source.SelectedValue"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="{Binding Icon}"
+                                                             Width="16"
+                                                             Height="16" />
+                                    <TextBlock Margin="8 0 0 0" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+
+                    <Separator Style="{StaticResource MaterialDesignSeparator}"
+                               HorizontalAlignment="Stretch"
+                               Margin="0 4"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="EmptyTreeTemplate">
+                <Grid/>
+            </DataTemplate>
+
             <DataTemplate x:Key="TextureDetailTemplate">
                 <spriteToolbox:TextureDetailView/>
             </DataTemplate>
@@ -46,38 +87,25 @@
                                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                     Margin="24,8,24,16">
 
-                            <Separator Style="{StaticResource MaterialDesignSeparator}"
-                                       HorizontalAlignment="Stretch"
-                                       Margin="0 4"/>
-
-                            <TreeView Margin="0 4"
-                                      ItemsSource="{Binding Path=ProjectPageModel.Textures}"
-                                      SelectedValuePath="SelectedId"
-                                      Name="ProjectTree">
-
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedItemChanged">
-                                        <i:InvokeCommandAction Command="{Binding Path=ProjectPageModel.OnSelectedItemChangedCommand}"
-                                                               PassEventArgsToCommand="True"
-                                                               EventArgsParameterPath="Source.SelectedValue"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-
-                                <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="{Binding Icon}"
-                                                                     Width="16"
-                                                                     Height="16" />
-                                            <TextBlock Margin="8 0 0 0" Text="{Binding Name}"/>
-                                        </StackPanel>
-                                    </HierarchicalDataTemplate>
-                                </TreeView.ItemTemplate>
-                            </TreeView>
-
-                            <Separator Style="{StaticResource MaterialDesignSeparator}"
-                                       HorizontalAlignment="Stretch"
-                                       Margin="0 4"/>
+                            <ContentControl Content="{Binding}">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=ProjectPageModel.HasTextures}"
+                                                                           Value="true">
+                                                <Setter Property="ContentTemplate"
+                                                        Value="{StaticResource TreeTemplate}"/>
+                                            </DataTrigger>
+                           
+                                            <DataTrigger Binding="{Binding Path=ProjectPageModel.HasTextures}"
+                                                                           Value="false">
+                                                <Setter Property="ContentTemplate"
+                                                        Value="{StaticResource EmptyTreeTemplate}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
 
                             <Grid Margin="0 2">
                                 <Grid.ColumnDefinitions>
@@ -107,44 +135,34 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}" 
-                                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                                 Margin="4">
-                <StackPanel>
-                    <Expander HorizontalAlignment="Stretch"
-                              Header="Detail View"
-                              IsExpanded="True">
-                        <ContentControl Content="{Binding}">
-                            <ContentControl.Style>
-                                <Style TargetType="ContentControl">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
-                                                                       Converter={StaticResource DetailTypeConverter}}"
-                                                                       Value="Texture">
-                                            <Setter Property="ContentTemplate"
-                                                    Value="{StaticResource TextureDetailTemplate}"/>
-                                        </DataTrigger>
+            <ContentControl Content="{Binding}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
+                                                           Converter={StaticResource DetailTypeConverter}}"
+                                                           Value="Texture">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource TextureDetailTemplate}"/>
+                            </DataTrigger>
 
-                                        <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
-                                                                       Converter={StaticResource DetailTypeConverter}}"
-                                                                       Value="Sprite">
-                                            <Setter Property="ContentTemplate"
-                                                    Value="{StaticResource SpriteDetailTemplate}"/>
-                                        </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
+                                                           Converter={StaticResource DetailTypeConverter}}"
+                                                           Value="Sprite">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource SpriteDetailTemplate}"/>
+                            </DataTrigger>
 
-                                        <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
-                                                                       Converter={StaticResource DetailTypeConverter}}"
-                                                                       Value="None">
-                                            <Setter Property="ContentTemplate"
-                                                    Value="{StaticResource NoDetailTemplate}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-                    </Expander>
-                </StackPanel>
-            </materialDesign:Card>
+                            <DataTrigger Binding="{Binding Path=ProjectPageModel.DetailType, 
+                                                           Converter={StaticResource DetailTypeConverter}}"
+                                                           Value="None">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource NoDetailTemplate}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

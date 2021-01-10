@@ -163,6 +163,7 @@ module public ProjectPage =
                                         "Children" |> Binding.oneWay (fun _ -> [])
                                       ]))
                        ]))
+          "HasTextures" |> Binding.oneWay(fun (m: Model) -> not (m.TextureStore |> List.isEmpty))
           "DetailType" |> Binding.oneWay(fun (m: Model) -> toDetailType m.Selected )
           "TextureDetail" |> Binding.subModelOpt(
             (fun (m: Model) ->  toTextureDetailModel m.Selected),
@@ -183,5 +184,5 @@ module public ProjectPage =
 
           "OnSelectedItemChangedCommand" |> Binding.cmdParam(fun (selectedId) (m: Model) -> ChangeSelected (toSelectedId selectedId))
           "RequestOpenTextureFilePickerCommand" |> Binding.cmd(fun _ -> RequestOpenTextureFilePicker)
-          "RequestRemoveSelectedCommand" |> Binding.cmd(fun _ -> RequestRemoveSelected)
+          "RequestRemoveSelectedCommand" |> Binding.cmdIf((fun _ -> RequestRemoveSelected), (fun (m: Model) -> m.Selected.IsSome))
         ]
