@@ -18,6 +18,10 @@ namespace Sprightly.Common.KoboldLayer.Components
         internal const int WsVisible = 0x10000000;
         internal const int HostId = 0x00000002;
         internal const int WmErasebkgnd = 0x0014;
+        internal const int WmCreate = 0x0001;
+        internal const int WmPaint = 0x000F;
+        internal const int WmShowWindow = 0x0018;
+        internal const int WmTimer = 0x0113;
         #endregion
 
         private IntPtr _hwndHost;
@@ -55,7 +59,6 @@ namespace Sprightly.Common.KoboldLayer.Components
 
             _viewport.Initialise(_hwndHost);
             _viewport.LoadTexture("sample", "sample.png");
-            _viewport.LoadTexture("0", "D:\\Demo\\DemoProject22\\Textures\\paraaf_2.png");
             _viewport.Update();
 
             return new HandleRef(this, _hwndHost);
@@ -70,9 +73,25 @@ namespace Sprightly.Common.KoboldLayer.Components
         {
             switch (msg)
             {
+                case WmShowWindow:
+                    if (RenderTimer == UIntPtr.Zero)
+                    {
+                        RenderTimer = SetTimer(hwnd, UIntPtr.Zero, 1000, IntPtr.Zero);
+                    }
+
+                    handled = false;
+                    break;
                 case WmErasebkgnd:
                     _viewport.Update();
                     handled = true;
+                    break;
+                case WmTimer:
+                    InvalidateRect(hwnd, IntPtr.Zero, false);
+                    handled = true;
+                    break;
+                case WmPaint:
+                    _viewport.Update();
+                    handled = false;
                     break;
                 default:
                     handled = false;
@@ -82,9 +101,11 @@ namespace Sprightly.Common.KoboldLayer.Components
             return IntPtr.Zero;
         }
 
+        private UIntPtr RenderTimer { get; set; }
+
         #region P/Invoke Declarations
 
-        [DllImport("user32.dll", EntryPoint = "CreateWindowEx", CharSet = CharSet.Unicode)]
+        [DllImport("user32.dll", EntryPoint = nameof(CreateWindowEx), CharSet = CharSet.Unicode)]
         internal static extern IntPtr CreateWindowEx(int dwExStyle,
             string lpszClassName,
             string lpszWindowName,
@@ -96,9 +117,14 @@ namespace Sprightly.Common.KoboldLayer.Components
             IntPtr hInst,
             [MarshalAs(UnmanagedType.AsAny)] object pvParam);
 
-        [DllImport("user32.dll", EntryPoint = "DestroyWindow", CharSet = CharSet.Unicode)]
+        [DllImport("user32.dll", EntryPoint = nameof(DestroyWindow), CharSet = CharSet.Unicode)]
         internal static extern bool DestroyWindow(IntPtr hwnd);
 
+        [DllImport("user32.dll", EntryPoint = nameof(SetTimer), CharSet = CharSet.Unicode)]
+        internal static extern UIntPtr SetTimer(IntPtr hwnd, UIntPtr nIDEvent, uint uElapse, IntPtr lpTimerFunc);
+
+        [DllImport("user32.dll", EntryPoint = nameof(InvalidateRect), CharSet = CharSet.Unicode)]
+        internal static extern bool InvalidateRect(IntPtr hwnd, IntPtr lpRect, bool bErase);
         #endregion
     }
 }
