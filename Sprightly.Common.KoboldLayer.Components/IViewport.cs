@@ -27,6 +27,12 @@ namespace Sprightly.Common.KoboldLayer.Components
         /// </summary>
         void FinaliseRender();
 
+        /// <summary>
+        /// Renders the texture with the specified <paramref name="textureLabel"/>.
+        /// </summary>
+        /// <param name="textureLabel">The texture label.</param>
+        void RenderTexture(string textureLabel);
+
         bool HasTexture(string id);
 
         void LoadTexture(string id, string path);

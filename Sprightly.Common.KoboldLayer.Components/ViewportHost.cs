@@ -82,7 +82,9 @@ namespace Sprightly.Common.KoboldLayer.Components
                     handled = false;
                     break;
                 case WmErasebkgnd:
-                    _viewport.Update();
+                    _viewport.BeginRender();
+                    _viewport.RenderTexture("sample");
+                    _viewport.FinaliseRender();
                     handled = true;
                     break;
                 case WmTimer:
@@ -90,7 +92,9 @@ namespace Sprightly.Common.KoboldLayer.Components
                     handled = true;
                     break;
                 case WmPaint:
-                    _viewport.Update();
+                    _viewport.BeginRender();
+                    _viewport.RenderTexture("sample");
+                    _viewport.FinaliseRender();
                     handled = false;
                     break;
                 default:

@@ -27,12 +27,17 @@ namespace Sprightly.Common.KoboldLayer.Components
 
         public void BeginRender()
         {
-            throw new NotImplementedException();
+            _view.initialise_frame();
+        }
+
+        public void RenderTexture(string textureLabel)
+        {
+            _view.render_texture(textureLabel);
         }
 
         public void FinaliseRender()
         {
-            throw new NotImplementedException();
+            _view.finalise_frame();
         }
 
         public bool HasTexture(string id)
