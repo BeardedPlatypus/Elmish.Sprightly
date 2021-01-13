@@ -11,6 +11,9 @@ module public Texture =
     type public InternalStoreId = 
         | Id of uint
 
+    let public toInternalStoreIdString (id: InternalStoreId) = 
+        (match id with InternalStoreId.Id v -> v).ToString()
+
     /// <summary>
     /// <see cref="Id"/> defines a texture id.
     /// </summary>
