@@ -65,6 +65,10 @@ namespace Sprightly.Common.KoboldLayer.Components
                 0);
 
             _viewport.Initialise(_hwndHost);
+
+            // TODO: Move this call to a better location.
+            _viewport.LoadTexture("unloaded", ".\\Resources\\cube.png");
+
             RenderFrame();
 
             return new HandleRef(this, _hwndHost);

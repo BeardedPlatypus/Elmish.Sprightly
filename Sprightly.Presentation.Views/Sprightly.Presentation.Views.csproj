@@ -44,4 +44,10 @@
     <Resource Include="Resources\icon.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\cube.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
