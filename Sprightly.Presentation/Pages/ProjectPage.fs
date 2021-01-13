@@ -160,6 +160,14 @@ module public ProjectPage =
         | _ -> 
             None
 
+    let private toRenderStrategyType (selected: SelectedId option) (store: Domain.Textures.Texture.Store) : Common.RenderStrategyType =
+        match selected with 
+        | Some(SelectedId.Texture texId) ->
+            let key = Domain.Textures.Texture.toInternalStoreIdString texId
+            Common.RenderStrategyType.Texture (Common.TextureRenderStrategyInfo(key))
+        | _ -> 
+            Common.RenderStrategyType.NoSelection
+
     let public bindings () = 
         [ "Textures" |> Binding.subModelSeq(
             (fun (m: Model) -> m.TextureStore),
@@ -198,6 +206,7 @@ module public ProjectPage =
                          "Dimensions" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.Width, m.Data.MetaData.Height with | Domain.Textures.MetaData.Pixel w, Domain.Textures.MetaData.Pixel h -> $"{w} px x {h} px")
                          "DiskSize" |> Binding.oneWay(fun (m: Domain.Textures.Texture.T) -> match m.Data.MetaData.DiskSize with | Domain.Textures.MetaData.Size s -> $"{s} Kb")
                        ]))
+          "RenderStrategyType" |> Binding.oneWay(fun (m: Model) -> toRenderStrategyType m.Selected m.TextureStore)
 
           "OnSelectedItemChangedCommand" |> Binding.cmdParam(fun (selectedId) (m: Model) -> ChangeSelected (toSelectedId selectedId))
           "RequestOpenTextureFilePickerCommand" |> Binding.cmd(fun _ -> RequestOpenTextureFilePicker)

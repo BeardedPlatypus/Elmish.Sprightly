@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using Sprightly.Common.KoboldLayer;
 using Sprightly.Common.KoboldLayer.Components;
-using Sprightly.Presentation.Views.Pages.ProjectPage.RenderStrategies;
 
 namespace Sprightly.Presentation.Views.Pages.ProjectPage
 {
@@ -26,6 +25,21 @@ namespace Sprightly.Presentation.Views.Pages.ProjectPage
             set => SetValue(HasInitialisedCommandProperty, value);
         }
 
+        public static readonly DependencyProperty RenderStrategyProperty = 
+            DependencyProperty.Register(nameof(RenderStrategy),
+                                        typeof(IRenderStrategy), 
+                                        typeof(ViewportControl), 
+                                        new FrameworkPropertyMetadata(
+                                            default(IRenderStrategy), 
+                                            FrameworkPropertyMetadataOptions.AffectsRender,
+                                            new PropertyChangedCallback(OnRenderStrategyChanged)));
+
+        public IRenderStrategy RenderStrategy
+        {
+            get => (IRenderStrategy) GetValue(RenderStrategyProperty);
+            set => SetValue(RenderStrategyProperty, value);
+        }
+
         private ViewportHost _viewportHost;
         private readonly IViewport _viewport;
 
@@ -33,6 +47,16 @@ namespace Sprightly.Presentation.Views.Pages.ProjectPage
         {
             InitializeComponent();
             _viewport = ViewportFactory.Create();
+        }
+
+        private static void OnRenderStrategyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as ViewportControl;
+
+            if (control._viewportHost != null)
+            {
+                control._viewportHost.RenderStrategy = (IRenderStrategy) e.NewValue;
+            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -43,7 +67,7 @@ namespace Sprightly.Presentation.Views.Pages.ProjectPage
         private void InitializeViewport()
         {
             _viewportHost = new ViewportHost(ViewportCanvas.ActualWidth, ViewportCanvas.ActualHeight, _viewport);
-            _viewportHost.RenderStrategy = new NothingSelectedRenderStrategy();
+            _viewportHost.RenderStrategy = RenderStrategy;
 
             ViewportCanvas.Child = _viewportHost;
 

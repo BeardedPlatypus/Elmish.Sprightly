@@ -16,11 +16,16 @@
                 <ResourceDictionary Source="pack://application:,,,/Sprightly.Presentation.Views;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <pages:PageTypeConverter x:Key="PageTypeConverter"/>
+            <projectPage:RenderStrategyConverter x:Key="RenderStrategyConverter"/>
+
             <DataTemplate x:Key="ViewportTemplate">
                 <projectPage:ViewportControl HorizontalAlignment="Stretch" 
                                              VerticalAlignment="Stretch"
                                              Background="Gray"
-                                             HasInitialisedCommand="{Binding Path=ProjectPageModel.OnHasInitialisedCommand}"/>
+                                             HasInitialisedCommand="{Binding Path=ProjectPageModel.OnHasInitialisedCommand}"
+                                             RenderStrategy="{Binding Path=ProjectPageModel.RenderStrategyType, 
+                                                                      Converter={StaticResource RenderStrategyConverter}}"/>
             </DataTemplate>
 
             <DataTemplate x:Key="UnloadedViewportTemplate">
@@ -28,7 +33,6 @@
                       VerticalAlignment="Stretch"/>
             </DataTemplate>
 
-            <pages:PageTypeConverter x:Key="PageTypeConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
