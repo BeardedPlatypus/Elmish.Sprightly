@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="RenderStrategyType.fs" />
     <Compile Include="DetailType.fs" />
     <Compile Include="PageType.fs" />
   </ItemGroup>
