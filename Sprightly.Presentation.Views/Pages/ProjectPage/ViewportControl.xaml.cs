@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using Sprightly.Common.KoboldLayer;
 using Sprightly.Common.KoboldLayer.Components;
+using Sprightly.Presentation.Views.Pages.ProjectPage.RenderStrategies;
 
 namespace Sprightly.Presentation.Views.Pages.ProjectPage
 {
@@ -42,6 +43,8 @@ namespace Sprightly.Presentation.Views.Pages.ProjectPage
         private void InitializeViewport()
         {
             _viewportHost = new ViewportHost(ViewportCanvas.ActualWidth, ViewportCanvas.ActualHeight, _viewport);
+            _viewportHost.RenderStrategy = new NothingSelectedRenderStrategy();
+
             ViewportCanvas.Child = _viewportHost;
 
             _viewportHost.MessageHook += new HwndSourceHook(ControlMsgFilter);
