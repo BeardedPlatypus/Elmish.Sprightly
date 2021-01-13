@@ -10,7 +10,7 @@ namespace Sprightly.Common.KoboldLayer.Components
     /// <see cref="kobold_layer.clr.view"/> object.
     /// </summary>
     /// <seealso cref="HwndHost" />
-    public class ViewportHost : HwndHost
+    public sealed class ViewportHost : HwndHost
     {
         #region Constant Interop Values
         // Interop values, see: https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles
@@ -45,6 +45,13 @@ namespace Sprightly.Common.KoboldLayer.Components
             _hostHeight = (int) height;
         }
 
+#nullable enable        
+        /// <summary>
+        /// Gets or sets the render strategy.
+        /// </summary>
+        public IRenderStrategy? RenderStrategy { get; set; }
+#nullable restore
+
         protected override HandleRef BuildWindowCore(HandleRef hwndParent)
         {
             _hwndHost = CreateWindowEx(0, "static", "",
@@ -58,8 +65,7 @@ namespace Sprightly.Common.KoboldLayer.Components
                 0);
 
             _viewport.Initialise(_hwndHost);
-            _viewport.LoadTexture("sample", "sample.png");
-            _viewport.Update();
+            RenderFrame();
 
             return new HandleRef(this, _hwndHost);
         }
@@ -67,6 +73,15 @@ namespace Sprightly.Common.KoboldLayer.Components
         protected override void DestroyWindowCore(HandleRef hwnd)
         {
             DestroyWindow(hwnd.Handle);
+        }
+
+        private void RenderFrame()
+        {
+            _viewport.BeginRender();
+
+            RenderStrategy?.RenderFrame(_viewport);
+
+            _viewport.FinaliseRender();
         }
 
         protected override IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -82,9 +97,7 @@ namespace Sprightly.Common.KoboldLayer.Components
                     handled = false;
                     break;
                 case WmErasebkgnd:
-                    _viewport.BeginRender();
-                    _viewport.RenderTexture("sample");
-                    _viewport.FinaliseRender();
+                    RenderFrame();
                     handled = true;
                     break;
                 case WmTimer:
@@ -92,9 +105,7 @@ namespace Sprightly.Common.KoboldLayer.Components
                     handled = true;
                     break;
                 case WmPaint:
-                    _viewport.BeginRender();
-                    _viewport.RenderTexture("sample");
-                    _viewport.FinaliseRender();
+                    RenderFrame();
                     handled = false;
                     break;
                 default:
