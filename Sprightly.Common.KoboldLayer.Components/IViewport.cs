@@ -30,5 +30,7 @@ namespace Sprightly.Common.KoboldLayer.Components
         bool HasTexture(string id);
 
         void LoadTexture(string id, string path);
+
+        void UnloadTexture(string id);
     }
 }

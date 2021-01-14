@@ -49,5 +49,10 @@ namespace Sprightly.Common.KoboldLayer.Components
         {
             _view.load_texture(id, path);
         }
+
+        public void UnloadTexture(string id)
+        {
+            _view.unload_texture(id);
+        }
     }
 }

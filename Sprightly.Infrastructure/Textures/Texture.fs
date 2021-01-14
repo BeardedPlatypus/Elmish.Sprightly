@@ -15,4 +15,8 @@ module Texture =
 
         vp.LoadTexture(idVal.ToString(), path |> Common.Path.toString)
 
+    let unloadTexture (id: Domain.Textures.Texture.InternalStoreId) : unit = 
+        let vp = Common.KoboldLayer.ViewportFactory.Create ()
+        let idVal = Domain.Textures.Texture.toInternalStoreIdString id
 
+        vp.UnloadTexture(idVal.ToString())
