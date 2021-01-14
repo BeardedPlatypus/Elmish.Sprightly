@@ -146,7 +146,7 @@ module public CmdMapping =
             let newStore =
                 Application.Texture.removeTextureFromStore
                     Persistence.Texture.removeTextureFromSolution
-                    (fun _ -> ())
+                    (fun tex -> Infrastructure.Textures.Texture.unloadTexture tex.Id)
                     (saveStore slnPath)
                     id 
                     store
