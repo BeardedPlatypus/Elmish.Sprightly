@@ -42,3 +42,8 @@ project or create a new one.
 <p align='center'>
     New project page to set up an initial sprightly project.
 </p>
+
+<p align='center'><img align='center' src='https://github.com/BeardedPlatypus/Elmish.Sprightly/blob/master/.readme/project_view.png?raw=true' width='75%'></p>
+<p align='center'>
+    Project page to manage textures.
+</p>
