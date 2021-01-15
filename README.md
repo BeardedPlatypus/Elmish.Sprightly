@@ -47,3 +47,11 @@ project or create a new one.
 <p align='center'>
     Project page to manage textures.
 </p>
+
+# Dependencies
+
+* [Elmish.WPF](https://github.com/elmish/Elmish.WPF): Elmish.WPF is a production-ready library that allows you to write WPF apps with the robust, simple, well-known, and battle-tested MVU architecture.
+* [MahApps.Metro](https://github.com/MahApps/MahApps.Metro): A toolkit for creating modern WPF applications.
+* [Material Design in XAML Toolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit): Comprehensive and easy to use Material Design theme and control library for the Windows desktop.
+* [ImageSharp](https://github.com/SixLabors/ImageSharp): ImageSharp is a new, fully featured, fully managed, cross-platform, 2D graphics API.
+* [SDL2](https://www.libsdl.org/): Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D.
