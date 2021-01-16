@@ -3,6 +3,7 @@
 *This is a work-in-progress and will be updated further soon*
 
 # Sprightly - Organising Sprites
+[![Build Status](https://dev.azure.com/mwtegelaers/Sprightly/_apis/build/status/BeardedPlatypus.Elmish.Sprightly?branchName=master)](https://dev.azure.com/mwtegelaers/Sprightly/_build/latest?definitionId=28&branchName=master)
 
 Elmish.Sprightly is a small Elmish.WPF application to define sprite
 sheets, sprites, and sprite animations and export the metadata as a json file,
