@@ -1,0 +1,44 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  solution: '**/Sprightly.sln'
+  buildConfiguration: 'Release'
+
+steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'NuGet - Install'
+    inputs:
+      versionSpec: '5.x'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet - Restore Packages'
+    inputs:
+      command: 'restore'
+      restoreSolution: '$(solution)'
+      feedsToUse: 'select'
+      vstsFeed: 'aef36eec-c275-42e7-9d3e-42c9ed32aab8/13c93e06-eede-4f15-b1e8-c0af38a26329'
+
+  - task: VSBuild@1
+    displayName: 'Build - Executables'
+    inputs:
+      solution: '$(solution)'
+      configuration: '$(buildConfiguration)'
+      msbuildArchitecture: 'x64'
+
+  - task: CopyFiles@2
+    displayName: 'Build - Copy Executables'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/Sprightly/bin/Release/net5.0-windows/'
+      Contents: '**/*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Build - Publish Executables'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'Bin'
+      publishLocation: 'pipeline'
