@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="EA04344A-B391-4F34-96FE-0197E4643ED8" 
+	<Product Id="*" 
            Name="Sprightly" 
            Language="1033" 
            Version="0.1.0" 
@@ -10,12 +10,15 @@
              Compressed="yes" 
              InstallScope="perMachine" />
 
-      <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
 
-		<Feature Id="ProductFeature" Title="Sprightly" Level="1">
+		<Feature Id="ProductFeature" 
+             Title="Sprightly" 
+             Level="1">
       <ComponentGroupRef Id="FSharp"/>
       <ComponentGroupRef Id="Sprightly"/>
+      <ComponentGroupRef Id="SprightlyResources"/>
       <ComponentGroupRef Id="KoboldLayer"/>
       <ComponentGroupRef Id="ElmishWPF"/>
 			<ComponentGroupRef Id="MahApps" />
@@ -24,6 +27,9 @@
       <ComponentGroupRef Id="NewtonSoftJson"/>
       <ComponentGroupRef Id="MicrosoftXamlBehaviours"/>
 		</Feature>
+
+    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
 	</Product>
 
 	<Fragment>
@@ -38,409 +44,277 @@
 
 	<Fragment>
     <ComponentGroup Id="FSharp" Directory="INSTALLFOLDER">
-			<Component Id="FSharpCore">
-        <File Id="FSharpCoreDLL" 
-              Name="FSharp.Core.dll" 
-              Source="FSharp.Core.dll"/>
+			<Component>
+        <File Source="FSharp.Core.dll"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="Sprightly" Directory="INSTALLFOLDER">
-
-			<Component Id="SprightlyMain">
-        <File Id="SprightlyDLL" 
-              Name="Sprightly.dll" 
-              Source="Sprightly.dll"/>
+			
+      <Component>
+        <File Source="Sprightly.dll"/>
       </Component>
 
-			<Component Id="SprightlyMainExecutable">
-        <File Id="SprightlyEXE" 
-              Name="Sprightly.exe" 
-              Source="Sprightly.exe"/>
+			<Component>
+        <File Source="Sprightly.exe"/>
       </Component>
 
-      <Component Id="SprightlyApplication">
-        <File Id="SprightlyApplicationDLL" 
-              Name="Sprightly.Application.dll" 
-              Source="Sprightly.Application.dll"/>
+      <Component>
+        <File Source="Sprightly.Application.dll"/>
       </Component>
 
-			<Component Id="SprightlyCommon">
-        <File Id="SprightlyCommonDLL" 
-              Name="Sprightly.Common.dll" 
-              Source="Sprightly.Common.dll"/>
+			<Component>
+        <File Source="Sprightly.Common.dll"/>
       </Component>
 
-			<Component Id="SprightlyCommonKoboldLayer">
-        <File Id="SprightlyCommonKoboldLayerDLL" 
-              Name="Sprightly.Common.KoboldLayer.dll" 
-              Source="Sprightly.Common.KoboldLayer.dll"/>
+			<Component>
+        <File Source="Sprightly.Common.KoboldLayer.dll"/>
       </Component>
 
-			<Component Id="SprightlyCommonKoboldLayerComponents">
-        <File Id="SprightlyCommonKoboldLayerComponentsDLL" 
-              Name="Sprightly.Common.KoboldLayer.Components.dll" 
-              Source="Sprightly.Common.KoboldLayer.Components.dll"/>
+			<Component>
+        <File Source="Sprightly.Common.KoboldLayer.Components.dll"/>
       </Component>
 
-			<Component Id="SprightlyDomain">
-        <File Id="SprightlyDomainDLL" 
-              Name="Sprightly.Domain.dll" 
-              Source="Sprightly.Domain.dll"/>
+			<Component>
+        <File Source="Sprightly.Domain.dll"/>
       </Component>
 
-			<Component Id="SprightlyInfrastructure">
-        <File Id="SprightlyInfrastructureDLL" 
-              Name="Sprightly.Infrastructure.dll" 
-              Source="Sprightly.Infrastructure.dll"/>
+			<Component>
+        <File Source="Sprightly.Infrastructure.dll"/>
       </Component>
 
-			<Component Id="SprightlyPersistence">
-        <File Id="SprightlyPersistenceDLL" 
-              Name="Sprightly.Persistence.dll" 
-              Source="Sprightly.Persistence.dll"/>
+			<Component>
+        <File Source="Sprightly.Persistence.dll"/>
       </Component>
 
-			<Component Id="SprightlyPresentation">
-        <File Id="SprightlyPresentationDLL" 
-              Name="Sprightly.Presentation.dll" 
-              Source="Sprightly.Presentation.dll"/>
+			<Component>
+        <File Source="Sprightly.Presentation.dll"/>
       </Component>
 
-			<Component Id="SprightlyPresentationCommon">
-        <File Id="SprightlyPresentationCommonDLL" 
-              Name="Sprightly.Presentation.Common.dll" 
-              Source="Sprightly.Presentation.Common.dll"/>
+			<Component>
+        <File Source="Sprightly.Presentation.Common.dll"/>
       </Component>
 
-			<Component Id="SprightlyPresentationViews">
-        <File Id="SprightlyPresentationViewsDLL" 
-              Name="Sprightly.Presentation.Views.dll" 
-              Source="Sprightly.Presentation.Views.dll"/>
+			<Component>
+        <File Source="Sprightly.Presentation.Views.dll"/>
       </Component>
 
-			<Component Id="SprightlyRuntimeConfig">
-        <File Id="SprightlyRuntimeConfigJSON" 
-              Name="Sprightly.runtimeconfig.json" 
-              Source="Sprightly.runtimeconfig.json"/>
+			<Component>
+        <File Source="Sprightly.runtimeconfig.json"/>
       </Component>
 
-			<Component Id="SprightlyDeps">
-        <File Id="SprightlyDepsJSON" 
-              Name="Sprightly.deps.json" 
-              Source="Sprightly.deps.json"/>
+			<Component>
+        <File Source="Sprightly.deps.json"/>
       </Component>
+    </ComponentGroup>
 
-      <Component Id="CubeResources" Directory="ResourcesFolder">
-        <File Id="CubePNG" 
-              Name="cube.png" 
-              Source="Resources/cube.png"/>
+    <ComponentGroup Id="SprightlyResources" Directory="ResourcesFolder">
+      <Component>
+        <File Name="cube.png" Source="Resources/cube.png"/>
       </Component>
-
     </ComponentGroup>
 
     <ComponentGroup Id="KoboldLayer" Directory="INSTALLFOLDER">
-			<Component Id="Ijwhost">
-        <File Id="IjwhostDLL" 
-              Name="Ijwhost.dll" 
-              Source="Ijwhost.dll"/>
+			<Component>
+        <File Source="Ijwhost.dll"/>
       </Component>
 
-			<Component Id="KoboldLayerCLR">
-        <File Id="KoboldLayerCLRDLL" 
-              Name="kobold-layer.clr.dll" 
-              Source="kobold-layer.clr.dll"/>
+			<Component>
+        <File Source="kobold-layer.clr.dll"/>
       </Component>
 
-			<Component Id="Libpng16">
-        <File Id="LibpngDLL" 
-              Name="libpng.dll" 
-              Source="libpng.dll"/>
+			<Component>
+        <File Source="libpng.dll"/>
       </Component>
 
-			<Component Id="SDL2">
-        <File Id="SDL2DLL" 
-              Name="SDL2.dll" 
-              Source="SDL2.dll"/>
+			<Component>
+        <File Source="SDL2.dll"/>
       </Component>
 
-			<Component Id="SDL2Image">
-        <File Id="SDL2ImageDLL" 
-              Name="SDL2_image.dll" 
-              Source="SDL2_image.dll"/>
+			<Component>
+        <File Source="SDL2_image.dll"/>
       </Component>
 
-			<Component Id="ZLib1">
-        <File Id="ZLib1DLL" 
-              Name="zlib1.dll" 
-              Source="zlib1.dll"/>
+			<Component>
+        <File Source="zlib1.dll"/>
       </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="MahApps" Directory="INSTALLFOLDER">
-			<Component Id="MahAppsMetro">
-        <File Id="MahAppsMetroDLL" 
-              Name="MahApps.Metro.dll" 
-              Source="MahApps.Metro.dll"/>
+			<Component>
+        <File Source="MahApps.Metro.dll"/>
       </Component>
 
-			<Component Id="ControlzEx">
-        <File Id="ControlzExDLL" 
-              Name="ControlzEx.dll" 
-              Source="ControlzEx.dll"/>
+			<Component>
+        <File Source="ControlzEx.dll"/>
       </Component>
 
       <!-- Icons -->
-			<Component Id="MahAppsIconsCore">
-        <File Id="MahAppsIconsCoreDLL" 
-              Name="MahApps.Metro.IconPacks.Core.dll" 
-              Source="MahApps.Metro.IconPacks.Core.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Core.dll" />
       </Component>
 
-			<Component Id="MahAppsIcons">
-        <File Id="MahAppsIconsDLL" 
-              Name="MahApps.Metro.IconPacks.dll" 
-              Source="MahApps.Metro.IconPacks.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.dll" />
       </Component>
 
-			<Component Id="BootstrapIcons">
-        <File Id="MahAppsMetroIconPacksBootstrapIconsDLL" 
-              Name="MahApps.Metro.IconPacks.BootstrapIcons.dll" 
-              Source="MahApps.Metro.IconPacks.BootstrapIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.BootstrapIcons.dll" />
       </Component>
 
-			<Component Id="BoxIcons">
-        <File Id="MahAppsMetroIconPacksBoxIconsDLL" 
-              Name="MahApps.Metro.IconPacks.BoxIcons.dll" 
-              Source="MahApps.Metro.IconPacks.BoxIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.BoxIcons.dll" />
       </Component>
 
-			<Component Id="Codicons">
-        <File Id="MahAppsMetroIconPacksCodiconsDLL" 
-              Name="MahApps.Metro.IconPacks.Codicons.dll" 
-              Source="MahApps.Metro.IconPacks.Codicons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Codicons.dll" />
       </Component>
 
-			<Component Id="Entypo">
-        <File Id="MahAppsMetroIconPacksEntypoDLL" 
-              Name="MahApps.Metro.IconPacks.Entypo.dll" 
-              Source="MahApps.Metro.IconPacks.Entypo.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Entypo.dll" />
       </Component>
 
-			<Component Id="Evalcons">
-        <File Id="MahAppsMetroIconPacksEvalconsDLL" 
-              Name="MahApps.Metro.IconPacks.Evalcons.dll" 
-              Source="MahApps.Metro.IconPacks.Evalcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Evalcons.dll" />
       </Component>
 
-			<Component Id="FeatherIcons">
-        <File Id="MahAppsMetroIconPacksFeatherIconsDLL" 
-              Name="MahApps.Metro.IconPacks.FeatherIcons.dll" 
-              Source="MahApps.Metro.IconPacks.FeatherIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.FeatherIcons.dll" />
       </Component>
 
-			<Component Id="FileIcons">
-        <File Id="MahAppsMetroIconPacksFileIconsDLL" 
-              Name="MahApps.Metro.IconPacks.FileIcons.dll" 
-              Source="MahApps.Metro.IconPacks.FeatherIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.FeatherIcons.dll" />
       </Component>
 
-			<Component Id="Fontaudio">
-        <File Id="MahAppsMetroIconPacksFontaudioDLL" 
-              Name="MahApps.Metro.IconPacks.Fontaudio.dll" 
-              Source="MahApps.Metro.IconPacks.Fontaudio.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Fontaudio.dll" />
       </Component>
 
-			<Component Id="FontAwesome">
-        <File Id="MahAppsMetroIconPacksFontAwesomeDLL" 
-              Name="MahApps.Metro.IconPacks.FontAwesome.dll" 
-              Source="MahApps.Metro.IconPacks.FontAwesome.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.FontAwesome.dll" />
       </Component>
 
-			<Component Id="ForkAwesome">
-        <File Id="MahAppsMetroIconPacksForkAwesomeDLL" 
-              Name="MahApps.Metro.IconPacks.ForkAwesome.dll" 
-              Source="MahApps.Metro.IconPacks.ForkAwesome.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.ForkAwesome.dll" />
       </Component>
 
-			<Component Id="Ionicons">
-        <File Id="MahAppsMetroIconPacksIoniconsDLL" 
-              Name="MahApps.Metro.IconPacks.Ionicons.dll" 
-              Source="MahApps.Metro.IconPacks.Ionicons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Ionicons.dll" />
       </Component>
 
-			<Component Id="JamIcons">
-        <File Id="MahAppsMetroIconPacksJamIconsDLL" 
-              Name="MahApps.Metro.IconPacks.JamIcons.dll" 
-              Source="MahApps.Metro.IconPacks.JamIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.JamIcons.dll" />
       </Component>
 
-			<Component Id="Material">
-        <File Id="MahAppsMetroIconPacksMaterialDLL" 
-              Name="MahApps.Metro.IconPacks.Material.dll" 
-              Source="MahApps.Metro.IconPacks.Material.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Material.dll" />
       </Component>
 
-			<Component Id="MaterialDesign">
-        <File Id="MahAppsMetroIconPacksMaterialDesignDLL" 
-              Name="MahApps.Metro.IconPacks.MaterialDesign.dll" 
-              Source="MahApps.Metro.IconPacks.MaterialDesign.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.MaterialDesign.dll" />
       </Component>
 
-			<Component Id="MaterialLight">
-        <File Id="MahAppsMetroIconPacksMaterialLightDLL" 
-              Name="MahApps.Metro.IconPacks.MaterialLight.dll" 
-              Source="MahApps.Metro.IconPacks.MaterialLight.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.MaterialLight.dll" />
       </Component>
 
-			<Component Id="Microns">
-        <File Id="MahAppsMetroIconPacksMicronsDLL" 
-              Name="MahApps.Metro.IconPacks.Microns.dll" 
-              Source="MahApps.Metro.IconPacks.Microns.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Microns.dll" />
       </Component>
 
-			<Component Id="Modern">
-        <File Id="MahAppsMetroIconPacksModernDLL" 
-              Name="MahApps.Metro.IconPacks.Modern.dll" 
-              Source="MahApps.Metro.IconPacks.Modern.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Modern.dll" />
       </Component>
 
-			<Component Id="Octicons">
-        <File Id="MahAppsMetroIconPacksOcticonsDLL" 
-              Name="MahApps.Metro.IconPacks.Octicons.dll" 
-              Source="MahApps.Metro.IconPacks.Octicons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Octicons.dll" />
       </Component>
 
-			<Component Id="PicolIcons">
-        <File Id="MahAppsMetroIconPacksPicolIconsDLL" 
-              Name="MahApps.Metro.IconPacks.PicolIcons.dll" 
-              Source="MahApps.Metro.IconPacks.PicolIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.PicolIcons.dll" />
       </Component>
 
-			<Component Id="PixelartIcons">
-        <File Id="MahAppsMetroIconPacksPixelartIconsDLL" 
-              Name="MahApps.Metro.IconPacks.PixelartIcons.dll" 
-              Source="MahApps.Metro.IconPacks.PixelartIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.PixelartIcons.dll" />
       </Component>
 
-			<Component Id="RadixIcons">
-        <File Id="MahAppsMetroIconPacksRadixIconsDLL" 
-              Name="MahApps.Metro.IconPacks.RadixIcons.dll" 
-              Source="MahApps.Metro.IconPacks.RadixIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.RadixIcons.dll" />
       </Component>
 
-			<Component Id="RemixIcons">
-        <File Id="MahAppsMetroIconPacksRemixIconsDLL" 
-              Name="MahApps.Metro.IconPacks.RemixIcons.dll" 
-              Source="MahApps.Metro.IconPacks.RemixIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.RemixIcons.dll" />
       </Component>
 
-			<Component Id="RPGAwesome">
-        <File Id="MahAppsMetroIconPacksRPGAwesomeDLL" 
-              Name="MahApps.Metro.IconPacks.RPGAwesome.dll" 
-              Source="MahApps.Metro.IconPacks.RPGAwesome.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.RPGAwesome.dll" />
       </Component>
 
-			<Component Id="SimpleIcons">
-        <File Id="MahAppsMetroIconPacksSimpleIconsDLL" 
-              Name="MahApps.Metro.IconPacks.SimpleIcons.dll" 
-              Source="MahApps.Metro.IconPacks.SimpleIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.SimpleIcons.dll" />
       </Component>
 
-			<Component Id="Typicons">
-        <File Id="MahAppsMetroIconPacksTypiconsDLL" 
-              Name="MahApps.Metro.IconPacks.Typicons.dll" 
-              Source="MahApps.Metro.IconPacks.Typicons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Typicons.dll" />
       </Component>
 
-			<Component Id="Unicons">
-        <File Id="MahAppsMetroIconPacksUniconsDLL" 
-              Name="MahApps.Metro.IconPacks.Unicons.dll" 
-              Source="MahApps.Metro.IconPacks.Unicons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Unicons.dll" />
       </Component>
 
-			<Component Id="VaadinIcons">
-        <File Id="MahAppsMetroIconPacksVaadinIconsDLL" 
-              Name="MahApps.Metro.IconPacks.VaadinIcons.dll" 
-              Source="MahApps.Metro.IconPacks.VaadinIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.VaadinIcons.dll" />
       </Component>
 
-			<Component Id="WeatherIcons">
-        <File Id="MahAppsMetroIconPacksWeatherIconsDLL" 
-              Name="MahApps.Metro.IconPacks.WeatherIcons.dll" 
-              Source="MahApps.Metro.IconPacks.WeatherIcons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.WeatherIcons.dll" />
       </Component>
 
-			<Component Id="Zondicons">
-        <File Id="MahAppsMetroIconPacksZondiconsDLL" 
-              Name="MahApps.Metro.IconPacks.Zondicons.dll" 
-              Source="MahApps.Metro.IconPacks.Zondicons.dll" />
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Zondicons.dll" />
       </Component>
-
     </ComponentGroup>
 
     <ComponentGroup Id="MaterialDesign" Directory="INSTALLFOLDER">
-			<Component Id="MaterialDesignColors">
-        <File Id="MaterialDesignColorsDLL" 
-              Name="MaterialDesignColors.dll" 
-              Source="MaterialDesignColors.dll" />
+			<Component>
+        <File Source="MaterialDesignColors.dll" />
       </Component>
 
-			<Component Id="MaterialDesignThemesMahApps">
-        <File Id="MaterialDesignThemesMahAppsDLL" 
-              Name="MaterialDesignThemes.MahApps.dll" 
-              Source="MaterialDesignThemes.MahApps.dll" />
+			<Component>
+        <File Source="MaterialDesignThemes.MahApps.dll" />
       </Component>
 
-			<Component Id="MaterialDesignThemesWPF">
-        <File Id="MaterialDesignThemesWpfDLL" 
-              Name="MaterialDesignThemes.Wpf.dll" 
-              Source="MaterialDesignThemes.Wpf.dll" />
+			<Component>
+        <File Source="MaterialDesignThemes.Wpf.dll" />
       </Component>
-
     </ComponentGroup>
 
     <ComponentGroup Id="ElmishWPF" Directory="INSTALLFOLDER">
-			<Component Id="Elmish">
-        <File Id="ElmishDLL" 
-              Name="Elmish.dll" 
-              Source="Elmish.dll" />
+			<Component>
+        <File Source="Elmish.dll" />
       </Component>
 
-			<Component Id="ElmishWPF">
-        <File Id="ElmishWPFDLL" 
-              Name="Elmish.WPF.dll" 
-              Source="Elmish.WPF.dll" />
+			<Component>
+        <File Source="Elmish.WPF.dll" />
       </Component>
-
     </ComponentGroup>
 
     <ComponentGroup Id="SixLaborsImageSharp" Directory="INSTALLFOLDER">
-			<Component Id="ImageSharp">
-        <File Id="ImageSharpDLL" 
-              Name="SixLabors.ImageSharp.dll" 
-              Source="SixLabors.ImageSharp.dll" />
+			<Component>
+        <File Source="SixLabors.ImageSharp.dll" />
       </Component>
-
     </ComponentGroup>
 
     <ComponentGroup Id="NewtonSoftJson" Directory="INSTALLFOLDER">
-			<Component Id="Json">
-        <File Id="JsonDLL" 
-              Name="Newtonsoft.Json.dll" 
-              Source="Newtonsoft.Json.dll" />
+			<Component>
+        <File Source="Newtonsoft.Json.dll" />
       </Component>
-
     </ComponentGroup>
 
     <ComponentGroup Id="MicrosoftXamlBehaviours" Directory="INSTALLFOLDER">
-			<Component Id="XamlBehaviours">
-        <File Id="XamlBehavioursDLL" 
-              Name="Microsoft.Xaml.Behaviours.dll" 
-              Source="Microsoft.Xaml.Behaviours.dll" />
+			<Component>
+        <File Source="Microsoft.Xaml.Behaviours.dll" />
       </Component>
-
     </ComponentGroup>
-
 	</Fragment>
 </Wix>
