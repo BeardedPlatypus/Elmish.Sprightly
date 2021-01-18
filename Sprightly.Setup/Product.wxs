@@ -183,10 +183,6 @@
       </Component>
 
 			<Component>
-        <File Source="MahApps.Metro.IconPacks.FeatherIcons.dll" />
-      </Component>
-
-			<Component>
         <File Source="MahApps.Metro.IconPacks.Fontaudio.dll" />
       </Component>
 
