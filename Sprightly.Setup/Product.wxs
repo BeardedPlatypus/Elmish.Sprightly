@@ -25,7 +25,7 @@
       <ComponentGroupRef Id="MaterialDesign"/>
       <ComponentGroupRef Id="SixLaborsImageSharp"/>
       <ComponentGroupRef Id="NewtonSoftJson"/>
-      <ComponentGroupRef Id="MicrosoftXamlBehaviours"/>
+      <ComponentGroupRef Id="MicrosoftXamlBehaviors"/>
 		</Feature>
 
     <UIRef Id="WixUI_InstallDir" />
@@ -35,7 +35,7 @@
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="Sprightly" >
+        <Directory Id="INSTALLFOLDER" Name="Sprightly">
           <Directory Id="ResourcesFolder" Name="Resources" />
         </Directory>
       </Directory>
@@ -124,7 +124,7 @@
       </Component>
 
 			<Component>
-        <File Source="libpng.dll"/>
+        <File Source="libpng16.dll"/>
       </Component>
 
 			<Component>
@@ -175,7 +175,7 @@
       </Component>
 
 			<Component>
-        <File Source="MahApps.Metro.IconPacks.Evalcons.dll" />
+        <File Source="MahApps.Metro.IconPacks.EvaIcons.dll" />
       </Component>
 
 			<Component>
@@ -239,7 +239,7 @@
       </Component>
 
 			<Component>
-        <File Source="MahApps.Metro.IconPacks.RemixIcons.dll" />
+        <File Source="MahApps.Metro.IconPacks.RemixIcon.dll" />
       </Component>
 
 			<Component>
@@ -307,9 +307,9 @@
       </Component>
     </ComponentGroup>
 
-    <ComponentGroup Id="MicrosoftXamlBehaviours" Directory="INSTALLFOLDER">
+    <ComponentGroup Id="MicrosoftXamlBehaviors" Directory="INSTALLFOLDER">
 			<Component>
-        <File Source="Microsoft.Xaml.Behaviours.dll" />
+        <File Source="Microsoft.Xaml.Behaviors.dll" />
       </Component>
     </ComponentGroup>
 	</Fragment>
