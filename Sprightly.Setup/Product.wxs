@@ -199,6 +199,10 @@
       </Component>
 
 			<Component>
+        <File Source="MahApps.Metro.IconPacks.FileIcons.dll" />
+      </Component>
+
+			<Component>
         <File Source="MahApps.Metro.IconPacks.Fontaudio.dll" />
       </Component>
 
