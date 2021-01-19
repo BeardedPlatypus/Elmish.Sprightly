@@ -30,6 +30,8 @@
 
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
 	</Product>
 
 	<Fragment>
