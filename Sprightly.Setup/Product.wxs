@@ -36,11 +36,14 @@
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+
+      <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="Sprightly">
           <Directory Id="ResourcesFolder" Name="Resources" />
         </Directory>
       </Directory>
+
+      <Directory Id="ProgramMenuFolder"/>
 		</Directory>
 	</Fragment>
 
@@ -58,7 +61,16 @@
       </Component>
 
 			<Component>
-        <File Source="Sprightly.exe"/>
+        <File Id="Sprightly.exe"
+              Source="Sprightly.exe"
+              KeyPath="yes">
+          <Shortcut Id="SprightlyShortcut"
+                    Name="Sprightly"
+                    Description="Sprightly"
+                    Directory="ProgramMenuFolder"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Advertise="yes"/>
+        </File>
       </Component>
 
       <Component>
