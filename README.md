@@ -19,12 +19,11 @@ this application, and my SDL2 applications, Sprightly uses SDL2 to render
 any and all textures, sprites, and sprite animations. 
 
 This is the second incarnation of this application. The first attempt
-written with Fabulous for Xamarin.Forms can be found [here](https://github.com/BeardedPlatypus/Sprightly).
-Unfortunately, I ran into some problems with the dynamic update behaviour,
-that made it impossible to build the application I envisioned. Because I 
-still want to stick with a MVU-like architecture, and learn more about
-F\#, I chose [Elmish.WPF](https://github.com/elmish/Elmish.WPF) for this 
-attempt.
+written with Fabulous for Xamarin.Forms can be found 
+[here](https://github.com/BeardedPlatypus/Sprightly). In order to explore some 
+more UI frameworks with F\#, I decided to reimplement it in 
+[Elmish.WPF](https://github.com/elmish/Elmish.WPF) as well. The non-View logic 
+should be rather similar.
 
 This application is meant as a proof of concept / prototype and not a 
 full-fledged production ready application. In order to allow me to maximise 
