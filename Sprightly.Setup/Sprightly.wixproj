@@ -31,10 +31,13 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <BindInputPaths Include="..\Sprightly\bin\$(Configuration)\net5.0-windows"/>
+    <BindInputPaths Include="..\Sprightly\bin\Debug\net5.0-windows">
+      <Link>net5.0-windows</Link>
+    </BindInputPaths>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApacheLicense2.0.rtf" />
+    <Content Include="WixUIDialogBmp.bmp" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

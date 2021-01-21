@@ -33,6 +33,8 @@
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
+    <WixVariable Id="WixUIDialogBmp" Value="WixUIDialogBmp.bmp" />
+
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
 	</Product>
 
