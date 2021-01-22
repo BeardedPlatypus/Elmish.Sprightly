@@ -31,7 +31,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <BindInputPaths Include="..\Sprightly\bin\Debug\net5.0-windows">
+    <BindInputPaths Include="..\Sprightly\bin\$(Configuration)\net5.0-windows">
       <Link>net5.0-windows</Link>
     </BindInputPaths>
   </ItemGroup>
