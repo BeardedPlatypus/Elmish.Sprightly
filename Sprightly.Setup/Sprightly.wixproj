@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApacheLicense2.0.rtf" />
+    <Content Include="Sprightly.ico" />
     <Content Include="WixUIBannerBmp.bmp" />
     <Content Include="WixUIDialogBmp.bmp" />
   </ItemGroup>

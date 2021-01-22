@@ -74,7 +74,9 @@
                     Description="Sprightly"
                     Directory="ProgramMenuFolder"
                     WorkingDirectory="INSTALLFOLDER"
-                    Advertise="yes"/>
+                    Advertise="yes">
+            <Icon Id="Sprightly.exe" SourceFile="Sprightly.ico"/>
+          </Shortcut>
         </File>
       </Component>
 
