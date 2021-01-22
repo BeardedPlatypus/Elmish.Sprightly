@@ -6,6 +6,7 @@ pool:
 
 variables:
   solution: '**/Sprightly.sln'
+  msiSolution: '**/Sprightly.Setup.sln'
   buildConfiguration: 'Release'
 
 steps:
@@ -32,7 +33,7 @@ steps:
   - task: CopyFiles@2
     displayName: 'Build - Copy Executables'
     inputs:
-      SourceFolder: '$(Build.SourcesDirectory)/Sprightly/bin/Release/net5.0-windows/'
+      SourceFolder: '$(Build.SourcesDirectory)/Sprightly/bin/$(buildConfiguration)/net5.0-windows/'
       Contents: '**/*'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
@@ -42,3 +43,26 @@ steps:
       targetPath: '$(Build.ArtifactStagingDirectory)'
       artifact: 'Bin'
       publishLocation: 'pipeline'
+  
+  - task: VSBuild@1
+    displayName: 'Build - MSI'
+    inputs:
+      solution: '$(msiSolution)'
+      configuration: '$(buildConfiguration)'
+      msbuildArchitecture: 'x64'
+
+  - task: CopyFiles@2
+    displayName: 'Build - Copy MSI'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/Sprightly.Setup/bin/$(buildConfiguration)/'
+      Contents: '**/*.msi'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      CleanTargetFolder: true
+  
+  - task: PublishPipelineArtifact@1
+    displayName: 'Build - Publish MSI'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifact: 'installer'
+      publishLocation: 'pipeline'
+  
