@@ -38,5 +38,7 @@
     <WixVariable Id="WixUIBannerBmp" Value="Resources\WixUIBannerBmp.bmp" />
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    
+    <Property Id="ARPPRODUCTICON" Value="Sprightly.exe" />
 	</Product>
 </Wix>
