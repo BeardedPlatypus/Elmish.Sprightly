@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="NET5">
+      <ComponentGroupRef Id="NET5.assemblies"/>
+      <ComponentGroupRef Id="NET5.resources.cs"/>
+      <ComponentGroupRef Id="NET5.resources.de"/>
+      <ComponentGroupRef Id="NET5.resources.es"/>
+      <ComponentGroupRef Id="NET5.resources.fr"/>
+      <ComponentGroupRef Id="NET5.resources.it"/>
+      <ComponentGroupRef Id="NET5.resources.ja"/>
+      <ComponentGroupRef Id="NET5.resources.ko"/>
+      <ComponentGroupRef Id="NET5.resources.pl"/>
+      <ComponentGroupRef Id="NET5.resources.ptBR"/>
+      <ComponentGroupRef Id="NET5.resources.ru"/>
+      <ComponentGroupRef Id="NET5.resources.tr"/>
+      <ComponentGroupRef Id="NET5.resources.zhHans"/>
+      <ComponentGroupRef Id="NET5.resources.zhHant"/>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

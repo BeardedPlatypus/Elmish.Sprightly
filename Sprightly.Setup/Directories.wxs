@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="Sprightly">
+          <Directory Id="ResourcesFolder" Name="Resources" />
+          <Directory Id="csResourcesFolder" Name="cs" />
+          <Directory Id="deResourcesFolder" Name="de" />
+          <Directory Id="esResourcesFolder" Name="es" />
+          <Directory Id="frResourcesFolder" Name="fr" />
+          <Directory Id="itResourcesFolder" Name="it" />
+          <Directory Id="jaResourcesFolder" Name="ja" />
+          <Directory Id="koResourcesFolder" Name="ko" />
+          <Directory Id="plResourcesFolder" Name="pl" />
+          <Directory Id="ptBRResourcesFolder" Name="pt-BR" />
+          <Directory Id="ruResourcesFolder" Name="ru" />
+          <Directory Id="trResourcesFolder" Name="tr" />
+          <Directory Id="zhHansResourcesFolder" Name="zh-Hans" />
+          <Directory Id="zhHantResourcesFolder" Name="zh-Hant" />
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder"/>
+		</Directory>
+	</Fragment>
+</Wix>

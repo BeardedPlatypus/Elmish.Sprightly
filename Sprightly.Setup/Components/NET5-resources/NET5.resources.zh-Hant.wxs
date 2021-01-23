@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="NET5.resources.zhHant" Directory="zhHantResourcesFolder">
+      <Component>
+        <File Source="zh-Hant\Microsoft.VisualBasic.Forms.resources.dll" 
+                  Id="zhHant.Microsoft.VisualBasic.Forms.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\PresentationCore.resources.dll"
+                  Id="zhHant.PresentationCore.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\PresentationFramework.resources.dll"
+                  Id="zhHant.PresentationFramework.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\PresentationUI.resources.dll"
+                  Id="zhHant.PresentationUI.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\ReachFramework.resources.dll"
+                  Id="zhHant.ReachFramework.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\System.Windows.Controls.Ribbon.resources.dll"
+                  Id="zhHant.System.Windows.Controls.Ribbon.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\System.Windows.Forms.Design.resources.dll" 
+                  Id="zhHant.System.Windows.Forms.Design.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\System.Windows.Forms.Primitives.resources.dll"
+                  Id="zhHant.System.Windows.Forms.Primitives.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\System.Windows.Forms.resources.dll"
+                  Id="zhHant.System.Windows.Forms.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\System.Windows.Input.Manipulations.resources.dll"
+                  Id="zhHant.System.Windows.Input.Manipulations.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\System.Xaml.resources.dll"
+                  Id="zhHant.System.Xaml.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\UIAutomationClient.resources.dll"
+                  Id="zhHant.UIAutomationClient.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\UIAutomationClientSideProviders.resources.dll"
+                  Id="zhHant.UIAutomationClientSideProviders.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\UIAutomationProvider.resources.dll"
+                  Id="zhHant.UIAutomationProvider.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\UIAutomationTypes.resources.dll"
+                  Id="zhHant.UIAutomationTypes.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\WindowsBase.resources.dll"
+                  Id="zhHant.WindowsBase.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="zh-Hant\WindowsFormsIntegration.resources.dll"
+                  Id="zhHant.WindowsFormsIntegration.resources.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

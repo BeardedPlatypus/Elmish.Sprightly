@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="NET5.resources.ko" Directory="koResourcesFolder">
+      <Component>
+        <File Source="ko\Microsoft.VisualBasic.Forms.resources.dll" 
+                  Id="ko.Microsoft.VisualBasic.Forms.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\PresentationCore.resources.dll"
+                  Id="ko.PresentationCore.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\PresentationFramework.resources.dll"
+                  Id="ko.PresentationFramework.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\PresentationUI.resources.dll"
+                  Id="ko.PresentationUI.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\ReachFramework.resources.dll"
+                  Id="ko.ReachFramework.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\System.Windows.Controls.Ribbon.resources.dll"
+                  Id="ko.System.Windows.Controls.Ribbon.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\System.Windows.Forms.Design.resources.dll" 
+                  Id="ko.System.Windows.Forms.Design.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\System.Windows.Forms.Primitives.resources.dll"
+                  Id="ko.System.Windows.Forms.Primitives.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\System.Windows.Forms.resources.dll"
+                  Id="ko.System.Windows.Forms.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\System.Windows.Input.Manipulations.resources.dll"
+                  Id="ko.System.Windows.Input.Manipulations.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\System.Xaml.resources.dll"
+                  Id="ko.System.Xaml.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\UIAutomationClient.resources.dll"
+                  Id="ko.UIAutomationClient.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\UIAutomationClientSideProviders.resources.dll"
+                  Id="ko.UIAutomationClientSideProviders.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\UIAutomationProvider.resources.dll"
+                  Id="ko.UIAutomationProvider.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\UIAutomationTypes.resources.dll"
+                  Id="ko.UIAutomationTypes.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\WindowsBase.resources.dll"
+                  Id="ko.WindowsBase.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="ko\WindowsFormsIntegration.resources.dll"
+                  Id="ko.WindowsFormsIntegration.resources.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

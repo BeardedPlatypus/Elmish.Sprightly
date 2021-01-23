@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="MicrosoftXamlBehaviors" Directory="INSTALLFOLDER">
+			<Component>
+        <File Source="Microsoft.Xaml.Behaviors.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

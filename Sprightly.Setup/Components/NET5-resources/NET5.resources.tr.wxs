@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="NET5.resources.tr" Directory="trResourcesFolder">
+      <Component>
+        <File Source="tr\Microsoft.VisualBasic.Forms.resources.dll" 
+                  Id="tr.Microsoft.VisualBasic.Forms.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\PresentationCore.resources.dll"
+                  Id="tr.PresentationCore.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\PresentationFramework.resources.dll"
+                  Id="tr.PresentationFramework.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\PresentationUI.resources.dll"
+                  Id="tr.PresentationUI.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\ReachFramework.resources.dll"
+                  Id="tr.ReachFramework.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\System.Windows.Controls.Ribbon.resources.dll"
+                  Id="tr.System.Windows.Controls.Ribbon.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\System.Windows.Forms.Design.resources.dll" 
+                  Id="tr.System.Windows.Forms.Design.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\System.Windows.Forms.Primitives.resources.dll"
+                  Id="tr.System.Windows.Forms.Primitives.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\System.Windows.Forms.resources.dll"
+                  Id="tr.System.Windows.Forms.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\System.Windows.Input.Manipulations.resources.dll"
+                  Id="tr.System.Windows.Input.Manipulations.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\System.Xaml.resources.dll"
+                  Id="tr.System.Xaml.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\UIAutomationClient.resources.dll"
+                  Id="tr.UIAutomationClient.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\UIAutomationClientSideProviders.resources.dll"
+                  Id="tr.UIAutomationClientSideProviders.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\UIAutomationProvider.resources.dll"
+                  Id="tr.UIAutomationProvider.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\UIAutomationTypes.resources.dll"
+                  Id="tr.UIAutomationTypes.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\WindowsBase.resources.dll"
+                  Id="tr.WindowsBase.resources.dll" />
+      </Component>
+
+      <Component>
+        <File Source="tr\WindowsFormsIntegration.resources.dll"
+                  Id="tr.WindowsFormsIntegration.resources.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

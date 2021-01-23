@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="ElmishWPF" Directory="INSTALLFOLDER">
+			<Component>
+        <File Source="Elmish.dll" />
+      </Component>
+
+			<Component>
+        <File Source="Elmish.WPF.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="MahApps" Directory="INSTALLFOLDER">
+			<Component>
+        <File Source="MahApps.Metro.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="ControlzEx.dll"/>
+      </Component>
+
+      <!-- Icons -->
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Core.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.BootstrapIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.BoxIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Codicons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Entypo.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.EvaIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.FeatherIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.FileIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Fontaudio.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.FontAwesome.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.ForkAwesome.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Ionicons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.JamIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Material.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.MaterialDesign.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.MaterialLight.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Microns.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Modern.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Octicons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.PicolIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.PixelartIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.RadixIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.RemixIcon.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.RPGAwesome.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.SimpleIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Typicons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Unicons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.VaadinIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.WeatherIcons.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MahApps.Metro.IconPacks.Zondicons.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

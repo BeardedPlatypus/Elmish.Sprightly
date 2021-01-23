@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="KoboldLayer" Directory="INSTALLFOLDER">
+			<Component>
+        <File Source="Ijwhost.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="kobold-layer.clr.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="libpng16.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="SDL2.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="SDL2_image.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="zlib1.dll"/>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

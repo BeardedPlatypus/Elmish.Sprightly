@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="Sprightly" Directory="INSTALLFOLDER">
+			
+      <Component>
+        <File Source="Sprightly.dll"/>
+      </Component>
+
+			<Component>
+        <File Id="Sprightly.exe"
+              Source="Sprightly.exe"
+              KeyPath="yes">
+          <Shortcut Id="SprightlyShortcut"
+                    Name="Sprightly"
+                    Description="Sprightly"
+                    Directory="ProgramMenuFolder"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Advertise="yes">
+            <Icon Id="Sprightly.exe" SourceFile="Resources\Sprightly.ico"/>
+          </Shortcut>
+        </File>
+      </Component>
+
+      <Component>
+        <File Source="Sprightly.Application.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Common.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Common.KoboldLayer.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Common.KoboldLayer.Components.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Domain.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Infrastructure.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Persistence.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Presentation.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Presentation.Common.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.Presentation.Views.dll"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.runtimeconfig.json"/>
+      </Component>
+
+			<Component>
+        <File Source="Sprightly.deps.json"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="SprightlyResources" Directory="ResourcesFolder">
+      <Component>
+        <File Name="cube.png" Source="Resources/cube.png"/>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

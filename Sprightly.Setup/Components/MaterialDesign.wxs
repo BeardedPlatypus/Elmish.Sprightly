@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="MaterialDesign" Directory="INSTALLFOLDER">
+			<Component>
+        <File Source="MaterialDesignColors.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MaterialDesignThemes.MahApps.dll" />
+      </Component>
+
+			<Component>
+        <File Source="MaterialDesignThemes.Wpf.dll" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

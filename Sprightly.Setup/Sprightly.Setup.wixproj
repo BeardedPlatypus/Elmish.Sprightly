@@ -6,9 +6,9 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>d853d43a-bb22-4a7f-a387-69d5f037ac77</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Sprightly</OutputName>
+    <OutputName>Sprightly.win10-x64</OutputName>
     <OutputType>Package</OutputType>
-    <Name>Sprightly</Name>
+    <Name>Sprightly.Setup</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -22,6 +22,31 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\ElmishWPF.wxs" />
+    <Compile Include="Components\FSharp.wxs" />
+    <Compile Include="Components\ImageSharp.wxs" />
+    <Compile Include="Components\KoboldLayer.wxs" />
+    <Compile Include="Components\MahApps.wxs" />
+    <Compile Include="Components\MaterialDesign.wxs" />
+    <Compile Include="Components\NET5.assemblies.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.cs.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.de.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.es.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.fr.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.it.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.ja.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.ko.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.pl.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.pt-BR.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.ru.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.tr.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.zh-Hans.wxs" />
+    <Compile Include="Components\NET5-resources\NET5.resources.zh-Hant.wxs" />
+    <Compile Include="Components\NET5.wxs" />
+    <Compile Include="Components\NewtonSoftJson.wxs" />
+    <Compile Include="Components\Sprightly.wxs" />
+    <Compile Include="Components\XamlBehaviors.wxs" />
+    <Compile Include="Directories.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -31,15 +56,20 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <BindInputPaths Include="..\Sprightly\bin\$(Configuration)\net5.0-windows">
-      <Link>net5.0-windows</Link>
+    <BindInputPaths Include="..\Sprightly\bin\$(Configuration)\net5.0-windows\win10-x64\">
+      <InProject>false</InProject>
     </BindInputPaths>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApacheLicense2.0.rtf" />
-    <Content Include="Sprightly.ico" />
-    <Content Include="WixUIBannerBmp.bmp" />
-    <Content Include="WixUIDialogBmp.bmp" />
+    <Content Include="Resources\ApacheLicense2.0.rtf" />
+    <Content Include="Resources\Sprightly.ico" />
+    <Content Include="Resources\WixUIBannerBmp.bmp" />
+    <Content Include="Resources\WixUIDialogBmp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components" />
+    <Folder Include="Components\NET5-resources" />
+    <Folder Include="Resources" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
