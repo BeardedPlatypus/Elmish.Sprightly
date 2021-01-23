@@ -48,6 +48,7 @@ steps:
     displayName: 'Build - MSI'
     inputs:
       solution: '$(msiSolution)'
+      platform: 'x64'
       configuration: '$(buildConfiguration)'
       msbuildArchitecture: 'x64'
 
