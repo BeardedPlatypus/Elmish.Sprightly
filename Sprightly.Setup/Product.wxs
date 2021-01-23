@@ -3,7 +3,7 @@
 	<Product Id="*" 
            Name="Sprightly" 
            Language="1033" 
-           Version="0.1.0" 
+           Version="0.2.0" 
            Manufacturer="BeardedPlatypus" 
            UpgradeCode="86861083-fd77-412a-bd29-056a0320d3b5">
 		<Package InstallerVersion="200" 
