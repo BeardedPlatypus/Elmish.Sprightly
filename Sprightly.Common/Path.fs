@@ -19,6 +19,10 @@ module public Path =
     /// </returns>
     let fromString (s: string) : T = T s
 
+    /// <summary>
+    /// convert the given <paramref name="path"/> to the corresponding string.
+    /// </summary>
+    /// <param name="path">The path to convert.</param>
     let toString (path: T) : string = match path with | T s -> s
 
     /// <summary>
