@@ -3,8 +3,8 @@
 module Rectangle =
     [<RequireQualifiedAccess>]
     type public T =
-        { x: int 
-          y: int
-          width: int
-          height: int
+        { x: uint 
+          y: uint
+          width: uint
+          height: uint
         }
