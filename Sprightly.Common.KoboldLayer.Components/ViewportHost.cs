@@ -95,7 +95,7 @@ namespace Sprightly.Common.KoboldLayer.Components
                 case WmShowWindow:
                     if (RenderTimer == UIntPtr.Zero)
                     {
-                        RenderTimer = SetTimer(hwnd, UIntPtr.Zero, 1000, IntPtr.Zero);
+                        RenderTimer = SetTimer(hwnd, UIntPtr.Zero, 50, IntPtr.Zero);
                     }
 
                     handled = false;
