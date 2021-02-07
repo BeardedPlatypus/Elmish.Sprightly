@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Script generated WiX components
+Sprightly.Setup/Components/*.generated.wxs
