@@ -1,5 +1,9 @@
 ﻿namespace Sprightly.Application
 
+/// <summary>
+/// The <see cref="Application.App"/> module contains all business logic
+/// related to the application, e.g. the initialisation, shutdown etc.
+/// </summary>
 module public App =
     /// <summary>
     /// The description of the InitialiseAppData function.

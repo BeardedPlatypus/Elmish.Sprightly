@@ -94,10 +94,35 @@ module public Texture =
         else 
             None 
 
+    /// <summary>
+    /// The function to remove a texture from the solution on the disk.
+    /// </summary>
     type public RemoveTextureFromSolutionFunc = Path.T -> unit
 
+    /// <summary>
+    /// The function to unload the texture from the underlying render memory.
+    /// </summary>
     type public UnloadTextureFunc = Textures.Texture.T -> unit
 
+    /// <summary>
+    /// Removes the texture associated with the <paramref name="id"/> from the
+    /// <paramref name="store"/> and return the new store.
+    /// </summary>
+    /// <param name="fRemoveTextureFromSolution">
+    /// The function to remove the texture from the solution on disk.
+    /// </param>
+    /// <param name="fUnloadTexture">
+    /// The function to unload the texture from memory.
+    /// </param>
+    /// <param name="store">
+    /// The current texture store of this Sprightly application.
+    /// </param>
+    /// <param name="id">
+    /// The id of the texture to remove from the <paramref name="store"/>.
+    /// <param>
+    /// <returns>
+    /// The new store without the texture associated with <paramref name="id"/>.
+    /// </returns>
     let public removeTextureFromStore (fRemoveTextureFromSolution: RemoveTextureFromSolutionFunc)
                                       (fUnloadTexture: UnloadTextureFunc)
                                       (fSaveStore: SaveStoreFunc)
