@@ -1,4 +1,5 @@
 ﻿using System;
+using kobold_layer.clr;
 
 namespace Sprightly.Common.KoboldLayer.Components
 {
@@ -49,5 +50,33 @@ namespace Sprightly.Common.KoboldLayer.Components
         /// </summary>
         /// <param name="id">The identifier.</param>
         void UnloadTexture(string id);
+
+        /// <summary>
+        /// Get the world area as a <see cref="rectangle"/>.
+        /// </summary>
+        /// <returns>
+        /// The world area as a <see cref="rectangle"/>.
+        /// </returns>
+        rectangle get_world_area();
+        
+        /// <summary>
+        /// Set the world area to <paramref name="worldArea"/>.
+        /// </summary>
+        /// <param name="worldArea">The new world area.</param>
+        void set_world_area(rectangle worldArea);
+
+        /// <summary>
+        /// Get the viewport area as a <see cref="rectangle"/>.
+        /// </summary>
+        /// <returns>
+        /// The viewport area as a <see cref="rectangle"/>.
+        /// </returns>
+        rectangle get_viewport_area();
+
+        /// <summary>
+        /// Set the viewport area to <paramref name="viewportArea"/>.
+        /// </summary>
+        /// <param name="viewportArea">The new viewport area.</param>
+        void set_viewport_area(rectangle viewportArea);
     }
 }

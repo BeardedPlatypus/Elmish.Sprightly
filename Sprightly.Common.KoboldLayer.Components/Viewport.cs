@@ -8,7 +8,7 @@ namespace Sprightly.Common.KoboldLayer.Components
     /// <see cref="IViewport"/> utilising kobold.layer's view.
     /// </summary>
     /// <seealso cref="IViewport" />
-    public class Viewport : IViewport
+    public sealed class Viewport : IViewport
     {
         private readonly view _view = new view();
 
@@ -53,6 +53,26 @@ namespace Sprightly.Common.KoboldLayer.Components
         public void UnloadTexture(string id)
         {
             _view.unload_texture(id);
+        }
+
+        public rectangle get_world_area()
+        {
+            return _view.get_world_area();
+        }
+
+        public void set_world_area(rectangle world_area)
+        {
+            _view.set_world_area(world_area);
+        }
+
+        public rectangle get_viewport_area()
+        {
+            return _view.get_viewport_area();
+        }
+
+        public void set_viewport_area(rectangle viewport_area)
+        {
+            _view.set_viewport_area(viewport_area);
         }
     }
 }
