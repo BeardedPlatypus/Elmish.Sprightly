@@ -8,10 +8,21 @@ open Sprightly.Domain
 /// functions.
 /// </summary>
 module public Texture = 
+    /// <summary>
+    /// <see cref="InternalStoreId"/> defines the id used to uniquely
+    /// define a <see cref="Texture.T"/> within a <see cref="Texture.Store"/>.
+    /// </summary>
     type public InternalStoreId = 
         | Id of uint
 
-    let public toInternalStoreIdString (id: InternalStoreId) = 
+    /// <summary>
+    /// Convert the specified <paramref name="id"/> to its corresponding string.
+    /// </summary>
+    /// <param name="id">The id to convert</param>
+    /// <returns>
+    /// The string representation of the specified <paramref name="id"/>.
+    /// </returns>
+    let public toInternalStoreIdString (id: InternalStoreId) : string = 
         (match id with InternalStoreId.Id v -> v).ToString()
 
     /// <summary>
@@ -140,15 +151,54 @@ module public Texture =
 
         { Str = idString; Index = generateId <| uint 0 }
 
+    /// <summary>
+    /// Get the texture with the specified <paramref name="id"/> from the 
+    /// specified <paramref name="store"/>.
+    /// </summary>
+    /// <param name="store">The store to obtain the texture from.</param>
+    /// <param name="id">The id of the texture to retrieve from the store.</param>
+    /// <returns>
+    /// The <see cref="Texture.T"/> associated with the specified <paramref name="id"/>
+    /// from the specified <paramref name="store"/>.
+    /// </returns>
     let public getTextureFromStore (store: Store) (id: InternalStoreId) : T =
         List.find (fun e -> e.Id = id) store
 
+    /// <summary>
+    /// Update the texture with the specified <paramref name="id"/> in the 
+    /// specified <paramref name="store"/> and return the new <see cref="Texture.Store"/>.
+    /// </summary>
+    /// <param name="store">The store to update the texture in.</param>
+    /// <param name="id">The id of the texture to update.</param>
+    /// <param name="fUpdate">The function used to update the texture.</param>
+    /// <returns>
+    /// The  <see cref="Texture.Store"/> containing the updated texture.
+    /// </returns>
     let public updateTextureInStore (store: Store) (id: InternalStoreId) (fUpdate : T -> T) : Store =
         List.map (fun (e: T) -> if e.Id = id then fUpdate e else e ) store
 
+    /// <summary>
+    /// Remove the texture with the specified <paramref name="id"/> from the 
+    /// specified <paramref name="store"/> and return the new <see cref="Texture.Store"/>.
+    /// </summary>
+    /// <param name="store">The store to remove the texture from.</param>
+    /// <param name="id">The id of the texture to remove from the store.</param>
+    /// <returns>
+    /// The  <see cref="Texture.Store"/> without the texture associated with 
+    /// <paramref name="id"/>.
+    /// </returns>
     let public removeTextureFromStore (store: Store) (id: InternalStoreId) : Store =
         List.filter (fun (e: T) -> e.Id <> id) store
 
+    /// <summary>
+    /// Get a <see cref="Texture.InternalStoreId"/> which is unused in the 
+    /// specified <paramref name="store"/>.
+    /// </summary>
+    /// <param name="store">The store to generate the id in.</param>
+    /// <returns>
+    /// A unique unused <see cref="Texture.InternalStoreId"/> within the 
+    /// specified <paramref name="store"/>.
+    /// </returns>
     let public GetUniqueStoreInternalId (store: Store) : InternalStoreId =
         if store |> List.isEmpty then 
             InternalStoreId.Id ((uint) 0)
