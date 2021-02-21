@@ -40,13 +40,35 @@ module public Json =
         with 
             | ex -> Result.Error ex
 
-    let public queryKey<'T> (key: string) (str: JsonString) =
+    /// <summary>
+    /// Retrieve the value associated with the specified <paramref name="key"/>
+    /// from the specified <paramref name="str"/>.
+    /// </summary>
+    /// <param name="key">The key to retrieve the value of.</param>
+    /// <param name="str">The string to retrieve the value from.</param>
+    /// <returns>
+    /// The <see cref="Result{'T, exn}"/> containing the value obtained from
+    /// retrieving the specified <paramref name="key"/> from the specified
+    /// <paramref name="str"/>.
+    /// </returns>
+    let public queryKey<'T> (key: string) (str: JsonString) : Result<'T, exn> =
         try 
             JObject.Parse(str).[key].ToObject<'T>()
             |> Result.Ok 
         with 
             | ex -> Result.Error ex
 
+    /// <summary>
+    /// Update the value associated with the specified <paramref name="key"/> to the specified
+    /// <paramref name="value"/> within the <paramref name="originalString"/>.
+    /// </summary>
+    /// <param name="key">The key to update the value of.</param>
+    /// <param name="value">The new value associated with the key.</param>
+    /// <param name="originalString">The string to update the value in.</param>
+    /// <returns>
+    /// The updated string with the value associated with <paramref name="key"/>
+    /// to <paramref name="value"/> and otherwise equal to <paramref name="originalString"/>.
+    /// </returns>
     let public updateKey (key: string) (value: 'T) (originalString: JsonString) : Result<JsonString, exn> =
         try
             let obj = JObject.Parse(originalString)
