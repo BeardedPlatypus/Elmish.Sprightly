@@ -107,5 +107,10 @@ module public Texture =
         else 
             None
 
+    /// <summary>
+    /// Remove the texture file with specified <paramref name="texturePath"/> from
+    /// the disk.
+    /// </summary>
+    /// <param name="texturePath">The path to remove the texture from.</param>
     let public removeTextureFromSolution (texturePath: Common.Path.T) : unit =
         System.IO.File.Delete (texturePath |> Common.Path.toString)
